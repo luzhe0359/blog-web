@@ -1,0 +1,53 @@
+// app global css in SCSS form
+
+.border-radius50 {
+    border-radius: 50%;
+}
+.max-width {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+// 默认滚动条 样式 --------------------------------------------------------------------------------
+// 滚动条整体部分
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+}
+// 滚动条里面的小方块
+::-webkit-scrollbar-thumb {
+    display: block;
+    min-height: 5px;
+    min-width: 5px;
+    border-radius: 5px;
+    background-color: rgba(97, 97, 97, .2)
+}
+// 滚动条 悬浮
+::-webkit-scrollbar-thumb:hover {
+    display: block;
+    min-height: 5px;
+    min-width: 5px;
+    border-radius: 5px;
+    background-color: rgba(97, 97, 97, .3)
+}
+
+// markdown 样式 --------------------------------------------------------------------------------
+// iphone5/SE 适配
+.v-note-wrapper {
+  min-width: 280px !important;
+}
+// markdown 边距
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+  padding: 5px 10px !important;
+}
+// 边框
+.v-note-wrapper {
+  border: none !important;
+}
+// 背景色
+.v-show-content {
+  background-color: rgba(256, 256, 256, 0.3) !important;
+  border-radius: 10px;
+}

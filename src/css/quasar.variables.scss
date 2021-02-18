@@ -1,0 +1,60 @@
+// Quasar SCSS (& Sass) Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+
+// Check documentation for full list of Quasar variables
+
+// Your own variables (that are declared here) and Quasar's own
+// ones will be available out of the box in your .vue/.scss/.sass files
+
+// It's highly recommended to change the default colors
+// to match your app's branding.
+// Tip: Use the "Theme Builder" on Quasar's documentation website.
+
+$primary   : #1976D2;
+$secondary : #26A69A;
+$accent    : #9C27B0;
+
+$dark      : #000000;
+
+$positive  : #21BA45;
+$negative  : #C10015;
+$info      : #31CCEC;
+$warning   : #F2C037;
+ 
+// 所有原生组件的样式 --------------------------------------------------------------------------------
+// 顶部菜单
+.q-layout__shadow:after {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.24);
+}
+// q-dialog对话框，按钮样式
+.q-dialog {
+    .q-dialog-plugin {
+        .q-card__actions{
+            .q-btn--push {
+                border-radius: 2px;
+                .q-btn__wrapper:before {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+// 上传 图片高100%
+.q-uploader__file--img {
+    height: 100%;
+}
+// q-img 标题的padding
+.q-img__content > div {
+    padding: 6px;
+}
+// 侧边栏
+.q-drawer--left,
+.q-drawer--bordered {
+  border-right: none !important;
+}
+// 
+.q-fab.z-fab {
+  z-index: 1999;
+}
