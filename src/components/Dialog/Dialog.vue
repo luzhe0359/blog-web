@@ -1,13 +1,7 @@
 <template>
   <!-- 对话框 -->
-  <q-dialog
-    ref="dialog"
-    v-model="dialogVisible"
-  >
-    <q-card
-      class="q-pa-sm"
-      :style="$q.screen.lt.md? 'width:90vw':'width: 50vw'"
-    >
+  <q-dialog ref="dialog" v-model="dialogVisible">
+    <q-card class="q-pa-sm" :style="$q.screen.lt.md? 'width:90vw':'width: 50vw'">
       <q-card-section class="q-pa-sm">
         <div class="text-h6">{{title}}</div>
       </q-card-section>
@@ -17,17 +11,8 @@
       </q-card-actions>
       <!-- 按钮示例 -->
       <q-card-actions align="right">
-        <q-btn
-          flat
-          color="grey"
-          label="取消"
-          @click="onCancelClick"
-        />
-        <q-btn
-          color="primary"
-          label="保存"
-          @click="onOKClick"
-        />
+        <q-btn flat color="grey" label="取消" @click="onCancelClick" />
+        <q-btn color="primary" label="保存" @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>

@@ -1,10 +1,6 @@
 <template>
   <q-list>
-    <BaseMenuItem
-      v-for="menu in menuList"
-      :key="menu.meta.title"
-      v-bind="menu"
-    />
+    <BaseMenuItem v-for="menu in menuList" :key="menu.meta.title" v-bind="menu" />
   </q-list>
 </template>
 

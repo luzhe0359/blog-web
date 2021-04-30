@@ -1,8 +1,8 @@
 // 滚动条样式
 export const thumbStyle = {
-    borderRadius: '10px',
+    borderRadius: '6px',
     backgroundColor: 'grey-1',
-    width: '10px'
+    width: '6px'
 }
 
 export const thumbStyleHorizontal = {

@@ -54,7 +54,15 @@ $warning   : #F2C037;
 .q-drawer--bordered {
   border-right: none !important;
 }
-// 
-.q-fab.z-fab {
-  z-index: 1999;
+// tab
+.q-tab  {
+    min-height:30px !important;
+}
+// 对话栏
+.q-message-text {
+    color: #000 !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+.q-message-text--received:last-child:before {
+    color: rgba(255, 255, 255, 0.5) ;
 }

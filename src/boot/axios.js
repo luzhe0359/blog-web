@@ -98,10 +98,9 @@ const toLogin = async (msg) => {
     removeToken()
     removeUser()
 
-    let seconds = 3 // 过渡时间
     const dialog = Dialog.create({
         title: msg,
-        message: `等待3秒跳转至登陆页。`,
+        message: `某些功能登陆后才可使用。`,
         position: 'bottom',
         persistent: true
     }).onOk(() => {
@@ -110,23 +109,8 @@ const toLogin = async (msg) => {
         // console.log('Cancel')
     }).onDismiss(() => {
         // console.log('I am triggered on both OK and Cancel')
-        clearTimeout(timer)
-        window.reload()
+        window.location.reload()
     })
-
-    const timer = setInterval(() => {
-        seconds--
-
-        if (seconds >= 0) {
-            dialog.update({
-                message: `等待${seconds}秒跳转至登陆页。`
-            })
-        }
-        else {
-            clearInterval(timer)
-            dialog.hide()
-        }
-    }, 1000)
 }
 
 /**

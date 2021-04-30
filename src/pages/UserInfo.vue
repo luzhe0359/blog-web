@@ -1,28 +1,13 @@
 <template>
   <q-page class="q-pa-md">
     <!-- 个人信息 -->
-    <q-form
-      @submit="onSubmit"
-      class="q-gutter-sm q-py-md no-box-shadow"
-    >
+    <q-form @submit="onSubmit" class="q-gutter-sm q-py-md no-box-shadow">
 
       <div class="column">
         <span class="q-mb-sm text-white">头像</span>
         <div>
-          <q-img
-            :disable="!readonly"
-            :src="formData.avatar | imgBaseUrl"
-            spinner-color="primary"
-            class="border-radius50 "
-            :class="!readonly && 'cursor-pointer'"
-            width='100px'
-            height='100px'
-            @click="uploadDialog"
-          >
-            <div
-              v-show="!readonly"
-              class="absolute-bottom text-subtitle2 text-center"
-            >
+          <q-img :disable="!readonly" :src="formData.avatar | imgBaseUrl" spinner-color="primary" class="border-radius50" :class="!readonly && 'cursor-pointer'" width='100px' height='100px' @click="uploadDialog">
+            <div v-show="!readonly" class="absolute-bottom text-subtitle2 text-center">
               更换头像
             </div>
           </q-img>
@@ -31,118 +16,46 @@
 
       <div class="column">
         <span class="q-mb-sm">性别</span>
-        <q-option-group
-          inline
-          :disable="readonly"
-          label="性别"
-          v-model="formData.gender"
-          :options="genderOptions"
-          color="primary"
-        />
+        <q-option-group inline :disable="readonly" label="性别" v-model="formData.gender" :options="genderOptions" color="primary" />
       </div>
 
-      <q-input
-        label="昵称"
-        :readonly="readonly"
-        v-model="formData.nickname"
-        lazy-rules
-        :rules="[ 
+      <q-input label="昵称" :readonly="readonly" v-model="formData.nickname" lazy-rules :rules="[ 
             val => val && val.length > 0 || '请输入昵称',
             val => (val.length >= 2 && val.length <= 6) || '请输入2-6位昵称'
-          ]"
-      />
+          ]" />
 
-      <q-input
-        label="年龄"
-        type="number"
-        :readonly="readonly"
-        v-model="formData.age"
-        lazy-rules
-        :rules="[
+      <q-input label="年龄" type="number" :readonly="readonly" v-model="formData.age" lazy-rules :rules="[
           val => val !== null && val !== '' || '请输入年龄',
           val => val > 0 && val < 120 || '请输入一个真实的年龄'
-        ]"
-      />
+        ]" />
 
-      <q-input
-        label="邮箱"
-        type="email"
-        :readonly="readonly"
-        v-model="formData.email"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || '请输入邮箱']"
-      />
+      <q-input label="邮箱" type="email" :readonly="readonly" v-model="formData.email" lazy-rules :rules="[ val => val && val.length > 0 || '请输入邮箱']" />
 
-      <q-input
-        label="个人简介"
-        type="textarea"
-        hint="个人简介, 最多50个字。"
-        :hide-hint="readonly"
-        :readonly="readonly"
-        v-model="formData.about"
-        maxlength='60'
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || '请填写个人简介']"
-      />
+      <q-input label="个人简介" type="textarea" hint="个人简介, 最多50个字。" :hide-hint="readonly" :readonly="readonly" v-model="formData.about" maxlength='60' lazy-rules :rules="[ val => val && val.length > 0 || '请填写个人简介']" />
 
       <div class="q-gutter-sm">
-        <q-btn
-          v-show="readonly"
-          label="编 辑"
-          type="button"
-          color="amber"
-          @click="editUser"
-          :class="$q.screen.lt.sm?'full-width':'q-ml-none'"
-        />
-        <q-btn
-          v-show="!readonly"
-          label="保 存"
-          type="submit"
-          color="primary"
-          :loading="loading"
-          :class="$q.screen.lt.sm?'full-width':'q-ml-none'"
-        >
+        <q-btn v-show="readonly" label="编 辑" type="button" color="amber" @click="editUser" :class="$q.screen.lt.sm?'full-width':'q-ml-none'" />
+        <q-btn v-show="!readonly" label="保 存" type="submit" color="primary" :loading="loading" :class="$q.screen.lt.sm?'full-width':'q-ml-none'">
           <template v-slot:loading>
             <q-spinner-facebook />
           </template>
         </q-btn>
-        <q-btn
-          v-show="!readonly"
-          label="取 消"
-          type="button"
-          color="grey"
-          @click="cancel"
-          :class="$q.screen.lt.sm?'full-width':''"
-        />
+        <q-btn v-show="!readonly" label="取 消" type="button" color="grey" @click="cancel" :class="$q.screen.lt.sm?'full-width':''" />
       </div>
     </q-form>
 
     <!-- 头像上传 -->
-    <BaseDialog
-      :title="'头像上传'"
-      :okVisible="false"
-      :dialogVisible="avatarDialog"
-      @okClick="okClick"
-      @cancelClick="cancelClick"
-    >
+    <BaseDialog :title="'头像上传'" :okVisible="false" :dialogVisible="avatarDialog" @okClick="okClick" @cancelClick="cancelClick">
       <template v-slot:body>
-        <q-uploader
-          :url="`${$url}/upload`"
-          :headers="[
+        <q-uploader :url="`${$url}/upload`" :headers="[
               {name: 'Authorization', value: `Bearer ${token}`}
-            ]"
-          field-name='file'
-          max-files="1"
-          style="width:100%; height: 500px;"
-          @uploaded="finishUpload"
-        />
+            ]" field-name='file' max-files="1" style="width:100%; height: 500px;" @uploaded="finishUpload" />
       </template>
     </BaseDialog>
   </q-page>
 </template>
 
 <script>
-import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs.vue'
 import BaseDialog from 'components/Dialog/BaseDialog.vue'
 
 import { findUserById, EditUserById } from 'src/api/user.js'
@@ -152,7 +65,6 @@ import { getToken, setUser } from 'src/utils/auth.js'
 export default {
   name: "Tables",
   components: {
-    Breadcrumbs,
     BaseDialog
   },
   data () {
@@ -257,4 +169,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.border-radius50 {
+  border-radius: 50%;
+}
 </style>

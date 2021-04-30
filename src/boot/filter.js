@@ -42,8 +42,6 @@ const filters = {
         let day = date.getDateDiff(now, d, 'days')
         let hour = date.getDateDiff(now, d, 'hours')
         let minute = date.getDateDiff(now, d, 'minutes')
-        console.log('minute');
-        console.log(hour, minute);
 
         return year && year + '年前' ||
             month && month + '个月前' ||

@@ -1,19 +1,6 @@
 <template>
-  <q-item
-    class="menu-item q-pl-md"
-    exact
-    clickable
-    v-ripple
-    tag="a"
-    :to="path"
-    :active="path === currentMenu"
-    :active-class="'bg-grey-4'"
-    @click="switchMenu()"
-  >
-    <q-item-section
-      v-if="meta.icon"
-      avatar
-    >
+  <q-item class="menu-item q-pl-md" exact clickable v-ripple tag="a" :to="path" :active="path === currentMenu" :active-class="'bg-grey-4'" @click="switchMenu">
+    <q-item-section v-if="meta.icon" avatar>
       <q-icon :name="meta.icon" />
     </q-item-section>
     <q-item-section>

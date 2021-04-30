@@ -1,18 +1,8 @@
 <template>
-  <div
-    id="SideBlogInfo"
-    class="full-width q-mt-lg "
-  >
+  <div id="SideBlogInfo" class="full-width q-pt-lg ">
     <div class="text-h6 q-mb-md">博客信息</div>
     <div>
-      <q-chip
-        outline
-        v-for="tag in tagList"
-        :key="tag.icon"
-        :icon="tag.icon"
-        color="grey"
-        class="q-mr-md q-ml-none q-mb-md"
-      >
+      <q-chip outline v-for="tag in tagList" :key="tag.icon" :icon="tag.icon" color="grey" class="q-mr-md q-ml-none q-mb-sm">
         {{ tag.name }} {{ tag.label }}
       </q-chip>
     </div>

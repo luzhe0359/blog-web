@@ -1,34 +1,41 @@
 // app global css in SCSS form
 
-.border-radius50 {
-    border-radius: 50%;
-}
+// 主体高度撑满
+#scrollArea {
+  >.scroll {
+    >div{
+      height: auto;
+    }
+  }
+} 
+// 最大宽度
 .max-width {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 // 默认滚动条 样式 --------------------------------------------------------------------------------
 // 滚动条整体部分
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 0px;
+    height: 0px;
     background-color: transparent;
 }
 // 滚动条里面的小方块
 ::-webkit-scrollbar-thumb {
     display: block;
-    min-height: 5px;
-    min-width: 5px;
-    border-radius: 5px;
+    min-height: 6px;
+    min-width: 6px;
+    border-radius: 6px;
     background-color: rgba(97, 97, 97, .2)
 }
 // 滚动条 悬浮
 ::-webkit-scrollbar-thumb:hover {
     display: block;
-    min-height: 5px;
-    min-width: 5px;
-    border-radius: 5px;
+    min-height: 6px;
+    min-width: 6px;
+    border-radius:6px;
     background-color: rgba(97, 97, 97, .3)
 }
 

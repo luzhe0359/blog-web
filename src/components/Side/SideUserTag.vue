@@ -1,23 +1,9 @@
 <template>
-  <div
-    id="SideUserTag"
-    class="full-width q-mt-lg"
-  >
+  <div id="SideUserTag" class="full-width q-mt-lg">
     <div class="text-h6 q-mb-md">个性标签</div>
-    <q-scroll-area
-      style="cursor:pointer;"
-      horizontal
-      ref="scrollArea"
-      :thumb-style="thumbStyleHorizontal"
-      v-touch-pan.horizontal.prevent.mouse="handlePan"
-      class="tag-list"
-    >
+    <q-scroll-area style="cursor:pointer;" horizontal ref="scrollArea" :thumb-style="thumbStyleHorizontal" v-touch-pan.horizontal.prevent.mouse="handlePan" class="tag-list">
       <div class="row no-wrap">
-        <div
-          class="tag q-mr-sm"
-          v-for="tag in tagList"
-          :key="tag"
-        >
+        <div class="tag q-mr-sm" v-for="tag in tagList" :key="tag">
         </div>
       </div>
     </q-scroll-area>

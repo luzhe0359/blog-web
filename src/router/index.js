@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Loading, QSpinnerGears, Notify, Cookies, scroll } from 'quasar'
+import { Loading, QSpinnerGears, Cookies, scroll } from 'quasar'
 
 import routes from './routes'
-import { getToken } from 'src/utils/auth'
-import config from 'src/utils/config'
-const { getScrollTarget, getScrollHeight, setScrollPosition } = scroll
 
 Vue.use(VueRouter)
 
@@ -43,7 +40,7 @@ export default async ({ store, ssrContext }) => {
 
     // 登录后返回之前的页面
     if (to.fullPath === "/login") {
-      console.log('from' + from.fullPath);
+      // console.log('from' + from.fullPath);
       next({
         path: "/login",
         query: {

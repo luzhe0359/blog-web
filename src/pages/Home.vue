@@ -1,62 +1,21 @@
 <template>
-  <BaseContent>
-    <div id="Home">
-      <div class="friends">Hey Friends！</div>
-      <div class="welcome">Welcome</div>
-      <div id="blog">
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>111111111111111111111111111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-        <h1>11111111111</h1>
-      </div>
+  <!-- <BaseContainer :hideSideContainer="true"> -->
+  <div id="Home" class="fit">
+    足各路
+    <div>
+      11111111111
     </div>
-  </BaseContent>
+  </div>
+  <!-- </BaseContainer> -->
 </template>
 
 <script>
-import BaseContent from 'src/components/Container/BaseContent'
+import BaseContainer from 'src/components/Container/BaseContainer'
 
 export default {
   name: 'Home',
   components: {
-    BaseContent
+    BaseContainer
   },
   data () {
     return {
@@ -70,17 +29,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 #Home {
+  height: 100%;
+  font-size: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
-  .friends {
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 32px;
-  }
-  .welcome {
-    font-size: 62px;
-    font-weight: 600;
-    line-height: 76px;
-  }
 }
 </style>
 

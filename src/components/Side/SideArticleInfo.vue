@@ -1,51 +1,14 @@
 <template>
-  <div
-    id="SideArticleInfo"
-    class="full-width q-mt-lg"
-  >
-    <q-tabs
-      v-model="tab"
-      dense
-      class="text-grey"
-      active-color="dark"
-      indicator-color="dark"
-      align="left"
-      :breakpoint="0"
-      narrow-indicator
-    >
-      <q-tab
-        name="new_article"
-        label="最新文章"
-      />
-      <q-tab
-        content-class="text-h2 title"
-        name="hot_article"
-        label="最热文章"
-      />
+  <div id="SideArticleInfo" class="full-width q-mt-lg">
+    <q-tabs v-model="tab" dense class="text-grey" active-color="dark" indicator-color="dark" align="left" :breakpoint="0" narrow-indicator>
+      <q-tab name="new_article" label="最新文章" />
+      <q-tab content-class="text-h2 title" name="hot_article" label="最热文章" />
     </q-tabs>
 
-    <q-tab-panels
-      v-model="tab"
-      animated
-      swipeable
-      infinite
-      class="bg-transparent"
-    >
-      <q-tab-panel
-        class="q-pa-none"
-        name="new_article"
-        style="overflow:hidden;"
-      >
-        <div
-          class="row items-center no-wrap q-mt-md"
-          v-for="article in articleData"
-          :key="article._id"
-        >
-          <q-icon
-            class="q-mr-sm"
-            size="xs"
-            name="iconfont icon-wenzhang"
-          />
+    <q-tab-panels v-model="tab" animated swipeable infinite class="bg-transparent">
+      <q-tab-panel class="q-pa-none" name="new_article" style="overflow:hidden;">
+        <div class="row items-center no-wrap q-mt-md" v-for="article in articleData" :key="article._id">
+          <q-icon class="q-mr-sm" size="xs" name="iconfont icon-wenzhang" />
           <div class="ellipsis">
             {{article.title}}
             <q-tooltip :delay="1000">
@@ -55,21 +18,9 @@
         </div>
       </q-tab-panel>
 
-      <q-tab-panel
-        class="q-pa-none"
-        name="hot_article"
-        style="overflow:hidden;"
-      >
-        <div
-          class="row items-center no-wrap q-mt-md"
-          v-for="article in articleData"
-          :key="article._id"
-        >
-          <q-icon
-            class="q-mr-sm"
-            size="xs"
-            name="iconfont icon-wenzhang"
-          />
+      <q-tab-panel class="q-pa-none" name="hot_article" style="overflow:hidden;">
+        <div class="row items-center no-wrap q-mt-md" v-for="article in articleData" :key="article._id">
+          <q-icon class="q-mr-sm" size="xs" name="iconfont icon-wenzhang" />
           <div class="ellipsis">
             {{article.title}}
             <q-tooltip :delay="1000">

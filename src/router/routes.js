@@ -33,10 +33,10 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/Article/ArticleList.vue')
+        component: () => import('pages/ArticleList.vue')
       },
       {
-        path: 'articleDetail/:_id',
+        path: 'articleDetail/:_id?',
         name: 'ArticleDetail',
         meta: {
           title: '文章详情',
@@ -44,7 +44,7 @@ const routes = [
           menu: false,
           keepAlive: true
         },
-        component: () => import('pages/Article/ArticleDetail.vue')
+        component: () => import('pages/ArticleDetail.vue')
       },
       {
         path: 'photo',
@@ -55,7 +55,7 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/Home.vue')
+        component: () => import('pages/Photo.vue')
       },
       {
         path: 'about',
@@ -66,7 +66,7 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/Home.vue')
+        component: () => import('pages/About.vue')
       },
       {
         path: 'link',

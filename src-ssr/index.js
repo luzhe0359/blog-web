@@ -82,8 +82,6 @@ app.get(ssr.resolveUrl('*'), (req, res) => {
         res.status(404).send('404 | Page Not Found')
       }
       else {
-        console.log('500');
-        debugger;
         // Render Error Page or
         // create a route (/src/routes) for an error page and redirect to it
 

@@ -1,16 +1,10 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-page
-        class="bg-primary flex flex-center row"
-        id="login"
-      >
+      <q-page class="bg-primary flex flex-center row" id="login">
         <q-card class="col-lg-3 col-md-3 col-sm-6 col-xs-10">
           <q-card-section>
-            <q-avatar
-              size="100px"
-              class="absolute-center shadow-10"
-            >
+            <q-avatar size="100px" class="absolute-center shadow-10">
               <img :src="'/images/default_avatar.jpeg' | imgBaseUrl" />
             </q-avatar>
           </q-card-section>
@@ -23,52 +17,22 @@
           </q-card-section>
           <q-card-section>
             <!-- 登录 form -->
-            <q-form
-              v-show="isLogin"
-              class="q-gutter-xs"
-              @submit.prevent.stop="login"
-              @reset.prevent.stop="onReset"
-            >
+            <q-form v-show="isLogin" class="q-gutter-xs" @submit.prevent.stop="login" @reset.prevent.stop="onReset">
               <!-- 用户名 -->
-              <q-input
-                dense
-                outlined
-                clearable
-                :disable="loading"
-                v-model.trim="username"
-                label="Username"
-                debounce='500'
-                lazy-rules
-                :rules="[
+              <q-input dense outlined clearable :disable="loading" v-model.trim="username" label="Username" debounce='500' lazy-rules :rules="[
                   val => (val && val.length > 0) || 'Please type your username.',
                   val => (val.length >= 6 && val.length <= 12) || 'Please enter 6-12 username.',
                   hasUsernameCheck
-                ]"
-              />
+                ]" />
               <!-- 密码 -->
-              <q-input
-                dense
-                outlined
-                clearable
-                :disable="loading"
-                v-model.trim="password"
-                label="Password"
-                type="password"
-                debounce='200'
-                lazy-rules
-                :rules="[
+              <q-input dense outlined clearable :disable="loading" v-model.trim="password" label="Password" type="password" debounce='200' lazy-rules :rules="[
                   val => (val && val.length > 0) || 'Please type your password.',
                   val => (val.length >= 8 && val.length <= 16) || 'Please enter 8-16 password.',
                   passwordStrengthCheck
-                ]"
-              />
+                ]" />
               <!-- 登录 -->
               <div>
-                <q-btn
-                  :loading="loading"
-                  class="full-width bg-logon-card-input"
-                  type="submit"
-                >
+                <q-btn :loading="loading" class="full-width bg-logon-card-input" type="submit">
                   登 录
                   <template v-slot:loading>
                     <q-spinner-gears class="on-left" />
@@ -78,70 +42,28 @@
               </div>
             </q-form>
             <!-- 注册form -->
-            <q-form
-              v-show="!isLogin"
-              class="q-gutter-xs"
-              @submit.prevent.stop="register"
-              @reset.prevent.stop="onReset"
-            >
+            <q-form v-show="!isLogin" class="q-gutter-xs" @submit.prevent.stop="register" @reset.prevent.stop="onReset">
               <!-- 用户名 -->
-              <q-input
-                dense
-                outlined
-                clearable
-                :disable="loading"
-                v-model.trim="username"
-                label="Username"
-                debounce='500'
-                lazy-rules
-                :rules="[
+              <q-input dense outlined clearable :disable="loading" v-model.trim="username" label="Username" debounce='500' lazy-rules :rules="[
                   val => (val && val.length > 0) || 'Please type your username.',
                   val => (val.length >= 6 && val.length <= 12) || 'Please enter 6-12 username.',
                   hasUsernameCheck
-                ]"
-              />
+                ]" />
               <!-- 密码 -->
-              <q-input
-                dense
-                outlined
-                clearable
-                :disable="loading"
-                v-model.trim="password"
-                label="Password"
-                type="password"
-                debounce='200'
-                lazy-rules
-                :rules="[
+              <q-input dense outlined clearable :disable="loading" v-model.trim="password" label="Password" type="password" debounce='200' lazy-rules :rules="[
                   val => (val && val.length > 0) || 'Please type your password.',
                   val => (val.length >= 8 && val.length <= 16) || 'Please enter 8-16 password.',
                   passwordStrengthCheck
-                ]"
-              />
+                ]" />
               <!-- 确认密码 -->
-              <q-input
-                v-if="!isLogin"
-                dense
-                outlined
-                clearable
-                :disable="loading"
-                v-model.trim="confirmPass"
-                label="Confirm Pass"
-                type="password"
-                debounce='200'
-                lazy-rules
-                :rules="[
+              <q-input v-if="!isLogin" dense outlined clearable :disable="loading" v-model.trim="confirmPass" label="Confirm Pass" type="password" debounce='200' lazy-rules :rules="[
                   val => (val && val.length > 0) || 'Please type your Confirm Pass.',
                   val => (val.length >= 8 && val.length <= 16) || 'Please enter 8-16 password.',
                   val => (val === password) || 'The two passwords you typed do not match.',
                   passwordStrengthCheck
-                ]"
-              />
+                ]" />
               <div>
-                <q-btn
-                  :loading="loading"
-                  class="full-width bg-logon-card-input"
-                  type="submit"
-                >
+                <q-btn :loading="loading" class="full-width bg-logon-card-input" type="submit">
                   注 册
                   <template v-slot:loading>
                     <q-spinner-gears class="on-left" />
@@ -154,12 +76,7 @@
             <div class="flex justify-end items-center q-pt-md">
               <div class="">
                 {{isLogin? '无账号': '已注册'}}?
-                <q-badge
-                  outline
-                  align="middle"
-                  color="teal"
-                  @click="isLogin = !isLogin"
-                >
+                <q-badge outline align="middle" color="teal" @click="isLogin = !isLogin">
                   立即{{ isLogin? '注册': '登录'}}
                 </q-badge>
               </div>
@@ -194,7 +111,6 @@ export default {
         password: aesEncrypt(this.password)
       }).then(() => {
         this.loading = false
-        console.log(this.$route);
         this.$router.push({
           path: this.$route.query.redirect ? this.$route.query.redirect : "/"  //如果存在query 就进入query存储的页面 如果没有进入首页
         })

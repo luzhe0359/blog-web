@@ -2,55 +2,22 @@
   <div class="q-gutter-sm q-ml-xl">
     <!-- 登录按钮 -->
     <q-no-ssr>
-      <q-btn
-        dense
-        size="md"
-        icon="person_outline"
-        label="登录"
-        to="/login"
-        class="login"
-        v-show="!name"
-      />
+      <q-btn dense size="md" icon="person_outline" label="登录" to="/login" class="login" v-show="!name" />
     </q-no-ssr>
     <!-- 头像菜单 -->
-    <q-btn
-      flat
-      round
-      size="sm"
-      v-show="name"
-    >
+    <q-btn flat round size="sm" v-show="name">
       <!-- 头像 -->
-      <q-avatar
-        size="28px"
-        class="cursor-pointer"
-      >
-        <q-img
-          no-default-spinner
-          transition="slide-down"
-          :src="avatar | imgBaseUrl"
-          :placeholder-src="'/images/default_avatar.jpeg' | imgBaseUrl"
-        />
+      <q-avatar size="28px" class="cursor-pointer">
+        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" :placeholder-src="'/images/default_avatar.jpeg' | imgBaseUrl" />
       </q-avatar>
       <!-- 菜单 -->
-      <q-menu
-        transition-show="jump-down"
-        transition-hide="jump-up"
-        anchor="bottom middle"
-        self="top middle"
-      >
+      <q-menu transition-show="jump-down" transition-hide="jump-up" anchor="bottom middle" self="top middle">
         <q-list>
-          <q-item
-            clickable
-            v-close-popup
-          >
+          <q-item clickable v-close-popup>
             <q-item-section @click="$router.push('/user')">个人中心</q-item-section>
           </q-item>
           <q-separator />
-          <q-item
-            clickable
-            v-close-popup
-            @click='logout'
-          >
+          <q-item clickable v-close-popup @click='logout'>
             <q-item-section>退出系统</q-item-section>
           </q-item>
         </q-list>

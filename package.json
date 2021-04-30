@@ -1,7 +1,7 @@
 {
-  "name": "blog_admin",
+  "name": "blog_web",
   "version": "0.0.1",
-  "description": "lz_blog_admin",
+  "description": "lz_blog_web",
   "productName": "l-z 博客后台管理系统",
   "author": "zhe <luzhe0359@163.com>",
   "private": true,

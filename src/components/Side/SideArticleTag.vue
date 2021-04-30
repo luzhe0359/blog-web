@@ -1,16 +1,8 @@
 <template>
-  <div
-    id="SideArticleTag"
-    class="full-width q-mt-lg "
-  >
+  <div id="SideArticleTag" class="full-width q-mt-lg ">
     <div class="text-h6 q-mb-md">文章标签</div>
     <div>
-      <q-chip
-        outline
-        v-for="tag in tagList"
-        :key="tag.icon"
-        class="q-mr-md q-ml-none q-mb-md"
-      >{{tag.name}}</q-chip>
+      <q-chip outline v-for="tag in tagList" :key="tag.icon" class="q-mr-md q-ml-none q-mb-sm">{{tag.name}}</q-chip>
     </div>
   </div>
 </template>
