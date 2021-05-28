@@ -90,7 +90,7 @@
 
 <script>
 import { aesEncrypt } from 'src/utils/crypto.js'
-import { QSpinnerGears, debounce } from 'quasar'
+// import { QSpinnerGears, debounce } from 'quasar'
 import { userLogin, userRegister, findUsername } from 'src/api/user.js'
 export default {
   data () {
