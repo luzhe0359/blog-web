@@ -95,7 +95,7 @@ import { userLogin, userRegister, findUsername } from 'src/api/user.js'
 export default {
   data () {
     return {
-      username: "",
+      username: "21323232321321",
       password: "",
       confirmPass: "",
       isLogin: true,  // 登录/注册切换
