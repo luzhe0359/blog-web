@@ -18,7 +18,7 @@ const routes = [
         name: 'Home',
         meta: {
           title: '首页',
-          icon: 'home',
+          icon: 'icon-home',
           menu: true,
           keepAlive: true
         },
@@ -29,7 +29,7 @@ const routes = [
         name: 'Article',
         meta: {
           title: '文章',
-          icon: 'home',
+          icon: 'icon-wenzhang',
           menu: true,
           keepAlive: true
         },
@@ -47,22 +47,33 @@ const routes = [
         component: () => import('pages/ArticleDetail.vue')
       },
       {
-        path: 'photo',
+        path: 'album',
+        name: 'Album',
+        meta: {
+          title: '相册',
+          icon: 'icon-xiangce',
+          menu: true,
+          keepAlive: true
+        },
+        component: () => import('src/pages/Album.vue')
+      },
+      {
+        path: 'photo/:_id?',
         name: 'Photo',
         meta: {
           title: '照片',
           icon: 'home',
-          menu: true,
+          menu: false,
           keepAlive: true
         },
-        component: () => import('pages/Photo.vue')
+        component: () => import('src/pages/Photo.vue')
       },
       {
         path: 'about',
         name: 'About',
         meta: {
           title: '关于',
-          icon: 'home',
+          icon: 'icon-iconset0142',
           menu: true,
           keepAlive: true
         },
@@ -73,11 +84,11 @@ const routes = [
         name: 'Link',
         meta: {
           title: '友链',
-          icon: 'home',
+          icon: 'icon-youlianguanliicon',
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/Home.vue')
+        component: () => import('pages/Link.vue')
       },
       {
         path: 'user',
@@ -106,7 +117,7 @@ const routes = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/Error500',
+    path: '/error500',
     name: 'Error500',
     meta: {
       title: '500',

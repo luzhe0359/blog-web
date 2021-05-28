@@ -1,6 +1,6 @@
 <template>
-  <q-tabs align="left" v-model="tabId" narrow-indicator animated class="text-grey" active-color="white" indicator-color="white" @input="changeTab" style="height:30px;">
-    <q-tab style="height:30px;" :ripple="false" :name="tab._id" :label="tab.name" v-for="tab in tabList" :key="tab._id" />
+  <q-tabs align="left" narrow-indicator animated v-model="tab" active-color="white" indicator-color="white" style="height:30px;">
+    <q-tab style="height:30px;" :ripple="false" :name="tab._id" :label="tab.name" v-for="tab in tabList" :key="tab._id" @click="changeTab(tab._id)" />
   </q-tabs>
 </template>
 
@@ -12,15 +12,22 @@ export default {
   },
   data () {
     return {
-      tabId: 'zugelu' // 当前分类Id
+      tab: 'zugelu'
     }
   },
   methods: {
     // 分类切换，自带参数
-    changeTab (value) {
-      this.$emit('changeTab', value)
+    changeTab (tabId) {
+      this.$emit('changeTab', tabId)
     }
   }
 }
 </script>
 
+<style lang="scss" scoped>
+.q-tab {
+  padding: 0 14px;
+  min-height: 30px !important;
+  color: #dcdcdc;
+}
+</style>

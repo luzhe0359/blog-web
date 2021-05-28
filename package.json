@@ -2,7 +2,7 @@
   "name": "blog_web",
   "version": "0.0.1",
   "description": "lz_blog_web",
-  "productName": "l-z 博客后台管理系统",
+  "productName": "足各路の博客",
   "author": "zhe <luzhe0359@163.com>",
   "private": true,
   "scripts": {
@@ -15,7 +15,8 @@
     "crypto-js": "^4.0.0",
     "mavon-editor": "^2.9.0",
     "qs": "^6.9.4",
-    "quasar": "^1.0.0"
+    "quasar": "^1.0.0",
+    "vue-count-to": "^1.0.13"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

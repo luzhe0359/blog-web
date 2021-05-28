@@ -6,7 +6,7 @@
       <div class="column">
         <span class="q-mb-sm text-white">头像</span>
         <div>
-          <q-img :disable="!readonly" :src="formData.avatar | imgBaseUrl" spinner-color="primary" class="border-radius50" :class="!readonly && 'cursor-pointer'" width='100px' height='100px' @click="uploadDialog">
+          <q-img :disable="!readonly" :src="formData.avatar | imgBaseUrl" spinner-color="primary" class="border-radius50" :class="!readonly && 'cursor-pointer'" width='100px' height='100px' placeholder-src="~assets/default_avatar.jpeg" @click="uploadDialog">
             <div v-show="!readonly" class="absolute-bottom text-subtitle2 text-center">
               更换头像
             </div>
@@ -47,9 +47,9 @@
     <!-- 头像上传 -->
     <BaseDialog :title="'头像上传'" :okVisible="false" :dialogVisible="avatarDialog" @okClick="okClick" @cancelClick="cancelClick">
       <template v-slot:body>
-        <q-uploader :url="`${$url}/upload`" :headers="[
+        <q-uploader :url="`${$url}/photo/upload`" :headers="[
               {name: 'Authorization', value: `Bearer ${token}`}
-            ]" field-name='file' max-files="1" style="width:100%; height: 500px;" @uploaded="finishUpload" />
+            ]" field-name='photo' max-files="1" style="width:100%; height: 500px;" @uploaded="finishUpload" />
       </template>
     </BaseDialog>
   </q-page>
@@ -59,7 +59,7 @@
 import BaseDialog from 'components/Dialog/BaseDialog.vue'
 
 import { findUserById, EditUserById } from 'src/api/user.js'
-import { uploadImage } from 'src/api/upload.js'
+import { uploadImage } from 'src/api/photo.js'
 import { getToken, setUser } from 'src/utils/auth.js'
 
 export default {

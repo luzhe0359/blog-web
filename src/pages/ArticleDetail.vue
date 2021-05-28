@@ -1,42 +1,33 @@
 <template>
-  <BaseContainer>
-    <div id="ArticleDetail">
-      <div class="text-h2 q-pb-sm text-white overflow-hidden">
-        {{article.title}}
-      </div>
-      <div class="text-white q-pb-sm row">
-        <q-chip class="q-pl-none" icon="bookmark" color="transparent" text-color="white">{{article.type | articleType}}
-        </q-chip>
-        <q-chip icon="event" color="transparent" text-color="white">
-          {{article.createTime | dateFormat}}
-        </q-chip>
-        <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">
-          {{article.meta.views}}
-        </q-chip>
-        <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white">
-          {{article.meta.comments}}
-        </q-chip>
+  <q-page id="ArticleDetail" class="max-width">
+    <div class="title text-h4 q-py-md text-white overflow-hidden">
+      {{article.title}}
+    </div>
+    <div class="text-white q-pb-sm row">
+      <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
+      <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
+      <!-- 套一个div，小屏幕 换行 -->
+      <div v-if="article.meta">
+        <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
+        <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
         <q-chip class="like-box" color="transparent" text-color="white">
-          <q-icon class="like q-mr-xs" name="iconfont icon-xin" :color="isLike ? 'red': 'grey'" size="21px" @click="like"></q-icon>
+          <q-icon class="like q-mr-xs" name="iconfont icon-xin" :color="isLike ? 'red': ''" size="21px" @click="like"></q-icon>
           {{article.meta.likes}}
         </q-chip>
-        <q-space />
-        <q-chip color="grey-6" v-for="tag in article.tags" :key="tag._id">
-          {{tag.name}}
-        </q-chip>
       </div>
-      <div id="editor">
-        <q-no-ssr>
-          <mavon-editor :value="article.mdContent" :subfield="false" :defaultOpen="'preview'" :toolbarsFlag="false" :editable="false" :scrollStyle="true" :ishljs="true" :boxShadow="false" :tabSize='4' codeStyle="vs2015" style="background: transparent"></mavon-editor>
-        </q-no-ssr>
-      </div>
-      <!-- <div ref="scrollBox" class='text-h6'>滚动到这里</div> -->
-      <!-- <Comment :articleId="$route.params._id" @addCommentNum="addCommentNum" /> -->
-      <div class="text-h5 q-mt-md">评论区</div>
-      <CommentAdd :hideCancel="true" @comment="comment" />
-      <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
+      <q-space />
+      <q-chip color="grey-6" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
     </div>
-  </BaseContainer>
+    <div id="editor">
+      <q-no-ssr>
+        <mavon-editor :value="article.mdContent" :subfield="false" :defaultOpen="'preview'" :toolbarsFlag="false" :editable="false" :scrollStyle="true" :ishljs="true" :boxShadow="false" :tabSize='4' codeStyle="vs2015" style="background: transparent"></mavon-editor>
+      </q-no-ssr>
+    </div>
+    <!-- <div ref="scrollBox" class='text-h6'>滚动到这里</div> -->
+    <div class="text-h5 q-mt-lg">评论区</div>
+    <CommentAdd :hideCancel="true" @comment="comment" />
+    <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
+  </q-page>
 </template>
 
 <script>
@@ -51,7 +42,7 @@ import 'mavon-editor/dist/css/index.css'
 import Comment from 'src/components/Comment/Comment.vue'
 import CommentAdd from 'src/components/Comment/CommentAdd.vue'
 import { findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
-import { addComment, addChildComment, findCommentList, likeComment } from 'src/api/comment.js'
+import { addComment, findCommentList } from 'src/api/comment.js'
 
 export default {
   name: 'ArticleDetail',
@@ -63,7 +54,7 @@ export default {
   },
   data () {
     return {
-      article: { meta: '', tags: '' },
+      article: {},
       isLike: false, // 是否点赞
       commentList: [], // 评论列表
       isView: false, // 是否浏览
@@ -71,7 +62,7 @@ export default {
   },
   mounted () {
     this.initDetail()
-    this.findCommentList()
+    this.getCommentList()
   },
   methods: {
     initDetail () {
@@ -81,13 +72,16 @@ export default {
         this.isView = true
       } else {
         this.$q.sessionStorage.set(this.$route.fullPath, 0)
+        // 统计 浏览总数+1
+        this.$store.dispatch("count/AddView")
       }
       this.findArticleByIdFn()
     },
     // 评论列表
-    findCommentList () {
+    getCommentList () {
       let params = {
-        articleId: this.$route.params._id
+        articleId: this.$route.params._id,
+        state: -1
       }
       findCommentList(params).then(res => {
         this.commentList = res.data
@@ -142,6 +136,8 @@ export default {
           // 点赞成功
           this.isLike = true
           this.article.meta.likes++
+          // 统计 点赞总数+1
+          this.$store.dispatch("count/AddLike")
           this.$q.notify({
             message: res.msg,
             color: 'primary'
@@ -149,11 +145,7 @@ export default {
         }).catch(err => { })
       }
     },
-    addCommentNum () {
-      console.log('addCommentNum');
-      this.$set(this.article, 'meta.comments', this.article.meta.comments++)
-    },
-    // 添加父评论
+    // 添加评论
     comment (content, commentId, to, level) {
       let params = {
         content,
@@ -164,12 +156,8 @@ export default {
       }
       addComment(params).then(res => {
         this.findCommentList()
-        // this.$emit('addCommentNum')
         this.article.meta.comments++
-        // this.refreshPost()
-        // this.currentComment = null // 隐藏评论框，防止出现错位
       }).catch(err => {
-        // this.refreshPost()
       })
     },
   },
@@ -185,21 +173,31 @@ export default {
     &:last-child {
       margin-right: 0;
     }
+    .q-icon {
+      margin-right: 5px;
+    }
   }
   img {
     width: 50px !important;
   }
-  // /deep/.markdown-body pre {
-  //   padding: 0 !important;
-  // }
+
   .like-box {
     :hover {
       .like {
         cursor: pointer;
-        color: blue;
+        color: red;
         transform: scale(1.2, 1.2);
       }
     }
+  }
+}
+
+@media (max-width: $breakpoint-xs-max) {
+  .title {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    padding-bottom: 2px;
+    word-break: break-all;
   }
 }
 </style>

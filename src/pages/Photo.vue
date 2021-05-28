@@ -1,24 +1,22 @@
 <template>
-  <BaseContainer :hideSideContainer="true">
-    <div class="q-pa-md">
-      <div ref="myList" class="row justify-center q-gutter-sm">
-        <q-intersection v-for="index in 60" :key="index" transition="scale" class="example-item">
-          <q-card class="q-ma-sm">
-            <img src="https://cdn.quasar.dev/img/mountains.jpg">
-
-            <q-card-section>
-              <div class="text-h6">Card #{{ index }}</div>
-              <div class="text-subtitle2">by John Doe</div>
-            </q-card-section>
-          </q-card>
-        </q-intersection>
-      </div>
+  <q-page>
+    <div class="row">
+      <q-intersection transition="scale" class="photo col-lg-3 col-md-3 col-sm-6 col-xs-12 q-pa-sm" v-for="item in photoList" :key="item._id">
+        <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 q-pa-sm" v-for="item in photoList" :key="item._id"> -->
+        <q-img class="rounded-borders" :ratio="16/9" :src="item.url | imgBaseUrl" spinner-color="white">
+          <!-- <div class="absolute-bottom text-subtitle1 text-center">
+            {{item.name}}
+          </div> -->
+        </q-img>
+        <!-- </div> -->
+      </q-intersection>
     </div>
-  </BaseContainer>
+  </q-page>
 </template>
 
 <script>
 import BaseContainer from 'src/components/Container/BaseContainer'
+import { findPhotoList } from 'src/api/photo.js'
 
 export default {
   name: 'About',
@@ -27,27 +25,32 @@ export default {
   },
   data () {
     return {
+      photoList: []
     }
   },
   mounted () {
+    this.findPhotoList()
   },
   methods: {
+    findPhotoList () {
+      let params = {
+        albumId: this.$route.params._id,
+        pageSize: 0, // 查询所有
+      }
+      findPhotoList(params).then(res => {
+        this.photoList = res.data
+      })
+    }
   },
 }
 </script>
 <style lang="scss" scoped>
-#Home {
+// 在大多数情况下，要求将CSS应用于QIntersection元素，以便在不渲染内部内容时将其用作必要的填充符。 这将提供平滑的滚动体验，因为不这样的话滚动将会不规律地跳跃。
+// 需要CSS的此类示例将是，例如，固定高度或至少最小高度
+.photo {
   height: 100%;
-  font-size: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-}
-
-.example-item {
-  height: 290px;
-  width: 290px;
+  min-height: 180px;
+  min-width: 25%;
 }
 </style>
 

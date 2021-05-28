@@ -1,24 +1,32 @@
 <template>
-  <BaseContainer>
-    <div id="articleList">
-      <div class="friends">Hey Friends！</div>
-      <div class="welcome">Welcome</div>
+  <!-- <BaseContainer> -->
+  <q-page class="max-width row">
+    <div id="articleList" class="col">
+      <div class="friends gt-xs">Hey Friends！</div>
+      <div class="welcome gt-xs">Welcome</div>
       <!-- 分类列表 -->
       <TabList :tabList="tabList" @changeTab="changeTab" />
       <!-- 文章列表 -->
-      <ArticleCardList :articleList="articleList" />
+      <transition name="fade" mode="out-in">
+        <ArticleCardList :articleList="articleList" :key="tabId" />
+      </transition>
       <!-- 文章分页 -->
-      <q-pagination v-if="isShow" class="justify-center" v-model="current" :max="max" :max-pages="6" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage">
-      </q-pagination>
-      <q-skeleton v-else width="320px" height="36px" style="margin:0 auto;" :animation="'wave'" />
+      <transition name="page">
+        <q-pagination v-if="!loading && articleList.length > 0" class="q-mb-sm justify-center" v-model="currentPage" :max="max" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+      </transition>
     </div>
-  </BaseContainer>
+    <div class="col-lg-4 col-md-4 gt-sm">
+      <SideContainer />
+    </div>
+  </q-page>
+  <!-- </BaseContainer> -->
 </template>
 
 <script>
 import { findCategoryList } from 'src/api/category.js'
 import { findArticleList } from 'src/api/article.js'
 import BaseContainer from 'src/components/Container/BaseContainer'
+import SideContainer from 'src/components/Side/SideContainer'
 import ArticleCardList from 'src/components/ArticleList/ArticleCardList'
 import TabList from 'src/components/ArticleList/TabList'
 
@@ -27,27 +35,23 @@ export default {
   components: {
     BaseContainer,
     TabList,
-    ArticleCardList
+    ArticleCardList,
+    SideContainer
   },
   data () {
     return {
       tabList: [], // 文章分类
       articleList: [], // 文章列表
       tabId: 'zugelu', // 当前分类Id
-      current: 1, // 当前页
+      currentPage: 1, // 当前页
+      pageSize: 5,
       max: 1, // 总页数
-      isShow: true, // 是否展示分页（切换tab强制渲染）
+      loading: true, // 是否展示分页（切换tab强制渲染）
     }
   },
   mounted () {
     this.findCategoryListFn()
     this.findArticleListFn()
-  },
-  beforeEnter (to, from, next) {
-    console.log('to');
-    console.log(to);
-    console.log(from);
-    next()
   },
   methods: {
     // 获取文章分类
@@ -57,25 +61,29 @@ export default {
       })
     },
     // 获取文章列表
-    findArticleListFn (tabId = 'zugelu') {
-      let params = { pageNum: this.current }
-      if (tabId !== 'zugelu') {
-        params['category'] = tabId
+    findArticleListFn () {
+      this.loading = true
+      // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
+      let params = { pageNum: this.currentPage, pageSize: this.pageSize, state: 1 }
+      if (this.tabId !== 'zugelu') {
+        params['category'] = this.tabId
       }
       findArticleList(params).then(res => {
         this.articleList = res.data
-        this.max = Math.ceil(res.total / 10)
-        this.isShow = true
+        this.max = Math.ceil(res.total / this.pageSize)
+
+        this.loading = false
       })
     },
     // 切换文章分类
     changeTab (tabId) {
-      this.current = 1 // 切换tab重置页码
-      this.isShow = false
-      this.findArticleListFn(tabId)
+      this.tabId = tabId
+      this.currentPage = 1 // 切换tab重置页码
+      this.findArticleListFn()
     },
     // 切换页码
-    changePage () {
+    changePage (current) {
+      this.currentPage = current
       this.findArticleListFn()
     }
   }
@@ -101,6 +109,35 @@ export default {
     font-size: 60px;
     font-weight: 600;
     line-height: 76px;
+  }
+  /* 可以设置不同的进入和离开动画 */
+  /* 设置持续时间和动画函数 */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.5s ease;
+  }
+  .fade-enter {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+
+  .fade-leave-to {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+  }
+  // page动画
+  .page-enter-active {
+    transition: all 1s ease-in 0.5s;
+  }
+  .page-leave-active {
+    transition: 0s;
+  }
+  .page-enter {
+    opacity: 0;
+  }
+
+  .page-leave-to {
+    opacity: 0;
   }
 }
 </style>

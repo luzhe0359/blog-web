@@ -1,10 +1,15 @@
 <template>
   <div id="SideUserTag" class="full-width q-mt-lg">
     <div class="text-h6 q-mb-md">个性标签</div>
-    <q-scroll-area style="cursor:pointer;" horizontal ref="scrollArea" :thumb-style="thumbStyleHorizontal" v-touch-pan.horizontal.prevent.mouse="handlePan" class="tag-list">
+    <q-scroll-area horizontal ref="scrollArea" :thumb-style="thumbStyleHorizontal" v-touch-pan.horizontal.prevent.mouse="handlePan" class="tag-list cursor-pointer">
       <div class="row no-wrap">
-        <div class="tag q-mr-sm" v-for="tag in tagList" :key="tag">
-        </div>
+        <!-- <div class="tag relative-position" v-for="tag in tagList" :key="tag.url" :style="{backgroundImage:`url(${tag.url})`}">
+        </div> -->
+        <q-img class="tag q-mr-md" :src="tag.url" v-for="tag in tagList" :key="tag.url">
+          <div class="desc absolute-full text-subtitle2 flex flex-center">
+            {{tag.name}}
+          </div>
+        </q-img>
       </div>
     </q-scroll-area>
   </div>
@@ -17,7 +22,13 @@ export default {
   name: 'SideUserTag',
   data () {
     return {
-      tagList: [1, 2, 3, 4, 5],
+      tagList: [
+        { url: '/tag/tag1.png', name: '幽默' },
+        { url: '/tag/tag4.png', name: '潜力股' },
+        { url: '/tag/tag3.png', name: '90后' },
+        { url: '/tag/tag2.png', name: '幸福' },
+        { url: '/tag/tag5.png', name: '狂吃不胖' },
+      ],
       thumbStyleHorizontal
     }
   },
@@ -44,11 +55,16 @@ export default {
   .tag {
     width: 160px;
     height: 160px;
-    background: #ffffff;
-    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
     border-radius: 42px;
-    &:last-child {
-      margin-right: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    .desc {
+      display: none;
+    }
+    &:hover {
+      .desc {
+        display: flex;
+      }
     }
   }
 }

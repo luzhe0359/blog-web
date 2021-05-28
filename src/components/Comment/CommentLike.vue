@@ -21,27 +21,37 @@ export default {
   },
   data () {
     return {
-
     }
   },
   computed: {
     // 判断用户是否点赞
     isLike () {
       // likes.some(u => u=== $q.localStorage.getItem('user')._id)?'primary':'grey-5'
-      let user = this.$q.localStorage.getItem('user')
-      if (this.comment.likes.some(u => u === user._id)) {
+      if (!this.userId) return 'grey-5'
+      if (this.comment.likes.some(u => u === this.userId)) {
         return 'primary'
       } else {
         return 'grey-5'
       }
     },
+    userId () {
+      let user = this.$q.localStorage.getItem('user')
+      return user ? user._id : null
+    }
   },
   methods: {
     // 评论点赞
     like () {
+      // 判断用户是否登录
+      if (!this.userId) {
+        return this.$q.notify({
+          message: '请先登录',
+          color: 'primary'
+        })
+      }
       this.$q.loading.show()
       let params = {
-        userId: this.$q.localStorage.getItem("user")._id,
+        userId: this.userId
       }
       // 是否存在父评论
       if (this.parentComment) { // 存在, 当前为子评论

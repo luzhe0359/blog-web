@@ -42,7 +42,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
 
       // transpile: false,
 
@@ -62,13 +62,14 @@ module.exports = function (ctx) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack (cfg) {
+
       },
 
       // 自定义 env
       env: {
         URL: ctx.dev
           ? 'http://127.0.0.1:3000'
-          : 'http://192.168.0.107:3000'
+          : 'http://127.0.0.1:3000'
       }
     },
 
@@ -113,9 +114,9 @@ module.exports = function (ctx) {
         'Dialog', // alert/comfirm/prompt
         'Loading', // 加载
         'LoadingBar', // 加载栏
-        'Cookies', // 标准化document.cookie的封装
         'LocalStorage', // 本地存储
         'SessionStorage',
+        'Meta'
       ]
     },
 
@@ -155,26 +156,6 @@ module.exports = function (ctx) {
             sizes: '128x128',
             type: 'image/png'
           },
-          {
-            src: 'icons/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-256x256.png',
-            sizes: '256x256',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-384x384.png',
-            sizes: '384x384',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
         ]
       }
     },
@@ -208,8 +189,7 @@ module.exports = function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
-        appId: 'blog_admin'
+        appId: 'blog_web'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

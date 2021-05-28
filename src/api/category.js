@@ -12,7 +12,7 @@ export const addCategory = params => {
  * 查找分类列表
  */
 export const findCategoryList = params => {
-    return axios.post(`/category`, params)
+    return axios.get(`/category/list`, { params })
 }
 
 /**

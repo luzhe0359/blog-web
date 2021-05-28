@@ -4,7 +4,6 @@
     <div class="user-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
       <SideUserAvatar />
       <SideUserTag />
-      <ScrollToTop />
     </div>
     <!-- sticky定位 -->
     <div class="blog-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
@@ -21,7 +20,6 @@ import SideUserTag from './SideUserTag'
 import SideBlogInfo from './SideBlogInfo'
 import SideArticleInfo from './SideArticleInfo'
 import SideArticleTag from './SideArticleTag'
-import ScrollToTop from './ScrollToTop'
 export default {
   name: 'SideContainer',
   components: {
@@ -30,7 +28,6 @@ export default {
     SideBlogInfo,
     SideArticleInfo,
     SideArticleTag,
-    ScrollToTop
   },
   data () {
     return {
@@ -46,17 +43,17 @@ export default {
   box-sizing: border-box;
   padding: 130px 0 0px 30px;
   .container {
-    background: #ebecec;
+    background-color: rgba(255, 255, 255, 0.61);
     border-radius: 50px;
     box-sizing: border-box;
     overflow: hidden;
   }
   .user-container {
-    background: #ebecec;
+    background-color: rgba(255, 255, 255, 0.61);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     &.pa-xl {
-      padding: 35px 35px 0 35px;
+      padding: 30px 30px 0 30px;
     }
   }
   .blog-container {
@@ -66,7 +63,7 @@ export default {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     &.pa-xl {
-      padding: 0px 35px 25px 35px;
+      padding: 0px 30px 25px 30px;
     }
   }
 }

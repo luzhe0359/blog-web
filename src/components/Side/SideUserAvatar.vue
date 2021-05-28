@@ -5,11 +5,11 @@
       <div>
         <div class="avatar relative-position">
           <q-avatar size="90px">
-            <q-img basic src="~assets/logo.jpg" />
+            <q-img basic src="~assets/logo.png" />
           </q-avatar>
         </div>
         <div class="text-center name">足各路</div>
-        <div class="text-center about ">这个人很懒，什么都没留下!!!</div>
+        <div class="text-center about ">一路一足一世界。</div>
       </div>
     </q-responsive>
   </div>
@@ -36,14 +36,14 @@ export default {
 #SideUserAvatar {
   background: #fff;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 36px;
+  border-radius: 30px;
   overflow: hidden;
   .avatar {
     height: 50%;
-    background: url("http://127.0.0.1:3000/images/file-1619610591166.jpg")
-      no-repeat 100% 100%;
+    background: url("/bg/code0.png") no-repeat 100% 100%;
     background-size: cover;
     .q-avatar {
+      box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
       position: absolute;
       top: 50%;
       left: 50%;

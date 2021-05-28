@@ -12,7 +12,7 @@ export const addTag = params => {
  * 查找标签列表
  */
 export const findTagList = params => {
-    return axios.post(`/tag`, params)
+    return axios.get(`/tag/list`, { params })
 }
 
 /**

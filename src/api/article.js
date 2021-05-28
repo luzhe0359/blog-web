@@ -14,7 +14,7 @@ export const addArticle = params => {
  * 查找文章列表
  */
 export const findArticleList = params => {
-    return axios.post(`/article`, params)
+    return axios.get(`/article/list`, { params })
 }
 
 /**
@@ -31,7 +31,7 @@ export const findArticleById = (_id, params) => {
  * @param {String} _id 用户_id
  * @param {String} body 用户信息params
  */
-export const EditArticleById = (_id, params) => {
+export const editArticleById = (_id, params) => {
     return axios.put(`/article/${_id}`, params)
 }
 
@@ -56,4 +56,12 @@ export const likeArticle = (params) => {
  */
 export const nolikeArticle = (params) => {
     return axios.post(`/article/nolike`, params)
+}
+
+/**
+ * 文章信息统计
+ * @param null
+ */
+export const countArticle = () => {
+    return axios.post(`/article/count`)
 }

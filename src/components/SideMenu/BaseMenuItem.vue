@@ -1,7 +1,7 @@
 <template>
-  <q-item class="menu-item q-pl-md" exact clickable v-ripple tag="a" :to="path" :active="path === currentMenu" :active-class="'bg-grey-4'" @click="switchMenu">
+  <q-item class="menu-item q-pl-md" exact clickable v-ripple tag="a" :to="'/'+path" :active="path === currentMenu" :active-class="'bg-grey-4'">
     <q-item-section v-if="meta.icon" avatar>
-      <q-icon :name="meta.icon" />
+      <q-icon :name="meta.icon + ' iconfont'" />
     </q-item-section>
     <q-item-section>
       <q-item-label>{{ meta.title }}</q-item-label>
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseMenuItem',
@@ -25,30 +24,26 @@ export default {
     event: {
       type: String,
       default: ''
+    },
+    currentMenu: {
+      type: String,
+      default: ''
     }
   },
-  computed: {
-    ...mapGetters([
-      'currentMenu',
-    ]),
+  data () {
+    return {
+    }
   },
   methods: {
     logout () {
-      this.$store.dispatch("user/Logout").then(() => {
+      const user = this.$q.localStorage.getItem('user')
+      this.$store.dispatch("user/Logout", { _id: user._id || '' }).then(() => {
         this.$q.notify({
           message: '退出成功',
           color: 'primary'
         })
         this.$router.replace('/login')
       }).catch(err => { })
-    },
-    switchMenu () {
-      this.$store.dispatch("user/SetCurrentMenu", {
-        path: '/' + this.path,
-      }).then(() => {
-      }).catch(err => {
-        this.loading = false
-      })
     }
   }
 }
@@ -60,9 +55,5 @@ export default {
     color: inherit;
     min-width: 40px;
   }
-  // .q-item__label {
-  //   height: 32px;
-  //   line-height: 32px !important;
-  // }
 }
 </style>

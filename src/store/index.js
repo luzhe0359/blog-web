@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
+import count from './modules/count'
 import getters from './getters'
 
 // import example from './module-example'
@@ -19,7 +20,8 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      user
+      user,
+      count
     },
     getters,
     // 启用严格模式（增加开销！）

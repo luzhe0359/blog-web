@@ -9,19 +9,10 @@ export const addComment = params => {
 }
 
 /**
- * 添加子评论
- * @param {String} name 评论内容
- */
-export const addChildComment = params => {
-    return axios.post(`/comment/addChild`, params)
-}
-
-
-/**
  * 查找评论列表
  */
 export const findCommentList = params => {
-    return axios.post(`/comment`, params)
+    return axios.get(`/comment/list`, { params })
 }
 
 /**

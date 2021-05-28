@@ -25,8 +25,13 @@ export default {
 #footer {
   width: 100%;
   color: #fff;
+  background-color: #ccc;
   text-align: center;
-  margin-top: 30px;
+  padding-top: 30px;
+  // background-image: url("~assets/bg_body.png");
+  // background-repeat: no-repeat;
+  // background-size: cover;
+  // background-position: center 40%;
   p {
     margin-bottom: 0;
     padding: 0 0 10px;

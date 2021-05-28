@@ -1,6 +1,6 @@
 <template>
   <q-list>
-    <BaseMenuItem v-for="menu in menuList" :key="menu.meta.title" v-bind="menu" />
+    <BaseMenuItem v-for="menu in menuList" :currentMenu="currentMenu" :key="menu.meta.title" v-bind="menu" />
   </q-list>
 </template>
 
@@ -15,10 +15,18 @@ export default {
   },
   data () {
     return {
-      menuList: []
+      menuList: [],
+      currentMenu: null
     }
   },
-  mounted () {
+  watch: {
+    $route (newVal) {
+      this.currentMenu = newVal.path
+    }
+  },
+  created () {
+    // 刷新时，同步选中菜单按钮
+    this.currentMenu = this.$route.path
     this.getMenuList()
   },
   methods: {

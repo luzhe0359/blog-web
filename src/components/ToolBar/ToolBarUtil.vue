@@ -3,12 +3,15 @@
     <!-- 登录按钮 -->
     <q-no-ssr>
       <q-btn dense size="md" icon="person_outline" label="登录" to="/login" class="login" v-show="!name" />
+      <template v-slot:placeholder>
+        <q-skeleton type="QBtn" :animation="'pulse'" class="bg-grey-9" rounded width="30px" height="26px" />
+      </template>
     </q-no-ssr>
     <!-- 头像菜单 -->
     <q-btn flat round size="sm" v-show="name">
       <!-- 头像 -->
       <q-avatar size="28px" class="cursor-pointer">
-        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" :placeholder-src="'/images/default_avatar.jpeg' | imgBaseUrl" />
+        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" placeholder-src="~assets/default_avatar.jpeg" />
       </q-avatar>
       <!-- 菜单 -->
       <q-menu transition-show="jump-down" transition-hide="jump-up" anchor="bottom middle" self="top middle">
@@ -43,7 +46,8 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch("user/Logout").then(() => {
+      const user = this.$q.localStorage.getItem('user')
+      this.$store.dispatch("user/Logout", { _id: user._id || '' }).then(() => {
         this.$q.notify({
           message: '退出成功',
           color: 'primary'

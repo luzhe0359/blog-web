@@ -7,7 +7,7 @@
 
     <q-tab-panels v-model="tab" animated swipeable infinite class="bg-transparent">
       <q-tab-panel class="q-pa-none" name="new_article" style="overflow:hidden;">
-        <div class="row items-center no-wrap q-mt-md" v-for="article in articleData" :key="article._id">
+        <div class="row items-center no-wrap q-mt-md cursor-pointer" v-for="article in articleData" :key="article._id" @click="toArticleDetail(article._id)">
           <q-icon class="q-mr-sm" size="xs" name="iconfont icon-wenzhang" />
           <div class="ellipsis">
             {{article.title}}
@@ -45,6 +45,12 @@ export default {
     }
   },
   mounted () {
+    // 判断是否查找过 最热文章
+    let newArticle = this.$q.sessionStorage.getItem('newArticle')
+    if (newArticle) {
+      this.articleData = newArticle
+      return
+    }
     this.getNewArticleList()
   },
   methods: {
@@ -52,14 +58,23 @@ export default {
     getNewArticleList () {
       let params = {
         pageNum: 1,
-        pageSize: 5
+        pageSize: 5,
+        sortBy: 'meta.views'
       }
       findArticleList(params).then(res => {
+        // 缓存
+        this.$q.sessionStorage.set('newArticle', res.data)
         this.articleData = res.data
       }).catch(err => {
         throw new Error(err)
       })
     },
+    // 跳转文章详情
+    toArticleDetail (_id) {
+      this.$router.push({
+        path: `/articleDetail/${_id}`
+      })
+    }
   }
 }
 </script>
@@ -71,18 +86,18 @@ export default {
     font-size: 18px;
     font-weight: 400;
     line-height: 26px;
+    font-size: 1.25rem !important;
   }
-  .tag-list {
-    height: 165px;
-  }
-  .tag {
-    width: 160px;
-    height: 160px;
-    background: #ffffff;
-    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 42px;
-    &:last-child {
-      margin-right: 0;
+  .q-tab {
+    padding: 0 !important;
+    margin-right: 16px;
+    border-radius: 2px;
+    /deep/ .q-tab__label {
+      font-size: 1.25rem !important;
+    }
+    /deep/ .q-tab__indicator {
+      width: 40px;
+      margin: 0 auto;
     }
   }
 }

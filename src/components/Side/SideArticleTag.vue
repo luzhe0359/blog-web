@@ -18,11 +18,18 @@ export default {
     }
   },
   mounted () {
+    // 判断是否获取过 标签
+    let tagList = this.$q.sessionStorage.getItem('tagList')
+    if (tagList) {
+      this.tagList = tagList
+      return
+    }
     this.findArticleTagList()
   },
   methods: {
     findArticleTagList () {
       findTagList().then(res => {
+        this.$q.sessionStorage.set('tagList', res.data)
         this.tagList = res.data
       })
     }
@@ -31,4 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.q-chip {
+  border-radius: 4px;
+}
 </style>

@@ -3,8 +3,8 @@
   <q-card :bordered="false" class="no-border-radius no-box-shadow">
     <q-card-section>
       <!-- 头像 -->
-      <q-avatar round size="48px" class="cursor-pointer" @click="$router.push('/userInfo')">
-        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" placeholder-src="~assets/logo.jpg" />
+      <q-avatar round size="48px" class="cursor-pointer shadow-6" @click="$router.push('/userInfo')">
+        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" placeholder-src="~assets/logo.png" />
       </q-avatar>
       <!-- 昵称 -->
       <div class="text-h6 q-mt-sm text-grey-9">

@@ -100,7 +100,7 @@ const toLogin = async (msg) => {
 
     const dialog = Dialog.create({
         title: msg,
-        message: `某些功能登陆后才可使用。`,
+        message: `点赞、评论需登陆后才可使用。`,
         position: 'bottom',
         persistent: true
     }).onOk(() => {

@@ -1,7 +1,7 @@
 <template>
   <div class="article q-mb-md">
     <!-- 主内容 -->
-    <div class="article-title">
+    <div class="article-title cursor-pointer" @click="toArticleDetail" :style="{'backgroundImage': `url(${randomBg})`}">
       <!-- 文章分类 -->
       <div class="row">
         <q-space />
@@ -12,46 +12,41 @@
       </div>
       <!-- 标题&内容 -->
       <div>
-        <div class="text-h6 q-mt-md q-mb-sm ellipsis" @click="toArticleDetail" style="cursor:pointer;">{{article.title}}</div>
-        <div v-html="article.htmlContent" class="ellipsis-2-lines"></div>
+        <div class="text-h6 q-my-sm ellipsis">{{article.title}}</div>
+        <div class="ellipsis-2-lines" style="font-size: 14px">{{article.desc}}</div>
       </div>
     </div>
     <!-- 分割线 -->
     <div class="line"></div>
     <!-- 底部工具栏 -->
     <div class="article-util row">
-      <div class="row q-ml-none">
-        <q-icon size="20px" class="q-mr-xs" name="iconfont icon-fangwenliang"></q-icon>
-        {{article.meta.views}}
-      </div>
-      <div>
-        <q-icon size="20px" class="q-mr-xs" name="iconfont icon-pinglun">
-        </q-icon>
-        {{article.meta.comments}}
-      </div>
-      <div>
-        <q-icon size="20px" class="q-mr-xs" name="iconfont icon-xin"></q-icon>
-        {{article.meta.likes}}
-      </div>
+      <Icon :icon="'iconfont icon-fangwenliang'" :name="article.meta.views" />
+      <Icon :icon="'iconfont icon-pinglun'" :name="article.meta.comments" />
+      <Icon :icon="'iconfont iconfont icon-xin'" :name="article.meta.likes" />
       <q-space />
-      <div>
-        发表于
-        <q-icon size="20px" class="q-mr-xs" name="iconfont icon-biao"></q-icon>
-        {{article.createTime | dateFormat}}
-      </div>
+      <Icon :icon="'iconfont icon-biao'" :name="article.createTime | yearFormat('发表于 ')" />
     </div>
   </div>
 </template>
 
 <script>
+import Icon from 'components/common/Icon'
+
 export default {
   name: 'ArticleCard',
   props: {
     article: { type: Object, default: () => { } },
   },
+  components: { Icon },
   data () {
     return {
 
+    }
+  },
+  computed: {
+    randomBg () {
+      const randomNum = Math.ceil(Math.random() * 20)
+      return `/bg/code${randomNum}.png`
     }
   },
   methods: {
@@ -60,7 +55,7 @@ export default {
       // 获取本地存储记录 (拼接，详情页路由)
       let view = this.$q.sessionStorage.getItem(`/articleDetail/${this.article._id}`)
       // 判断是否浏览过此文章
-      if (view === null) { // sessionStorage 为空，即未看过，浏览器+1
+      if (view === null) { // sessionStorage 为空，即未看过，浏览量+1
         this.$set(this.article, 'meta.views', this.article.meta.views++)
       }
       this.$router.push({
@@ -72,27 +67,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$cardpx: 22px;
+$cardpy: 35px;
 .article {
-  color: #000000;
+  color: #000;
   border-radius: 50px;
-  background-color: rgba(255, 255, 255, 0.521);
+  background-color: rgba(255, 255, 255, 0.61);
   overflow: hidden;
-
+  transition: all 0.5s ease;
   &:hover {
-    box-shadow: 10px 10px 5px #888888;
     /* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   }
   .article-title {
-    background-image: url("~assets/bg_body.png");
+    color: #fff;
+    // background: url("~assets/bg/game4.png") no-repeat;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 20% 20%;
-    padding: 42px 35px 0;
+    background-position: top center;
+    padding: 32px 32px 10px;
   }
   .article-util {
+    background-color: rgba(255, 255, 255, 0.61);
     box-sizing: border-box;
-    padding: 22px 35px 32px;
+    padding: 22px 32px 22px;
   }
   .line {
     height: 2px;
@@ -100,6 +98,25 @@ export default {
     margin-left: 35px;
     background: #000000;
     opacity: 0.2;
+  }
+}
+
+@media (max-width: $breakpoint-xs-max) {
+  $cardpx: 16px;
+  $cardpy: 16px;
+  .article {
+    border-radius: 10px;
+    .article-title {
+      padding: $cardpx;
+      padding-bottom: 6px;
+    }
+    .line {
+      margin-right: 3 * $cardpx;
+      margin-left: $cardpx;
+    }
+    .article-util {
+      padding: $cardpx;
+    }
   }
 }
 </style>

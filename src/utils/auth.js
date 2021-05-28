@@ -1,8 +1,6 @@
 import { LocalStorage } from 'quasar'
 const TokenKey = 'token' // token信息
 const UserKey = 'user' // 用户信息
-const StyleKey = 'style' // 界面风格
-
 
 // token
 export function getToken () { // { username: '默认token', desc: '游客访问博客,需要使用的默认token', _id: null }
@@ -28,18 +26,4 @@ export function setUser (user) {
 
 export function removeUser () {
   return LocalStorage.remove(UserKey)
-}
-
-// style
-export function getStyle () {
-  return LocalStorage.getItem(StyleKey) || 'white'
-}
-
-export function setStyle (style) {
-  LocalStorage.set(StyleKey, style)
-}
-
-
-export function removeStyle () {
-  return LocalStorage.remove(StyleKey)
 }

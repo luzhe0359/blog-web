@@ -2,34 +2,60 @@
   <div id="SideBlogInfo" class="full-width q-pt-lg ">
     <div class="text-h6 q-mb-md">博客信息</div>
     <div>
-      <q-chip outline v-for="tag in tagList" :key="tag.icon" :icon="tag.icon" color="grey" class="q-mr-md q-ml-none q-mb-sm">
-        {{ tag.name }} {{ tag.label }}
+      <q-chip outline v-for="item in countList" :key="item.icon" :icon="item.icon" color="grey" class="q-mr-md q-ml-none q-mb-sm">
+        <div class="q-mr-xs">{{ item.name }}</div>
+        <div v-if="item.name === '已运行'">{{item.count}}</div>
+        <countTo v-else :startVal='0' :endVal='item.count' :duration='3000'></countTo>
       </q-chip>
     </div>
   </div>
 </template>
 
 <script>
+import countTo from 'vue-count-to';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SideBlogInfo',
+  components: {
+    countTo
+  },
   data () {
     return {
-      tagList: [
-        { name: '已运行', label: 'time', icon: 'iconfont icon-yunhang' },
-        { name: '访问总数', label: '154', icon: 'iconfont icon-fangwenliang' },
-        { name: '文章总数', label: '254', icon: 'iconfont icon-wenzhang' },
-        { name: '点赞总数', label: '121231', icon: 'favorite_border' },
+      countList: [
+        { name: '已运行', count: 0, icon: 'iconfont icon-yunhang' },
+        { name: '访问总数', count: 0, icon: 'iconfont icon-fangwenliang' },
+        { name: '文章总数', count: 0, icon: 'iconfont icon-wenzhang' },
+        { name: '点赞总数', count: 0, icon: 'favorite_border' },
       ],
       creatTime: '2021-1-1 20:10:10',
       timmer: null
     }
   },
+  computed: {
+    ...mapGetters([
+      'views',
+      'likes'
+    ]),
+  },
+  watch: {
+    views (newVal) {
+      this.countList[1].count = parseInt(newVal)
+    },
+    likes (newVal) {
+      this.countList[3].count = parseInt(newVal)
+    },
+  },
   mounted () {
-    this.tagList[0].label = this.dateDiff()
+    this.countList[0].count = this.dateDiff()
     this.timmer = setInterval(() => {
-      this.tagList[0].label = this.dateDiff()
+      this.countList[0].count = this.dateDiff()
     }, 1000)
+
+    let { views, likes, total } = this.$q.localStorage.getItem('count')
+    this.countList[1].count = views
+    this.countList[2].count = total
+    this.countList[3].count = likes
   },
   methods: {
     /**
@@ -62,6 +88,12 @@ export default {
         num = '0' + num;
       }
       return num;
+    },
+    // 初始化统计信息
+    initCount ({ likes, total, views }) {
+      this.countList[1].count = views
+      this.countList[2].count = total
+      this.countList[3].count = likes
     }
   },
   beforeDestroy () {

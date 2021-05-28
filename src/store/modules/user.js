@@ -12,7 +12,6 @@ const user = {
         avatar: '/images/default_avatar.jpeg',
         role: '',
         about: '',
-        currentMenu: '',
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -32,10 +31,7 @@ const user = {
         },
         SET_ABOUT: (state, about) => {
             state.about = about
-        },
-        SET_CURRENT_ROUTE: (state, route) => {
-            state.currentMenu = route
-        },
+        }
     },
     actions: {
         // 登录
@@ -63,9 +59,10 @@ const user = {
             })
         },
         // 登出
-        Logout ({ commit }) {
+        Logout ({ commit }, user) {
             return new Promise((resolve, reject) => {
-                userLogout().then((response) => {
+                userLogout(user).then((response) => {
+                    console.log(user);
                     removeUser()
                     removeToken()
                     commit('SET_TOKEN', '')
@@ -98,10 +95,6 @@ const user = {
             commit('SET_ROLE', user.role || '')
             commit('SET_ABOUT', user.about || '')
         },
-        // 当前路由
-        SetCurrentMenu ({ commit }, route) {
-            commit('SET_CURRENT_ROUTE', route.path)
-        }
     }
 }
 

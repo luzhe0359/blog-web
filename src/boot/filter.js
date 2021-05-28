@@ -18,11 +18,9 @@ const filters = {
     articleType (type) {
         switch (type) {
             case 1:
-                return "转载";
-            case 2:
                 return "原创";
-            case 3:
-                return "混合";
+            case 2:
+                return "转载";
         }
     },
     // 默认地址
@@ -54,6 +52,10 @@ const filters = {
     // 日期格式化
     dateFormat (d) {
         return date.formatDate(d, 'YYYY-MM-DD HH:mm:ss')
+    },
+    // 年月日 格式化
+    yearFormat (d, prefix) {
+        return (prefix ? prefix : '') + date.formatDate(d, 'YYYY-MM-DD')
     }
 }
 

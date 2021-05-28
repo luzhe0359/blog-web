@@ -14,8 +14,8 @@ export const userLogin = params => {
  * 用户退出
  * @param null
  */
-export const userLogout = () => {
-    return axios.post(`/user/logout`)
+export const userLogout = (_id) => {
+    return axios.post(`/user/logout`, _id)
 }
 
 /**
@@ -58,7 +58,7 @@ export const deleteUserById = _id => {
  * @param {String} nickname 昵称
  */
 export const findUserList = params => {
-    return axios.post(`/user`, params)
+    return axios.post(`/user/list`, params)
 }
 
 /**

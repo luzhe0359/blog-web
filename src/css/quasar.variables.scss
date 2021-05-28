@@ -24,6 +24,13 @@ $info      : #31CCEC;
 $warning   : #F2C037;
  
 // 所有原生组件的样式 --------------------------------------------------------------------------------
+// 最大宽度
+.q-page {
+  max-width: 1200px;
+  padding: 10px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 // 顶部菜单
 .q-layout__shadow:after {
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.24);
@@ -43,7 +50,7 @@ $warning   : #F2C037;
 }
 // 上传 图片高100%
 .q-uploader__file--img {
-    height: 100%;
+    height: 100% !important ; 
 }
 // q-img 标题的padding
 .q-img__content > div {
@@ -53,10 +60,6 @@ $warning   : #F2C037;
 .q-drawer--left,
 .q-drawer--bordered {
   border-right: none !important;
-}
-// tab
-.q-tab  {
-    min-height:30px !important;
 }
 // 对话栏
 .q-message-text {

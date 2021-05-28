@@ -86,11 +86,11 @@ app.get(ssr.resolveUrl('*'), (req, res) => {
         // create a route (/src/routes) for an error page and redirect to it
 
         // res.status(500).send('500 | Internal Server Error')
-        if (ssr.settings.debug) {
-          console.error(`500 on ${req.url}`)
-          console.error(err)
-          console.error(err.stack)
-        }
+        // if (ssr.settings.debug) {
+        //   console.error(`500 on ${req.url}`)
+        //   console.error(err)
+        //   console.error(err.stack)
+        // }
         // 这里我们获得500错误；
         res.redirect('/error500') // 不过，还是要记下publicPath！
       }

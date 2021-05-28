@@ -9,7 +9,7 @@
             <slot />
           </div>
           <!-- 侧边栏 -->
-          <div v-show="!hideSideContainer" class="col-lg-4 col-md-4 gt-sm">
+          <div v-if="!hideSideContainer" class="col-lg-4 col-md-4 gt-sm">
             <SideContainer />
           </div>
         </div>

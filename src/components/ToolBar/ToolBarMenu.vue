@@ -1,31 +1,35 @@
 <template>
-  <div class="q-gutter-x-md gt-xs">
-    <q-btn :flat="currentMenu !== ('/' + menu.path)" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
+  <div>
+    <q-no-ssr class="q-gutter-x-md gt-xs row items-center">
+      <q-btn :flat="currentMenu !== ('/' + menu.path)" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
+      <template v-slot:placeholder>
+        <q-skeleton :animation="'pulse'" type="QBtn" class="bg-grey-9" rounded width="60px" height="26px" v-for="(item,index) in 5" :key="index" />
+        <q-space />
+      </template>
+    </q-no-ssr>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import routes from 'src/router/routes.js'
 
 export default {
   name: 'ToolBarMenu',
   data () {
     return {
-      current: null,
-      menuList: []
+      currentMenu: null,
+      menuList: [],
     }
-  },
-  computed: {
-    ...mapGetters([
-      'currentMenu',
-    ]),
   },
   created () {
     // 刷新时，同步选中菜单按钮
-    this.current = this.$route.path
-    this.setcurrentMenu()
+    this.currentMenu = this.$route.path
     this.getMenuList()
+  },
+  watch: {
+    $route (newVal) {
+      this.currentMenu = newVal.path
+    }
   },
   methods: {
     // 获取顶部菜单
@@ -36,18 +40,8 @@ export default {
     },
     // 切换菜单
     switchMenu (val) {
-      this.current = '/' + val
-      this.setcurrentMenu()
+      this.currentMenu = '/' + val
     },
-    // 更新store路由
-    setcurrentMenu () {
-      this.$store.dispatch("user/SetCurrentMenu", {
-        path: this.current,
-      }).then(() => {
-      }).catch(err => {
-        this.loading = false
-      })
-    }
   }
 }
 </script>
