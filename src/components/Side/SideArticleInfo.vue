@@ -19,8 +19,8 @@
       </q-tab-panel>
 
       <q-tab-panel class="q-pa-none" name="hot_article" style="overflow:hidden;">
-        <div class="row items-center no-wrap q-mt-md" v-for="article in articleData" :key="article._id">
-          <q-icon class="q-mr-sm" size="xs" name="iconfont icon-wenzhang" />
+        <div class="row items-center no-wrap q-mt-md cursor-pointer" v-for="article in articleData" :key="article._id" @click="toArticleDetail(article._id)">
+          <q-icon class=" q-mr-sm" size="xs" name="iconfont icon-wenzhang" />
           <div class="ellipsis">
             {{article.title}}
             <q-tooltip :delay="1000">
@@ -71,6 +71,7 @@ export default {
     },
     // 跳转文章详情
     toArticleDetail (_id) {
+      console.log(_id);
       this.$router.push({
         path: `/articleDetail/${_id}`
       })

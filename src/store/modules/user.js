@@ -1,4 +1,3 @@
-import { Notify } from 'quasar'
 import { userLogin, userLogout } from 'src/api/user.js'
 import { getToken, setToken, removeToken, getUser, setUser, removeUser, getStyle } from 'src/utils/auth'
 
@@ -47,11 +46,6 @@ const user = {
                     commit('SET_AVATAR', user.avatar)
                     commit('SET_ROLE', user.role)
                     commit('SET_ABOUT', user.about)
-                    // 登录成功
-                    Notify.create({
-                        message: '登录成功',
-                        color: 'primary'
-                    })
                     resolve(token)
                 }).catch(error => {
                     reject(error)

@@ -18,7 +18,8 @@
         </q-tooltip>
       </div>
     </q-card-section>
-    <q-separator color="grey-3" />
+    <!-- <div class="q-px-md q-mb-md">一足一路一世界</div> -->
+    <q-separator color="grey-5" />
   </q-card>
 </template>
 

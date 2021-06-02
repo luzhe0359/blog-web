@@ -9,7 +9,7 @@
           </q-avatar>
         </div>
         <div class="text-center name">足各路</div>
-        <div class="text-center about ">一路一足一世界。</div>
+        <div class="text-center about">一足一路一世界</div>
       </div>
     </q-responsive>
   </div>

@@ -27,3 +27,8 @@ export function setUser (user) {
 export function removeUser () {
   return LocalStorage.remove(UserKey)
 }
+
+export function getUserId () {
+  let user = LocalStorage.getItem(UserKey)
+  return user ? user._id : null
+}

@@ -18,10 +18,16 @@
       <q-space />
       <q-chip color="grey-6" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
     </div>
-    <div id="editor">
-      <q-no-ssr>
-        <mavon-editor :value="article.mdContent" :subfield="false" :defaultOpen="'preview'" :toolbarsFlag="false" :editable="false" :scrollStyle="true" :ishljs="true" :boxShadow="false" :tabSize='4' codeStyle="vs2015" style="background: transparent"></mavon-editor>
-      </q-no-ssr>
+    <!-- md -->
+    <div class="md-content row">
+      <v-md-preview class="col-sm-12 col-md-9 md-preview" ref="preview" :text="md"></v-md-preview>
+      <div class="gt-sm col-md-3 q-px-md">
+        <div class="bg-white q-px-md">
+          <div class="column" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `10px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor)">
+            <a style="cursor: pointer">{{ anchor.title }}</a>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- <div ref="scrollBox" class='text-h6'>滚动到这里</div> -->
     <div class="text-h5 q-mt-lg">评论区</div>
@@ -36,9 +42,6 @@ import BaseContainer from 'src/components/Container/BaseContainer'
 import { scroll } from 'quasar'
 const { getScrollTarget, setScrollPosition } = scroll
 
-import { mavonEditor } from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-
 import Comment from 'src/components/Comment/Comment.vue'
 import CommentAdd from 'src/components/Comment/CommentAdd.vue'
 import { findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
@@ -48,37 +51,41 @@ export default {
   name: 'ArticleDetail',
   components: {
     BaseContainer,
-    mavonEditor,
     Comment,
     CommentAdd
   },
   data () {
     return {
       article: {},
+      md: '',
+      titles: [],
       isLike: false, // 是否点赞
       commentList: [], // 评论列表
-      isView: false, // 是否浏览
     }
+  },
+  created () {
+    // this.initDetail()
   },
   mounted () {
     this.initDetail()
-    this.getCommentList()
+    // this.$nextTick(() => {
+    //   this.handleAnchorInit()
+    // })
+  },
+  watch: {
+    // 用户登录后，刷新页面
+    "$store.state.user.nickname": function (n, o) {
+      this.initDetail()
+    }
   },
   methods: {
     initDetail () {
-      let view = this.$q.sessionStorage.getItem(this.$route.fullPath)
-      // 判断是否浏览过此文章
-      if (view !== null) { // sessionStorage 为空，没看过；反之看过
-        this.isView = true
-      } else {
-        this.$q.sessionStorage.set(this.$route.fullPath, 0)
-        // 统计 浏览总数+1
-        this.$store.dispatch("count/AddView")
-      }
+      this.getCommentList()
       this.findArticleByIdFn()
     },
     // 评论列表
     getCommentList () {
+      this.commentList = [] // 清空,强制子组件重新渲染（自动高亮点赞）
       let params = {
         articleId: this.$route.params._id,
         state: -1
@@ -101,7 +108,16 @@ export default {
       }
       findArticleById(this.$route.params._id, params).then(res => {
         this.article = res.data
+
+        this.md = res.data.mdContent
+
+        this.$nextTick(() => {
+          setTimeout(() => {
+            this.handleAnchorInit()
+          }, 200)
+        })
         this.isLike = this.article.isLike
+        this.$store.dispatch("count/AddView")
         // this.$nextTick(() => {
         //   this.scrollToElement(this.$refs.scrollBox)
         // })
@@ -112,10 +128,7 @@ export default {
       // 判断用户是否登录
       let user = this.$q.localStorage.getItem("user")
       if (!user) {
-        return this.$q.notify({
-          message: '请先登录',
-          color: 'primary'
-        })
+        return this.$msg.warning('请先登录')
       }
       if (this.isLike) { // 取消点赞
         nolikeArticle({
@@ -124,10 +137,7 @@ export default {
           // 消赞成功
           this.isLike = false
           this.article.meta.likes--
-          this.$q.notify({
-            message: res.msg,
-            color: 'primary'
-          })
+          this.$msg.success(res.msg)
         }).catch(err => { })
       } else { // 文章点赞
         likeArticle({
@@ -138,10 +148,7 @@ export default {
           this.article.meta.likes++
           // 统计 点赞总数+1
           this.$store.dispatch("count/AddLike")
-          this.$q.notify({
-            message: res.msg,
-            color: 'primary'
-          })
+          this.$msg.success(res.msg)
         }).catch(err => { })
       }
     },
@@ -160,12 +167,65 @@ export default {
       }).catch(err => {
       })
     },
+    // 自定义锚点
+    handleAnchorClick (anchor) {
+      console.log(anchor);
+      const { preview } = this.$refs;
+      const { lineIndex } = anchor;
+
+      const heading = preview.$el.querySelector(`[data-v-md-line="${lineIndex}"]`);
+
+      if (heading) {
+        preview.scrollToTarget({
+          target: heading,
+          scrollContainer: window,
+          top: 60,
+        });
+      }
+    },
+    // 自定义锚点 初始化
+    handleAnchorInit () {
+      const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      const titles = Array.from(anchors).filter((title) => !!title.innerText.trim());
+      console.log(titles);
+      if (!titles.length) {
+        this.titles = [];
+        return;
+      }
+
+      const hTags = Array.from(new Set(titles.map((title) => title.tagName))).sort();
+
+      // titles.map((el) => {
+      //   console.log(el);
+      //   console.log(el.children[0].data);
+      // })
+
+      this.titles = titles.map((el) => ({
+        title: el.innerText,
+        lineIndex: el.getAttribute('data-v-md-line'),
+        indent: hTags.indexOf(el.tagName),
+      }));
+    }
   },
 
 }
 </script>
 <style lang="scss" scoped>
 #ArticleDetail {
+  .md-content {
+    .md-preview {
+      border-radius: 4px;
+      overflow: hidden;
+      /deep/ .vuepress-markdown-body:not(.custom) {
+        padding: 16px;
+        max-width: 100% !important;
+      }
+      /deep/ .vuepress-markdown-body div[class*="v-md-pre-wrapper-"] {
+        margin: 0;
+      }
+    }
+  }
+
   .q-chip {
     &:first-child {
       margin-left: 0;

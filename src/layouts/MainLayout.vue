@@ -16,10 +16,8 @@
         <ToolBarUtil />
       </q-toolbar>
     </q-header>
-    <!-- q-footer -->
-    <q-footer class="text-white" :height-hint="123">
-      <Footer />
-    </q-footer>
+    <!-- footer -->
+    <Footer :footer="footer" />
     <!-- darwer -->
     <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1" class="text-grey-8" :width="240">
       <!-- 侧边导航栏-->
@@ -27,18 +25,15 @@
     </q-drawer>
     <!-- container -->
     <q-page-container ref="pagemain" class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
-      <q-no-ssr>
-        <!-- 切换动画 -->
-        <transition appear name="fade" mode="out-in">
-          <!-- 缓存 -->
-          <keep-alive :include="cacheList">
-            <router-view :key="$route.fullPath" />
-          </keep-alive>
-        </transition>
-        <!-- <template v-slot:placeholder>
-          <div style="width:100vh;height:100vh;"></div>
-        </template> -->
-      </q-no-ssr>
+      <!-- <q-no-ssr> -->
+      <!-- 切换动画 -->
+      <transition appear name="fade" mode="out-in">
+        <!-- 缓存 -->
+        <keep-alive :include="cacheList">
+          <router-view :key="$route.fullPath" />
+        </keep-alive>
+      </transition>
+      <!-- </q-no-ssr> -->
     </q-page-container>
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
@@ -62,7 +57,7 @@ export default {
     SideMenu,
     ToolBarUtil,
     ToolBarMenu,
-    Footer
+    Footer,
   },
   data () {
     return {
@@ -80,27 +75,16 @@ export default {
     this.initClient()
   },
   watch: {
-    // $route (newVal, oldVal) {
-    //   let noFooter = ['/album', '/home']
-    //   console.log(noFooter.includes(newVal.fullPath));
-    //   if (noFooter.includes(newVal.fullPath)) {
-    //     this.footer = false
-    //   } else {
-    //     this.footer = true
-    //   }
-    // },
-    // $route: {
-    //   handler (newVal, oldVal) {
-    //     let noFooter = ['/album', '/home']
-    //     console.log(noFooter.includes(newVal.fullPath));
-    //     if (noFooter.includes(newVal.fullPath)) {
-    //       this.footer = false
-    //     } else {
-    //       this.footer = true
-    //     }
-    //   },
-    //   immediate: true
-    // }
+    $route (newVal, oldVal) {
+      let noFooter = ['/about', '/home']
+      console.log(noFooter.includes(newVal.fullPath));
+      if (noFooter.includes(newVal.fullPath)) {
+        console.log(this.footer);
+        this.footer = false
+      } else {
+        this.footer = true
+      }
+    },
   },
   methods: {
     initClient () {

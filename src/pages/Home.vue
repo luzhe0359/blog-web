@@ -44,16 +44,10 @@ export default {
       }
       copyToClipboard(link)
         .then(() => {
-          this.$q.notify({
-            color: 'white',
-            textColor: 'positive',
-            icon: 'check_circle',
-            position: 'top',
-            message: '成功复制：' + tooltip
-          })
+          this.$msg.success('成功复制 ' + tooltip)
         })
         .catch(() => {
-          // 失败
+          this.$msg.error('复制失败')
         })
     }
   },

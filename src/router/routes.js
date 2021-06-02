@@ -103,17 +103,6 @@ const routes = [
       },
     ],
   },
-  {
-    path: '/login',
-    name: 'Login',
-    meta: {
-      title: '登录',
-      icon: 'home',
-      menu: false,
-      keepAlive: false
-    },
-    component: () => import('pages/Login.vue')
-  },
   // Always leave this as last one,
   // but you can also remove it
   {

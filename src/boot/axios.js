@@ -85,10 +85,7 @@ axios.interceptors.response.use(
 * 提示函数
 */
 const tip = msg => {
-    Notify.create({
-        message: msg,
-        color: 'negative'
-    })
+    Vue.prototype.$msg.error(msg)
 }
 
 /**
@@ -100,7 +97,7 @@ const toLogin = async (msg) => {
 
     const dialog = Dialog.create({
         title: msg,
-        message: `点赞、评论需登陆后才可使用。`,
+        message: `点赞、评论，登陆后才可以操作哦。`,
         position: 'bottom',
         persistent: true
     }).onOk(() => {

@@ -1,5 +1,5 @@
 <template>
-  <q-item class="menu-item q-pl-md" exact clickable v-ripple tag="a" :to="'/'+path" :active="path === currentMenu" :active-class="'bg-grey-4'">
+  <q-item class="menu-item q-pl-md text-weight-medium" exact clickable v-ripple tag="a" :to="'/'+path" :active="path === currentMenu" :active-class="'item-active'">
     <q-item-section v-if="meta.icon" avatar>
       <q-icon :name="meta.icon + ' iconfont'" />
     </q-item-section>
@@ -38,10 +38,7 @@ export default {
     logout () {
       const user = this.$q.localStorage.getItem('user')
       this.$store.dispatch("user/Logout", { _id: user._id || '' }).then(() => {
-        this.$q.notify({
-          message: '退出成功',
-          color: 'primary'
-        })
+        this.$msg.success('退出成功')
         this.$router.replace('/login')
       }).catch(err => { })
     }
@@ -51,6 +48,11 @@ export default {
 
 <style lang="scss" scoped>
 .menu-item {
+  color: #2c3e50;
+  &.item-active {
+    color: $primary;
+    background-color: rgba(105, 105, 105, 0.3);
+  }
   .q-item__section--avatar {
     color: inherit;
     min-width: 40px;

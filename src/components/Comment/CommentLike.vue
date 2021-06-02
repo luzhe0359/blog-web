@@ -1,11 +1,12 @@
 <template>
   <div>
-    <q-btn flat dense icon="thumb_up" :label="comment.likes.length" size="sm" :color="isLike" @click.stop="like" />
+    <q-btn flat dense icon="thumb_up" :label="comment.likes.length" size="sm" :color="isLikeColor" :disable="isLike" @click.stop="like" />
   </div>
 </template>
 
 <script>
 import { likeComment } from 'src/api/comment.js'
+import { getUserId } from 'src/utils/auth.js'
 
 export default {
   name: "CommentLike",
@@ -24,34 +25,28 @@ export default {
     }
   },
   computed: {
-    // 判断用户是否点赞
+    // 是否点赞
     isLike () {
-      // likes.some(u => u=== $q.localStorage.getItem('user')._id)?'primary':'grey-5'
-      if (!this.userId) return 'grey-5'
-      if (this.comment.likes.some(u => u === this.userId)) {
-        return 'primary'
-      } else {
-        return 'grey-5'
-      }
+      const userId = getUserId()
+      if (!userId || !this.comment.likes.some(u => u === userId)) return false
+      return true
     },
-    userId () {
-      let user = this.$q.localStorage.getItem('user')
-      return user ? user._id : null
+    // 点赞状态
+    isLikeColor () {
+      return this.isLike ? 'primary' : 'grey-5'
     }
   },
   methods: {
     // 评论点赞
     like () {
+      const userId = getUserId()
       // 判断用户是否登录
-      if (!this.userId) {
-        return this.$q.notify({
-          message: '请先登录',
-          color: 'primary'
-        })
+      if (!userId) {
+        return this.$msg.warning('请先登录')
       }
       this.$q.loading.show()
       let params = {
-        userId: this.userId
+        userId
       }
       // 是否存在父评论
       if (this.parentComment) { // 存在, 当前为子评论
@@ -63,16 +58,17 @@ export default {
       // 提交/取消 点赞
       likeComment(params).then(res => {
         this.$q.loading.hide()
-        this.$q.notify({
-          message: res.msg,
-          color: 'primary'
-        })
+        this.$msg.success(res.msg)
         if (!this.parentComment) {
           return this.$set(this.comment, 'likes', res.data.likes)
         }
         let otherComment = res.data.otherComments.filter(item => item._id === this.comment._id)
         this.$set(this.comment, 'likes', otherComment[0].likes)
       })
+    },
+    getUserId () {
+      let user = this.$q.localStorage.getItem('user')
+      return user ? user._id : null
     }
   }
 }

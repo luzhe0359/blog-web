@@ -1,16 +1,22 @@
 <template>
   <q-page>
-    <div class="row">
-      <q-intersection transition="scale" class="photo col-lg-3 col-md-3 col-sm-6 col-xs-12 q-pa-sm" v-for="item in photoList" :key="item._id">
-        <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 q-pa-sm" v-for="item in photoList" :key="item._id"> -->
-        <q-img class="rounded-borders" :ratio="16/9" :src="item.url | imgBaseUrl" spinner-color="white">
-          <!-- <div class="absolute-bottom text-subtitle1 text-center">
-            {{item.name}}
-          </div> -->
-        </q-img>
-        <!-- </div> -->
+    <div class="row waterfall-height-css">
+      <q-intersection transition="scale" class="image-box photo col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-sm" v-for="item in photoList" :key="item._id">
+        <q-img class="rounded-borders" @click="show(item._id)" :ratio="16/9" :src="item.url | imgBaseUrl" spinner-color="white"> </q-img>
       </q-intersection>
     </div>
+    <q-dialog v-model="carouselVisible">
+      <div class="q-pa-md fit" :class="{'md-box':$q.screen.lt.md}">
+        <q-carousel :transition-prev="$q.screen.gt.md?'slide-down':'slide-right'" :transition-next="$q.screen.gt.md?'slide-up':'slide-left'" dark swipeable animated :vertical="$q.screen.gt.md" v-model="slide" thumbnails infinite :fullscreen.sync="fullscreen">
+          <q-carousel-slide :name="item._id" v-for="item in photoList" :key="item._id" :img-src="item.url | imgBaseUrl" />
+          <template v-slot:control>
+            <q-carousel-control class="column" position="top-right" :offset="[12, 12]">
+              <q-btn push round dense color="grey-9" text-color="grey" icon="close" @click="carouselVisible = false" />
+            </q-carousel-control>
+          </template>
+        </q-carousel>
+      </div>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -21,11 +27,14 @@ import { findPhotoList } from 'src/api/photo.js'
 export default {
   name: 'About',
   components: {
-    BaseContainer
+    BaseContainer,
   },
   data () {
     return {
-      photoList: []
+      photoList: [],
+      slide: 1,
+      fullscreen: true,
+      carouselVisible: false,
     }
   },
   mounted () {
@@ -40,6 +49,10 @@ export default {
       findPhotoList(params).then(res => {
         this.photoList = res.data
       })
+    },
+    show (_id) {
+      this.slide = _id
+      this.carouselVisible = true
     }
   },
 }
@@ -52,5 +65,15 @@ export default {
   min-height: 180px;
   min-width: 25%;
 }
-</style>
 
+.q-carousel {
+  .q-carousel__slide {
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  /deep/ .q-carousel__thumbnail--active {
+    transition: 0.2s;
+    transform: translateY(-2px);
+  }
+}
+</style>

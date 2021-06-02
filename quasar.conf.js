@@ -18,7 +18,6 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'axios',
-      'filter', // 引入全局过滤器
       'main'
     ],
 
@@ -42,6 +41,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      publicPath: '/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
       // transpile: false,

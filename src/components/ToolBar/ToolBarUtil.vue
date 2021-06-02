@@ -2,7 +2,7 @@
   <div class="q-gutter-sm q-ml-xl">
     <!-- 登录按钮 -->
     <q-no-ssr>
-      <q-btn dense size="md" icon="person_outline" label="登录" to="/login" class="login" v-show="!name" />
+      <q-btn dense size="md" icon="person_outline" label="登录" @click="showLogin = true" class="login" v-show="!name" />
       <template v-slot:placeholder>
         <q-skeleton type="QBtn" :animation="'pulse'" class="bg-grey-9" rounded width="30px" height="26px" />
       </template>
@@ -26,16 +26,21 @@
         </q-list>
       </q-menu>
     </q-btn>
+    <Logon :show="showLogin" @close="close" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import Logon from 'components/logon/Logon'
+
 export default {
   name: 'ToolBarUtil',
+  components: { Logon },
   data () {
     return {
+      showLogin: false
     }
   },
   computed: {
@@ -48,11 +53,11 @@ export default {
     logout () {
       const user = this.$q.localStorage.getItem('user')
       this.$store.dispatch("user/Logout", { _id: user._id || '' }).then(() => {
-        this.$q.notify({
-          message: '退出成功',
-          color: 'primary'
-        })
+        this.$msg.success('退出成功')
       }).catch(err => { })
+    },
+    close () {
+      this.showLogin = false
     }
   }
 }

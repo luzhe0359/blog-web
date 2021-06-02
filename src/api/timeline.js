@@ -12,7 +12,7 @@ export const addTimeline = params => {
  * 查找时间线列表
  */
 export const findTimelineList = params => {
-    return axios.get(`/timeline/list`, params)
+    return axios.get(`/timeline/list`, { params })
 }
 
 /**

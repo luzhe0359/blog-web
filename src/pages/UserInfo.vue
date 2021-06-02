@@ -119,10 +119,7 @@ export default {
         this.$store.commit('user/SET_AVATAR', user.avatar)
         this.$store.commit('user/SET_NICKNAME', user.nickname)
         // 保存成功
-        this.$q.notify({
-          message: res.msg,
-          color: 'primary'
-        })
+        this.$msg.success(res.msg)
       }).catch(err => {
         this.loading = false
       })
@@ -147,10 +144,7 @@ export default {
       if (res.code === 2000) {
         this.$set(this.formData, 'avatar', res.data.url)
         // 上传成功
-        this.$q.notify({
-          message: res.msg,
-          color: 'primary'
-        })
+        this.$msg.success(res.msg)
 
         // 隐藏对话框
         this.avatarDialog = false

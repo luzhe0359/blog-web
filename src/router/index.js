@@ -16,9 +16,6 @@ Vue.use(VueRouter)
  */
 
 export default async ({ store, ssrContext }) => {
-  const cookies = process.env.SERVER
-    ? Cookies.parseSSR(ssrContext)
-    : Cookies
   const router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -37,17 +34,6 @@ export default async ({ store, ssrContext }) => {
       backgroundColor: '#000',
       message: '加载中 . . .'
     })
-
-    // 登录后返回之前的页面
-    if (to.fullPath === "/login") {
-      // console.log('from' + from.fullPath);
-      next({
-        path: "/login",
-        query: {
-          redirect: from.fullPath // 记录当前是从哪里跳过去的,在登录后直接返回原来的页面
-        }
-      })
-    }
     next()
   })
 

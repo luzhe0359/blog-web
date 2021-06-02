@@ -25,10 +25,7 @@ export default {
       // 判断用户是否登录
       let user = this.$q.localStorage.getItem("user")
       if (!user) {
-        return this.$q.notify({
-          message: '请先登录',
-          color: 'primary'
-        })
+        return this.$msg.warning('请先登录')
       }
       this.$emit("comment", this.content)
       this.content = ""
