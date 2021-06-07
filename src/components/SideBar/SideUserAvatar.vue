@@ -5,7 +5,7 @@
       <div>
         <div class="avatar relative-position">
           <q-avatar size="90px">
-            <q-img basic src="~assets/logo.png" />
+            <q-img basic src="~assets/logo.png" spinner-color="white" />
           </q-avatar>
         </div>
         <div class="text-center name">足各路</div>

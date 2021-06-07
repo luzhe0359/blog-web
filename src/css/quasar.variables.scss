@@ -27,6 +27,7 @@ $warning   : #F2C037;
 // 最大宽度
 .q-page {
   max-width: 1200px;
+  min-height: calc(100vh - 50px) !important;
   padding: 10px;
   margin: 0 auto;
   box-sizing: border-box;

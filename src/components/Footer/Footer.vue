@@ -1,20 +1,17 @@
 <template>
-  <q-footer id="footer" :value="footer" class="text-white" :height-hint="0">
+  <div id="footer" class="text-grey">
     <div>
       <p>吉ICP备xxxxxx号-3</p>
       <p>系统由 React+Node+Ant Desgin驱动</p>
       <p>zugelu.com</p>
     </div>
-  </q-footer>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'Footer',
-  props: {
-    footer: { default: false }
-  },
   data () {
     return {
     }
@@ -28,8 +25,9 @@ export default {
 <style lang="scss" scoped>
 #footer {
   width: 100%;
-  color: #fff;
-  background: linear-gradient(to top, #d3d3d5 1%, #dadcdd 99%);
+  // background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  // background: linear-gradient(to top, #d3d3d5 1%, #dadcdd 99%);
   text-align: center;
   padding-top: 30px;
   // background-image: url("~assets/bg_body.png");

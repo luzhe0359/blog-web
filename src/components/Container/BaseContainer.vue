@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import SideContainer from 'src/components/Side/SideContainer'
+import SideContainer from 'src/components/SideBar/SideContainer'
 import Footer from 'src/components/Footer/Footer'
 import { thumbStyle } from 'src/utils/thumbStyle'
 

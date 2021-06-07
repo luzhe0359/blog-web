@@ -1,16 +1,19 @@
 <template>
   <q-layout id="SideContainer">
-    <!-- 正常定位 -->
-    <div class="user-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
-      <SideUserAvatar />
-      <SideUserTag />
+    <div class="side-main">
+      <!-- 正常定位 -->
+      <div class="user-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
+        <SideUserAvatar />
+        <SideUserTag />
+      </div>
+      <!-- sticky定位 -->
+      <div class="blog-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
+        <SideBlogInfo />
+        <SideArticleInfo />
+        <SideArticleTag />
+      </div>
     </div>
-    <!-- sticky定位 -->
-    <div class="blog-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
-      <SideBlogInfo />
-      <SideArticleInfo />
-      <SideArticleTag />
-    </div>
+
   </q-layout>
 </template>
 
@@ -40,20 +43,24 @@ export default {
 #SideContainer {
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
-  padding: 130px 0 0px 30px;
-  .container {
-    background-color: rgba(255, 255, 255, 0.61);
+  padding-top: 130px;
+  .side-main {
+    padding: 30px;
+    box-sizing: border-box;
     border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .container {
+    // background-color: rgba(255, 255, 255, 0.61);
     box-sizing: border-box;
     overflow: hidden;
   }
   .user-container {
-    background-color: rgba(255, 255, 255, 0.61);
+    // background-color: rgba(255, 255, 255, 0.61);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     &.pa-xl {
-      padding: 30px 30px 0 30px;
+      // padding: 30px 30px 0 30px;
     }
   }
   .blog-container {
@@ -63,7 +70,7 @@ export default {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     &.pa-xl {
-      padding: 0px 30px 25px 30px;
+      // padding: 0px 30px 25px 30px;
     }
   }
 }

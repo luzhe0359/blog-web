@@ -67,8 +67,10 @@
 
 <script>
 import { morph } from 'quasar'
-import BaseDialog from 'components/Dialog/BaseDialog'
 import { aesEncrypt } from 'src/utils/crypto.js'
+import BaseDialog from 'components/Dialog/BaseDialog'
+
+import { userRegister } from 'src/api/user.js'
 
 export default {
   name: 'Login',

@@ -1,7 +1,8 @@
 <template>
   <div class="article q-mb-md">
     <!-- 主内容 -->
-    <div class="article-title cursor-pointer" @click="toArticleDetail" :style="{'backgroundImage': `url(${randomBg})`}">
+    <!-- <div class="article-title cursor-pointer" @click="toArticleDetail" :style="{'backgroundImage': `url(${randomBg})`}"> -->
+    <div class="article-title cursor-pointer" @click="toArticleDetail">
       <!-- 文章分类 -->
       <div class="row">
         <q-space />
@@ -71,7 +72,7 @@ $cardpx: 22px;
 $cardpy: 35px;
 .article {
   color: #000;
-  border-radius: 50px;
+  border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.61);
   overflow: hidden;
   transition: all 0.5s ease;
@@ -80,7 +81,7 @@ $cardpy: 35px;
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   }
   .article-title {
-    color: #fff;
+    color: #000;
     // background: url("~assets/bg/game4.png") no-repeat;
     background-repeat: no-repeat;
     background-size: cover;

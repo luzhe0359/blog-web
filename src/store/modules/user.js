@@ -1,5 +1,5 @@
 import { userLogin, userLogout } from 'src/api/user.js'
-import { getToken, setToken, removeToken, getUser, setUser, removeUser, getStyle } from 'src/utils/auth'
+import { getToken, setToken, removeToken, getUser, setUser, removeUser } from 'src/utils/auth'
 
 
 const user = {
@@ -11,6 +11,7 @@ const user = {
         avatar: '/images/default_avatar.jpeg',
         role: '',
         about: '',
+        likeArticles: []
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -30,7 +31,10 @@ const user = {
         },
         SET_ABOUT: (state, about) => {
             state.about = about
-        }
+        },
+        SET_LIKES_ARTICLE: (state, likeArticles = []) => {
+            state.likeArticles = likeArticles
+        },
     },
     actions: {
         // 登录
@@ -46,9 +50,10 @@ const user = {
                     commit('SET_AVATAR', user.avatar)
                     commit('SET_ROLE', user.role)
                     commit('SET_ABOUT', user.about)
+                    commit('SET_LIKES_ARTICLE', user.likeArticles)
                     resolve(token)
-                }).catch(error => {
-                    reject(error)
+                }).catch(err => {
+                    reject(err)
                 })
             })
         },
@@ -56,7 +61,6 @@ const user = {
         Logout ({ commit }, user) {
             return new Promise((resolve, reject) => {
                 userLogout(user).then((response) => {
-                    console.log(user);
                     removeUser()
                     removeToken()
                     commit('SET_TOKEN', '')
@@ -65,8 +69,9 @@ const user = {
                     commit('SET_AVATAR', '')
                     commit('SET_ROLE', '')
                     commit('SET_ABOUT', '')
+                    commit('SET_LIKES_ARTICLE', [])
                     resolve()
-                }).catch(error => {
+                }).catch(err => {
                     removeUser()
                     removeToken()
                     commit('SET_TOKEN', '')
@@ -75,7 +80,8 @@ const user = {
                     commit('SET_AVATAR', '')
                     commit('SET_ROLE', '')
                     commit('SET_ABOUT', '')
-                    reject(error)
+                    commit('SET_LIKES_ARTICLE', [])
+                    reject(err)
                 })
             })
         },
@@ -88,6 +94,7 @@ const user = {
             commit('SET_AVATAR', user.avatar || '')
             commit('SET_ROLE', user.role || '')
             commit('SET_ABOUT', user.about || '')
+            commit('SET_LIKES_ARTICLE', user.likeArticles || [])
         },
     }
 }

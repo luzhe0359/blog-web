@@ -1,17 +1,15 @@
 <template>
   <div id="SideUserTag" class="full-width q-mt-lg">
     <div class="text-h6 q-mb-md">个性标签</div>
-    <q-scroll-area horizontal ref="scrollArea" :thumb-style="thumbStyleHorizontal" v-touch-pan.horizontal.prevent.mouse="handlePan" class="tag-list cursor-pointer">
-      <div class="row no-wrap">
-        <!-- <div class="tag relative-position" v-for="tag in tagList" :key="tag.url" :style="{backgroundImage:`url(${tag.url})`}">
-        </div> -->
-        <q-img class="tag q-mr-md" :src="tag.url" v-for="tag in tagList" :key="tag.url">
+    <div class="row wrap">
+      <div class="col-4 q-pa-xs" v-for="tag in tagList" :key="tag.url">
+        <q-img class="tag q-mr-md" img-class="img-contain" :src="tag.url" spinner-color="white">
           <div class="desc absolute-full text-subtitle2 flex flex-center">
             {{tag.name}}
           </div>
         </q-img>
       </div>
-    </q-scroll-area>
+    </div>
   </div>
 </template>
 
@@ -53,11 +51,13 @@ export default {
     height: 165px;
   }
   .tag {
-    width: 160px;
-    height: 160px;
-    border-radius: 42px;
+    // width: 160px;
+    // height: 160px;
+    height: auto;
+    border-radius: 24px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    background-size: contain;
     .desc {
       display: none;
     }
@@ -66,6 +66,9 @@ export default {
         display: flex;
       }
     }
+  }
+  /deep/ .q-img__image {
+    background-size: contain !important;
   }
 }
 </style>

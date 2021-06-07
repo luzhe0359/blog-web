@@ -42,7 +42,7 @@ const routes = [
           title: '文章详情',
           icon: 'home',
           menu: false,
-          keepAlive: true
+          keepAlive: false
         },
         component: () => import('pages/ArticleDetail.vue')
       },

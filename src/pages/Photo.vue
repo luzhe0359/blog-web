@@ -11,7 +11,7 @@
           <q-carousel-slide :name="item._id" v-for="item in photoList" :key="item._id" :img-src="item.url | imgBaseUrl" />
           <template v-slot:control>
             <q-carousel-control class="column" position="top-right" :offset="[12, 12]">
-              <q-btn push round dense color="grey-9" text-color="grey" icon="close" @click="carouselVisible = false" />
+              <q-btn flat round dense outline color="grey-9" text-color="grey" icon="close" @click="carouselVisible = false" />
             </q-carousel-control>
           </template>
         </q-carousel>
@@ -75,5 +75,11 @@ export default {
     transition: 0.2s;
     transform: translateY(-2px);
   }
+}
+
+// 默认滚动条 样式 --------------------------------------------------------------------------------
+// 滚动条整体部分
+/deep/ ::-webkit-scrollbar {
+  background-color: rgba(97, 97, 97, 0.5);
 }
 </style>

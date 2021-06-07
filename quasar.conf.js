@@ -11,7 +11,7 @@ module.exports = function (ctx) {
     supportTS: false,
 
     // https://quasar.dev/quasar-cli/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -125,12 +125,6 @@ module.exports = function (ctx) {
     animations: [
       'fadeIn',
       'fadeOut',
-      'slideInUp',
-      'slideOutDown',
-      'slideOutUp',
-      'slideInDown',
-      'zoomIn',
-      'zoomOut'
     ],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr

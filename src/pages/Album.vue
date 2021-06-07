@@ -47,11 +47,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 #Album {
-  height: calc(100vh - 50px);
+  // height: calc(100vh - 50px);
   max-width: 100%;
   padding-top: 100px;
   box-sizing: border-box;
-  background-image: url("~assets/bg_album.png");
+  // background-image: url("~assets/bg_album.png");
   .max-width {
     max-width: 1200px;
     margin: 0 auto;

@@ -12,10 +12,10 @@
       </transition>
       <!-- 文章分页 -->
       <transition name="page">
-        <q-pagination v-if="!loading && articleList.length > 0" class="q-mb-sm justify-center" v-model="currentPage" :max="max" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+        <q-pagination v-if="!loading && articleList.length > 0" color="grey" class="q-mb-sm justify-center" v-model="currentPage" :max="max" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
       </transition>
     </div>
-    <div class="col-lg-4 col-md-4 gt-sm">
+    <div class="col-md-4 gt-sm q-pl-lg">
       <SideContainer />
     </div>
   </q-page>
@@ -26,7 +26,7 @@
 import { findCategoryList } from 'src/api/category.js'
 import { findArticleList } from 'src/api/article.js'
 import BaseContainer from 'src/components/Container/BaseContainer'
-import SideContainer from 'src/components/Side/SideContainer'
+import SideContainer from 'src/components/SideBar/SideContainer'
 import ArticleCardList from 'src/components/ArticleList/ArticleCardList'
 import TabList from 'src/components/ArticleList/TabList'
 
@@ -127,7 +127,7 @@ export default {
   }
   // page动画
   .page-enter-active {
-    transition: all 1s ease-in 0.5s;
+    transition: all 0.8s ease-in;
   }
   .page-leave-active {
     transition: 0s;

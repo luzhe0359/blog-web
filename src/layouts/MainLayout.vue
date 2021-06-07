@@ -1,14 +1,12 @@
 <template>
   <q-layout view="hHh Lpr lff" id="layout">
     <!-- header -->
-    <q-header height-hint="50" elevated reveal class="bg-dark" :reveal-offset="100">
+    <q-header id="header" height-hint="50" elevated reveal class="bg-dark" :reveal-offset="500">
       <q-toolbar class="max-width">
-        <q-no-ssr>
-          <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
-        </q-no-ssr>
         <!-- <q-no-ssr> -->
-        <q-toolbar-title style="min-width:160px;"> 足各路の博客</q-toolbar-title>
+        <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
+        <q-toolbar-title style="min-width:160px;"> 足各路</q-toolbar-title>
         <q-space />
         <!-- 菜单 -->
         <ToolBarMenu />
@@ -17,24 +15,32 @@
       </q-toolbar>
     </q-header>
     <!-- footer -->
-    <Footer :footer="footer" />
+    <!-- <Footer /> -->
     <!-- darwer -->
     <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1" class="text-grey-8" :width="240">
       <!-- 侧边导航栏-->
       <SideMenu />
     </q-drawer>
     <!-- container -->
-    <q-page-container ref="pagemain" class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
-      <!-- <q-no-ssr> -->
+    <q-page-container class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
       <!-- 切换动画 -->
-      <transition appear name="fade" mode="out-in">
+      <!-- <transition appear name="fade" mode="out-in"> -->
+      <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
         <!-- 缓存 -->
         <keep-alive :include="cacheList">
           <router-view :key="$route.fullPath" />
         </keep-alive>
       </transition>
-      <!-- </q-no-ssr> -->
+      <Footer />
     </q-page-container>
+    <!-- 防止刷新闪屏 -->
+    <!-- <q-no-ssr> -->
+    <!-- <div v-if="$q.screen.width <= 0" class="window-height window-width bg-loading column items-center justify-center">
+      <q-spinner-gears color="red" size="5.5em" />
+      <div>加载中 . . .</div>
+    </div> -->
+    <!-- </q-no-ssr> -->
+
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="grey" />
@@ -63,36 +69,37 @@ export default {
     return {
       leftDrawerOpen: false,
       thumbStyle,
-      footer: false,
+      footer: true,
       clientWidth: 1920, // 屏幕宽度
       clientHeight: 966, // 屏幕高度
       bgOffsetHeight: 1345, // 背景图超出屏幕的宽度
       ypos: '0', // 背景图y轴定位
-      cacheList: ['Home', 'ArticleList', 'ArticleDetail', 'SideContainer'],
+      cacheList: [],
+      // cacheList: ['Home', 'ArticleList', 'SideContainer'],
     }
   },
   mounted () {
     this.initClient()
   },
   watch: {
-    $route (newVal, oldVal) {
-      let noFooter = ['/about', '/home']
-      console.log(noFooter.includes(newVal.fullPath));
-      if (noFooter.includes(newVal.fullPath)) {
-        console.log(this.footer);
-        this.footer = false
-      } else {
-        this.footer = true
-      }
-    },
+    // $route (newVal, oldVal) {
+    //   let noFooter = ['/about']
+    //   console.log(noFooter.includes(newVal.fullPath));
+    //   if (noFooter.includes(newVal.fullPath)) {
+    //     console.log(this.footer);
+    //     this.footer = false
+    //   } else {
+    //     this.footer = true
+    //   }
+    // },
+    "$q.screen.width" (n, o) {
+      console.log('$q.screen.width');
+      console.log(n, o);
+      // console.log(o);
+    }
   },
   methods: {
     initClient () {
-      // if (this.$route.fullPath == '/home') {
-      //   this.footer = false
-      // } else {
-      //   this.footer = true
-      // }
       // 1345/960 背景图 高/宽比 
       // 获取屏幕宽高，计算背景图的高度，动态改变背景图定位
       this.clientHeight = document.body.clientHeight
@@ -117,15 +124,32 @@ export default {
 
 <style lang="scss" scoped>
 #layout {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+  // width: 100vw;
+  // height: 100vh;
   .full-container {
+    position: relative;
     min-width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
     background-image: url("~assets/bg_body.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
+  }
+  .bg-loading {
+    // width: 100%;
+    // height: 100%;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    // background-color: red;
+    background-image: url("~assets/bg_body.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    opacity: 1;
   }
   .bg-fixed {
     background-size: 100% auto;
@@ -137,7 +161,7 @@ export default {
   /* 设置持续时间和动画函数 */
   .fade-enter {
     opacity: 0;
-    transform: translate3d(0, -80px, 0);
+    transform: translate3d(0, 0px, 0);
   }
 
   .fade-leave-to {
@@ -145,9 +169,12 @@ export default {
     transform: translate3d(0, 0, 0);
   }
 
-  .fade-enter-active,
+  .fade-enter-active {
+    transition: all 0.1s ease-out;
+  }
+
   .fade-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.1s ease;
   }
 }
 </style>

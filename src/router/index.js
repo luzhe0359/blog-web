@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Loading, QSpinnerGears, Cookies, scroll } from 'quasar'
+import { Loading, QSpinnerGears } from 'quasar'
 
 import routes from './routes'
 
@@ -30,14 +30,15 @@ export default async ({ store, ssrContext }) => {
     Loading.show({
       spinner: QSpinnerGears,
       spinnerColor: 'red',
-      messageColor: 'black',
+      messageColor: 'grey-2',
       backgroundColor: '#000',
-      message: '加载中 . . .'
+      message: 'loading  . . .'
     })
     next()
   })
 
   router.afterEach(() => {
+    Loading.hide()
     Loading.hide()
   })
 
