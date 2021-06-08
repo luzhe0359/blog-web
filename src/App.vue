@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app" v-cloak style="display:none;">
+  <div id="q-app" v-cloak>
     <router-view />
   </div>
 </template>
@@ -8,30 +8,27 @@ export default {
   name: 'App',
   data () {
     return {
-      title: '足各路的个人博客',
-      isRouterAlive: true,
+      title: '足各路的个人博客'
     }
   },
   watch: {
     $route (newVal) {
       this.title = newVal.meta.title
-    },
+    }
   },
   created () {
     try {
+      // 判断是否为客户端
       if (!process.env.CLIENT) return
-      setTimeout(function () {
-        document.getElementById('q-app').style.display = 'block'
-      }, 200)
-      setTimeout(function () {
+      this.$nextTick(() => {
         document.body.removeChild(document.getElementById('appLoading'))
-      }, 800)
+        this.loading = false
+      })
     } catch (e) {
       console.log(e);
     }
   },
   mounted () {
-    console.log('app mounted');
   },
   meta () {
     return {
@@ -99,19 +96,5 @@ export default {
 <style lang="scss" scoped>
 [v-cloak] {
   display: none !important;
-}
-
-.q-overlay {
-  // position: fixed;
-  // z-index: 99999;
-  // top: 0;
-  // left: 0;
-  // background-color: red;
-  background-image: url("~assets/bg_body.png");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-}
-.bg-cover {
-  background-size: cover;
 }
 </style>
