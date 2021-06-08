@@ -49,7 +49,6 @@
   </q-page>
 </template>
 <script>
-// import { QMarkdown } from '@quasar/quasar-ui-qmarkdown'
 import { scroll, dom, } from 'quasar'
 const { css, height, offset } = dom
 const { getScrollTarget, setScrollPosition, getScrollPosition } = scroll
@@ -64,7 +63,6 @@ import { addComment, findCommentList } from 'src/api/comment.js'
 export default {
   name: 'ArticleDetail',
   components: {
-    // QMarkdown,
     BaseContainer,
     Comment,
     CommentAdd,
@@ -81,9 +79,7 @@ export default {
       titles: [],
       isLike: false, // 是否点赞
       commentList: [], // 评论列表
-      // articleId: null,
       toc: [],
-      // article: ''
       activeIndex: -1,
     }
   },
@@ -104,7 +100,7 @@ export default {
   watch: {
     likeArticles: {
       handler (n, o) {
-        this.isLike = this.likeArticles.some(item => item === this.$route.params._id)
+        this.isLike = this.likeArticles.some(item => item === this.articleId)
         console.log('this.isLike');
         console.log(this.isLike);
       },
@@ -135,7 +131,7 @@ export default {
     // 评论列表
     getCommentList () {
       let params = {
-        articleId: this.$route.params._id,
+        articleId: this.articleId,
         state: -1
       }
       findCommentList(params).then(res => {
@@ -310,26 +306,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 #ArticleDetail {
-  .q-markdown {
-    background-color: #fff;
-    // 修改样式
-    /deep/ blockquote.q-markdown--note {
-      border-width: inherit;
-      margin-bottom: 16px;
-      margin-top: 0px;
-      border-radius: 0;
-      border-left: 4px solid #42b983;
-      padding: 15px;
-      color: #777;
-      background-color: rgba(66, 185, 131, 0.1);
-    }
-    /deep/ .q-markdown--token {
-      border: none;
-      color: #c7254e;
-      background-color: #f9f2f4;
-      border-radius: 2px;
-    }
-  }
   .md-content {
     box-sizing: border-box;
     .md-preview {
@@ -346,27 +322,26 @@ export default {
       left: 0;
       top: 50px;
       transition: all 0.2s ease-out;
+      .active-ball {
+        width: 8px;
+        height: 8px;
+        background-color: #fff;
+        border: 2px solid #1890ff;
+        border-radius: 8px;
+        transition: top 0.3s ease-in-out;
+      }
+      .active-anchor {
+        color: #1890ff;
+      }
     }
   }
-  .active-ball {
-    width: 8px;
-    height: 8px;
-    background-color: #fff;
-    border: 2px solid #1890ff;
-    border-radius: 8px;
-    transition: top 0.3s ease-in-out;
-  }
 
-  .active-anchor {
-    color: #1890ff;
-  }
-
-  .catalog {
-    position: sticky;
-    left: 0;
-    top: 50px;
-    transition: all 0.2s ease-out;
-  }
+  // .catalog {
+  //   position: sticky;
+  //   left: 0;
+  //   top: 50px;
+  //   transition: all 0.2s ease-out;
+  // }
 
   .q-chip {
     &:first-child {
@@ -378,17 +353,13 @@ export default {
     .q-icon {
       margin-right: 5px;
     }
-  }
-  img {
-    width: 50px !important;
-  }
-
-  .like-box {
-    :hover {
-      .like {
-        cursor: pointer;
-        color: red;
-        transform: scale(1.2, 1.2);
+    &.like-box {
+      &:hover {
+        .like {
+          cursor: pointer;
+          color: red;
+          transform: scale(1.2, 1.2);
+        }
       }
     }
   }

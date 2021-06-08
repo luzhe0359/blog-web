@@ -31,7 +31,9 @@ $warning   : #F2C037;
   padding: 10px;
   margin: 0 auto;
   box-sizing: border-box;
+  animation: fade-in-fwd 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
+
 // 顶部菜单
 .q-layout__shadow:after {
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.24);

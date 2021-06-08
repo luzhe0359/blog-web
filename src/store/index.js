@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import user from './modules/user'
 import count from './modules/count'
 import article from './modules/article'
+import about from './modules/about'
 import getters from './getters'
 
 // import example from './module-example'
@@ -23,6 +24,7 @@ export default function (/* { ssrContext } */) {
     modules: {
       user,
       count,
+      about,
       article
     },
     getters,

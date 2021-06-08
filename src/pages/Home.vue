@@ -1,11 +1,11 @@
 <template>
   <q-page id="Home">
     <div class="text-center q-py-md">
-      <div class="text-h3" style="line-height: 4rem;">要逼自己优秀, 然后骄傲的活着</div>
-      <p class="text-subtitle1 text-grey q-pt-md">Force yourself to be excellent and live with pride.</p>
+      <div class="text-h3" :class="{'focus-in-contract':$q.screen.gt.md}" style="line-height: 4rem;">要逼自己优秀, 然后骄傲的活着</div>
+      <p class="text-subtitle1 text-grey q-pt-md" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p>
     </div>
     <div class="q-gutter-sm">
-      <q-icon class="cursor-pointer user-tag" v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
+      <q-icon class="cursor-pointer slide-in-blurred-bottom" v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
         <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
           {{item.tooltip}}
         </q-tooltip>
@@ -61,13 +61,19 @@ export default {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  .title {
-    font-size: 60px;
+  .focus-in-contract {
+    animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
-  .user-tag {
-    transition: all 0.2s ease;
-    &:hover {
-      transform: translateY(-5px);
+  @for $i from 1 to 5 {
+    .slide-in-blurred-bottom:nth-child(#{$i}) {
+      animation: slide-in-blurred-bottom
+        #{$i *
+        0.5}s
+        cubic-bezier(0.23, 1, 0.32, 1)
+        both;
+      &:hover {
+        color: grey;
+      }
     }
   }
 }

@@ -13,5 +13,7 @@ const getters = {
     likes: state => state.count.likes,
     // 文章
     articleDetail: state => state.article.articleDetail,
+    // 时间线
+    timelineList: state => state.about.timelineList,
 }
 export default getters

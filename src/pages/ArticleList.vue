@@ -104,11 +104,13 @@ export default {
     font-size: 26px;
     font-weight: 400;
     line-height: 32px;
+    animation: bounce-in-top 1.1s both;
   }
   .welcome {
     font-size: 60px;
     font-weight: 600;
     line-height: 76px;
+    animation: bounce-in-top 1.1s both;
   }
   /* 可以设置不同的进入和离开动画 */
   /* 设置持续时间和动画函数 */

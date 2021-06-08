@@ -23,14 +23,9 @@
     </q-drawer>
     <!-- container -->
     <q-page-container class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
-      <!-- 切换动画 -->
-      <transition appear name="fade" mode="out-in">
-        <!-- <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in"> -->
-        <!-- 缓存 -->
-        <keep-alive :include="cacheList">
-          <router-view :key="$route.fullPath" />
-        </keep-alive>
-      </transition>
+      <keep-alive :include="cacheList">
+        <router-view :key="$route.fullPath" />
+      </keep-alive>
       <Footer />
     </q-page-container>
     <!-- 回到顶部 -->
@@ -84,11 +79,6 @@ export default {
     //     this.footer = true
     //   }
     // },
-    "$q.screen.width" (n, o) {
-      console.log('$q.screen.width');
-      console.log(n, o);
-      // console.log(o);
-    }
   },
   methods: {
     initClient () {
@@ -116,8 +106,6 @@ export default {
 
 <style lang="scss" scoped>
 #layout {
-  // width: 100%;
-  // height: 100%;
   // width: 100vw;
   // height: 100vh;
   .full-container {
@@ -130,43 +118,11 @@ export default {
     background-attachment: fixed;
     background-size: cover;
   }
-  .bg-loading {
-    // width: 100%;
-    // height: 100%;
-    position: fixed;
-    z-index: 99999;
-    top: 0;
-    left: 0;
-    // background-color: red;
-    background-image: url("~assets/bg_body.png");
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    opacity: 1;
-  }
   .bg-fixed {
     background-size: 100% auto;
   }
   .bg-cover {
     background-size: cover;
-  }
-  /* 可以设置不同的进入和离开动画 */
-  /* 设置持续时间和动画函数 */
-  .fade-enter {
-    opacity: 0;
-    transform: translate3d(0, -80px, 0);
-  }
-
-  .fade-leave-to {
-    opacity: 0;
-    transform: translate3d(0, 80px, 0);
-  }
-
-  .fade-enter-active {
-    transition: all 0.2s ease-out;
-  }
-
-  .fade-leave-active {
-    transition: all 0.2s ease;
   }
 }
 </style>

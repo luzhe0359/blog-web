@@ -39,10 +39,21 @@
 <script>
 import { findTimelineList } from 'src/api/timeline.js'
 
+const defaultPageInfo = {
+  pageNum: 1,
+  pageSize: 5
+}
 export default {
   name: 'About',
   components: {
   },
+  // preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
+  //   let params = {
+  //     pageSize: defaultPageInfo.pageSize,
+  //     pageNum: defaultPageInfo.pageNum
+  //   }
+  //   return store.dispatch('about/LoadTimelineList', params)
+  // },
   data () {
     return {
       timelineList: [],
@@ -57,7 +68,10 @@ export default {
     },
     maxPageNum () {
       return Math.ceil(this.total / this.pageSize)
-    }
+    },
+    // timelineList () {
+    //   return this.$store.state.about.timelineList
+    // },
   },
   created () {
   },

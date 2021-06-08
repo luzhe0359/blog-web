@@ -2,8 +2,11 @@
   <div id="SideUserAvatar" class="full-width">
     <!-- 响应式容器 子元素height:100%-->
     <q-responsive :ratio="10/9">
-      <div>
-        <div class="avatar relative-position">
+      <div class="relative-position">
+        <div class="bg-box overflow-hidden">
+          <div class="avatar-bg fit"></div>
+        </div>
+        <div class="avatar cursor-pointer">
           <q-avatar size="90px">
             <q-img basic src="~assets/logo.png" spinner-color="white" />
           </q-avatar>
@@ -24,11 +27,6 @@ export default {
     return {
     }
   },
-  computed: {
-    ...mapGetters([
-      'avatar',
-    ]),
-  },
 }
 </script>
 
@@ -38,16 +36,28 @@ export default {
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   overflow: hidden;
-  .avatar {
+  .bg-box {
     height: 50%;
-    background: url("/bg/code0.png") no-repeat 100% 100%;
-    background-size: cover;
+    .avatar-bg {
+      background: url("/bg/code20.png") no-repeat;
+      background-position: 90% 50%;
+      background-size: cover;
+      animation: kenburns-top-right 5s cubic-bezier(0.47, 0, 0.745, 0.715)
+        reverse both;
+    }
+  }
+  .avatar {
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
     .q-avatar {
       box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%);
+      &:hover {
+        animation: jello-horizontal 0.9s both;
+      }
     }
   }
   .name {
