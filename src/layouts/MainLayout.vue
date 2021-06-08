@@ -24,8 +24,8 @@
     <!-- container -->
     <q-page-container class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
       <!-- 切换动画 -->
-      <!-- <transition appear name="fade" mode="out-in"> -->
-      <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+      <transition appear name="fade" mode="out-in">
+        <!-- <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in"> -->
         <!-- 缓存 -->
         <keep-alive :include="cacheList">
           <router-view :key="$route.fullPath" />
@@ -33,14 +33,6 @@
       </transition>
       <Footer />
     </q-page-container>
-    <!-- 防止刷新闪屏 -->
-    <!-- <q-no-ssr> -->
-    <!-- <div v-if="$q.screen.width <= 0" class="window-height window-width bg-loading column items-center justify-center">
-      <q-spinner-gears color="red" size="5.5em" />
-      <div>加载中 . . .</div>
-    </div> -->
-    <!-- </q-no-ssr> -->
-
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="grey" />
@@ -74,8 +66,8 @@ export default {
       clientHeight: 966, // 屏幕高度
       bgOffsetHeight: 1345, // 背景图超出屏幕的宽度
       ypos: '0', // 背景图y轴定位
-      cacheList: [],
-      // cacheList: ['Home', 'ArticleList', 'SideContainer'],
+      // cacheList: [],
+      cacheList: ['Home', 'ArticleList', 'SideContainer'],
     }
   },
   mounted () {
@@ -161,20 +153,20 @@ export default {
   /* 设置持续时间和动画函数 */
   .fade-enter {
     opacity: 0;
-    transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, -80px, 0);
   }
 
   .fade-leave-to {
     opacity: 0;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 80px, 0);
   }
 
   .fade-enter-active {
-    transition: all 0.1s ease-out;
+    transition: all 0.2s ease-out;
   }
 
   .fade-leave-active {
-    transition: all 0.1s ease;
+    transition: all 0.2s ease;
   }
 }
 </style>
