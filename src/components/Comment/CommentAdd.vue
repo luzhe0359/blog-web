@@ -1,6 +1,6 @@
 <template>
   <!-- 一级评论 -->
-  <div :class="!hideCancel && 'q-ml-xl'">
+  <div :class="{'q-ml-xl':!hideCancel}">
     <q-input type="textarea" outlined v-model="content" maxlength='200' placeholder="欢迎发表评论" lazy-rules />
     <div class="q-gutter-x-sm q-mt-xs row justify-end ">
       <q-btn v-if="!hideCancel" size="sm" color="primary" label="取消评论" @click="cancelComment" />
@@ -37,4 +37,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/deep/ .q-field--focused {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
 </style>

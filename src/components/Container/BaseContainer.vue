@@ -10,7 +10,7 @@
           </div>
           <!-- 侧边栏 -->
           <div v-if="!hideSideContainer" class="col-lg-4 col-md-4 gt-sm">
-            <SideContainer />
+            <SideBar />
           </div>
         </div>
         <!-- 底部栏 -->
@@ -21,14 +21,14 @@
 </template>
 
 <script>
-import SideContainer from 'src/components/SideBar/SideContainer'
+import SideBar from 'src/components/SideBar/SideBar'
 import Footer from 'src/components/Footer/Footer'
 import { thumbStyle } from 'src/utils/thumbStyle'
 
 export default {
   name: 'BaseContainer',
   components: {
-    SideContainer,
+    SideBar,
     Footer
   },
   props: {

@@ -36,10 +36,6 @@ export default {
   data () {
     return {
       currentComment: null, // 当前展示的评论框
-      // articleId: null, // 文章_id
-      // pageSize: 1, // 每页条数
-      // nextPage: 1, // 当前页码
-      // lastPage: 1, // 最后一页
     }
   },
   methods: {

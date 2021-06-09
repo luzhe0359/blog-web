@@ -5,7 +5,7 @@
       <p class="text-subtitle1 text-grey q-pt-lg">Force yourself to be excellent and live with pride.</p>
     </div>
     <div class="row">
-      <q-intersection transition="scale" class="link-card col-lg-4 col-md-4 col-sm-6 col-xs-12" v-for="item in linkList" :key="item._id">
+      <q-intersection transition="scale" class="link-card col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in linkList" :key="item._id">
         <q-card class="q-ma-sm bg-grey q-py-md shadow-12">
           <q-card-section class="row no-wrap">
             <!-- 头像 -->
@@ -66,9 +66,6 @@ export default {
     min-width: 25%;
     border-radius: 4px;
     margin-bottom: 32px;
-    // &:first-child {
-    //   height: 100%;
-    // }
     .glossy {
       height: 32px;
       position: absolute;
@@ -76,6 +73,12 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+}
+
+@media (max-width: $breakpoint-xs-max) {
+  .link-card {
+    margin-bottom: 10px !important;
   }
 }
 </style>

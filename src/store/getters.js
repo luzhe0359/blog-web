@@ -13,6 +13,8 @@ const getters = {
     likes: state => state.count.likes,
     // 文章
     articleDetail: state => state.article.articleDetail,
+    commentList: state => state.article.commentList,
+    commentPageCount: state => state.article.commentPageCount,
     // 时间线
     timelineList: state => state.about.timelineList,
 }

@@ -1,5 +1,5 @@
 <template>
-  <q-layout id="SideContainer">
+  <q-layout id="SideBar">
     <div class="side-main">
       <!-- 正常定位 -->
       <div class="user-container container overflow-hidden" :class="$q.screen.lt.sm?'':'pa-xl'">
@@ -24,7 +24,7 @@ import SideBlogInfo from './SideBlogInfo'
 import SideArticleInfo from './SideArticleInfo'
 import SideArticleTag from './SideArticleTag'
 export default {
-  name: 'SideContainer',
+  name: 'SideBar',
   components: {
     SideUserAvatar,
     SideUserTag,
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#SideContainer {
+#SideBar {
   width: 100%;
   height: 100%;
   padding-top: 130px;

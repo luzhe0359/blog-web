@@ -21,19 +21,12 @@
       <!-- 文章 -->
       <div class="col-xs-12 col-md-9">
         <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent"></v-md-preview>
-        <div>
-          <div ref="comment" class="text-h5 q-mt-lg q-mb-md">评论</div>
-          <CommentAdd :hideCancel="true" @comment="comment" />
-          <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
-        </div>
       </div>
       <!-- 目录 -->
       <div class="gt-sm col-md-3 q-pl-md q-gutter-y-md">
         <div class="bg-white q-px-md q-pb-md rounded-borders catalog overflow-hidden" ref="catalog">
           <q-separator vertical inset color='grey-5' size='2px' class="absolute-left q-ml-xs" />
-          <!-- <div><span class="ant-anchor-ink-ball visible" style="top: 9px;"></span></div> -->
-          <div class="active-ball absolute-left" :style="{top: (activeBallTop + 16) + 'px',left:'1px'}"></div>
-          <!-- 目录 -->
+          <div class="active-ball absolute-left" :style="{top:activeBallTop  + 'px',left:'1px'}"></div>
           <div>
             <!-- 骨架 -->
             <div class="q-pt-sm" v-if="titles.length === 0">
@@ -44,6 +37,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- 评论 -->
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <div ref="comment" class="text-h5 q-mt-lg q-mb-md">评论</div>
+        <CommentAdd :hideCancel="true" @comment="comment" />
+        <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
+        <q-no-ssr v-if="commentPageCount > 1">
+          <q-pagination class="q-mb-sm" color="grey" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+        </q-no-ssr>
       </div>
     </div>
   </q-page>
@@ -60,6 +64,11 @@ import CommentAdd from 'src/components/Comment/CommentAdd.vue'
 import { findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
 import { addComment, findCommentList } from 'src/api/comment.js'
 
+
+let defaultPageInfo = {
+  pageNum: 1,
+  pageSize: 5,
+}
 export default {
   name: 'ArticleDetail',
   components: {
@@ -69,18 +78,20 @@ export default {
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     const articleId = currentRoute.params._id
-    // const promise1 = store.dispatch('article/GetArtitcleDetail', articleId)
-    // const promise2 = store.dispatch('article/GetArtitcleDetail', articleId)
-    return store.dispatch('article/GetArtitcleDetail', articleId)
-    // return Promise.all([promise1, promise2])
+    return Promise.all([
+      store.dispatch('article/LoadArtitcleDetail', articleId),
+      store.dispatch('article/LoadCommentList', { articleId, ...defaultPageInfo })
+    ])
   },
   data () {
     return {
-      titles: [],
+      titles: [], // 目录列表
       isLike: false, // 是否点赞
-      commentList: [], // 评论列表
-      toc: [],
-      activeIndex: -1,
+      // commentList: [], // 评论列表
+      activeIndex: -1, // 高亮目录索引
+      pageNum: defaultPageInfo.pageNum, // 当前页
+      pageSize: defaultPageInfo.pageSize,
+      max: 1, // 总页数
     }
   },
   computed: {
@@ -92,17 +103,18 @@ export default {
     },
     ...mapGetters([
       'likeArticles',
+      'commentList',
+      'commentPageCount'
     ]),
+    // 目录小球top
     activeBallTop () {
-      return 32 * this.activeIndex
+      return 32 * this.activeIndex + 16
     }
   },
   watch: {
     likeArticles: {
       handler (n, o) {
         this.isLike = this.likeArticles.some(item => item === this.articleId)
-        console.log('this.isLike');
-        console.log(this.isLike);
       },
       immediate: true,
     },
@@ -113,17 +125,15 @@ export default {
     // },
   },
   mounted () {
+    console.log(defaultPageInfo);
     // this.initDetail()
     // 初始化目录
     this.$nextTick(() => {
       this.handleAnchorInit()
     })
-    this.getCommentList()
+    // this.getCommentList()
   },
   methods: {
-    onToc (toc) {
-      this.toc = toc
-    },
     initDetail () {
       this.getCommentList()
       this.findArticleByIdFn()
@@ -163,7 +173,6 @@ export default {
       css(catalog, {
         top
       })
-
 
 
       // 滚动md，目录跟随  
@@ -273,11 +282,9 @@ export default {
       const { preview } = this.$refs;
       const { lineIndex } = anchor;
 
-      // this.activeIndex = index
       const heading = preview.$el.querySelector(`[data-v-md-line="${lineIndex}"]`);
 
       this.activeIndex = index;
-      console.log(this.activeIndex);
       heading && this.scrollToElement(heading);
     },
     scrollTo (id) {
@@ -299,6 +306,16 @@ export default {
         lineIndex: el.getAttribute('data-v-md-line'),
         indent: hTags.indexOf(el.tagName),
       }));
+    },
+    // 评论 --------------------------------
+    // 切换页码
+    changePage (current) {
+      let params = {
+        articleId: this.articleId,
+        pageNum: current,
+        pageSize: this.pageSize
+      }
+      this.$store.dispatch('article/LoadCommentList', params)
     }
   },
 
@@ -335,13 +352,6 @@ export default {
       }
     }
   }
-
-  // .catalog {
-  //   position: sticky;
-  //   left: 0;
-  //   top: 50px;
-  //   transition: all 0.2s ease-out;
-  // }
 
   .q-chip {
     &:first-child {

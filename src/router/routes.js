@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'Layout',
-    redirect: 'home',
+    redirect: 'article',
     meta: {
       title: '布局',
       icon: 'home',

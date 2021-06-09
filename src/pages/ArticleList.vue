@@ -1,5 +1,4 @@
 <template>
-  <!-- <BaseContainer> -->
   <q-page class="max-width row">
     <div id="articleList" class="col">
       <div class="friends gt-xs">Hey Friends！</div>
@@ -12,21 +11,20 @@
       </transition>
       <!-- 文章分页 -->
       <transition name="page">
-        <q-pagination v-if="!loading && articleList.length > 0" color="grey" class="q-mb-sm justify-center" v-model="currentPage" :max="max" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+        <q-pagination v-if="!loading && max > 1" color="grey" class="q-mb-sm justify-center" v-model="currentPage" :max="max" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
       </transition>
     </div>
     <div class="col-md-4 gt-sm q-pl-lg">
-      <SideContainer />
+      <SideBar />
     </div>
   </q-page>
-  <!-- </BaseContainer> -->
 </template>
 
 <script>
 import { findCategoryList } from 'src/api/category.js'
 import { findArticleList } from 'src/api/article.js'
 import BaseContainer from 'src/components/Container/BaseContainer'
-import SideContainer from 'src/components/SideBar/SideContainer'
+import SideBar from 'src/components/SideBar/SideBar'
 import ArticleCardList from 'src/components/ArticleList/ArticleCardList'
 import TabList from 'src/components/ArticleList/TabList'
 
@@ -36,7 +34,7 @@ export default {
     BaseContainer,
     TabList,
     ArticleCardList,
-    SideContainer
+    SideBar
   },
   data () {
     return {
@@ -70,7 +68,7 @@ export default {
       }
       findArticleList(params).then(res => {
         this.articleList = res.data
-        this.max = Math.ceil(res.total / this.pageSize)
+        this.max = res.pageCount
 
         this.loading = false
       })

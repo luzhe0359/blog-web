@@ -66,10 +66,6 @@ export default {
         this.$set(this.comment, 'likes', otherComment[0].likes)
       })
     },
-    getUserId () {
-      let user = this.$q.localStorage.getItem('user')
-      return user ? user._id : null
-    }
   }
 }
 </script>

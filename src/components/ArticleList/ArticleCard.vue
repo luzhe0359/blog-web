@@ -53,12 +53,6 @@ export default {
   methods: {
     // 查看文章详情
     toArticleDetail () {
-      // 获取本地存储记录 (拼接，详情页路由)
-      let view = this.$q.sessionStorage.getItem(`/articleDetail/${this.article._id}`)
-      // 判断是否浏览过此文章
-      if (view === null) { // sessionStorage 为空，即未看过，浏览量+1
-        this.$set(this.article, 'meta.views', this.article.meta.views++)
-      }
       this.$router.push({
         path: `/articleDetail/${this.article._id}`
       })

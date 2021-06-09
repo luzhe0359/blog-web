@@ -17,7 +17,7 @@
     <!-- footer -->
     <!-- <Footer /> -->
     <!-- darwer -->
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1" class="text-grey-8" :width="240">
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1" class="lt-sm text-grey-8" :width="240">
       <!-- 侧边导航栏-->
       <SideMenu />
     </q-drawer>
@@ -62,7 +62,7 @@ export default {
       bgOffsetHeight: 1345, // 背景图超出屏幕的宽度
       ypos: '0', // 背景图y轴定位
       // cacheList: [],
-      cacheList: ['Home', 'ArticleList', 'SideContainer'],
+      cacheList: ['Home'],
     }
   },
   mounted () {
@@ -84,8 +84,8 @@ export default {
     initClient () {
       // 1345/960 背景图 高/宽比 
       // 获取屏幕宽高，计算背景图的高度，动态改变背景图定位
-      this.clientHeight = document.body.clientHeight
-      this.clientWidth = document.body.clientWidth
+      this.clientHeight = window.screen.availHeight
+      this.clientWidth = window.screen.availWidth
       // 超出高度 = 图片高度 - 屏幕高度
       this.bgOffsetHeight = Math.ceil(this.clientWidth * (1345 / 960)) - this.clientHeight
     },

@@ -6,8 +6,8 @@ const count = {
         timelineList: [],
     },
     mutations: {
-        SET_TIMELINE: (state, { _id, detail = {} }) => {
-            state.timelineList = 1
+        SET_TIMELINE: (state, { list = [] }) => {
+            state.timelineList = list
         },
     },
     actions: {
@@ -19,7 +19,7 @@ const count = {
                 findTimelineList(params).then(res => {
                     console.log('res');
                     console.log(res);
-                    // commit('SET_TIMELINE', { _id, detail: res.data })
+                    commit('SET_TIMELINE', { list: res.data })
                     resolve()
                 }).catch(err => {
                     reject(err)
