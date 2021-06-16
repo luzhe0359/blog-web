@@ -32,14 +32,14 @@ export default {
 
 <style lang="scss" scoped>
 #SideUserAvatar {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   overflow: hidden;
   .bg-box {
-    height: 50%;
+    height: 55%;
     .avatar-bg {
-      background: url("/bg/code20.png") no-repeat;
+      background: url("~assets/bg_logo.webp") no-repeat;
       background-position: 90% 50%;
       background-size: cover;
       animation: kenburns-top-right 5s cubic-bezier(0.47, 0, 0.745, 0.715)
@@ -50,7 +50,7 @@ export default {
     width: 90px;
     height: 90px;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -60%);
     .q-avatar {

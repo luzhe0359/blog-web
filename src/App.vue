@@ -17,16 +17,11 @@ export default {
     }
   },
   created () {
-    try {
-      // 判断是否为客户端
-      if (!process.env.CLIENT) return
-      this.$nextTick(() => {
-        document.body.removeChild(document.getElementById('appLoading'))
-        this.loading = false
-      })
-    } catch (e) {
-      console.log(e);
-    }
+    // 判断是否为客户端
+    if (!process.env.CLIENT) return
+    this.$nextTick(() => {
+      document.body.removeChild(document.getElementById('appLoading'))
+    })
   },
   mounted () {
   },
@@ -35,7 +30,7 @@ export default {
       // 设置文件标题
       title: this.title,
       // 可选的; 将最终标题设置为“Index Page - My Website”，对于多级meta有用
-      titleTemplate: title => `${title} - 足各路`,
+      titleTemplate: title => `${title} | 足各路`,
 
       // meta标记
       meta: {

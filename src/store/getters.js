@@ -6,16 +6,17 @@ const getters = {
     nickname: state => state.user.nickname,
     role: state => state.user.role,
     about: state => state.user.about,
-    // currentMenu: state => state.user.currentMenu,
     likeArticles: state => state.user.likeArticles,
-    // 统计
-    views: state => state.count.views,
-    likes: state => state.count.likes,
     // 文章
+    articleList: state => state.article.articleList,
+    articlePageCount: state => state.article.articlePageCount,
     articleDetail: state => state.article.articleDetail,
+    categoryList: state => state.article.categoryList,
     commentList: state => state.article.commentList,
     commentPageCount: state => state.article.commentPageCount,
     // 时间线
     timelineList: state => state.about.timelineList,
+    // 友链
+    linkList: state => state.link.linkList,
 }
 export default getters

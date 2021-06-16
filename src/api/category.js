@@ -1,33 +1,18 @@
+/**
+ * @FileDescription: 分类API
+ * @Author: zugelu
+ * @qq: 1141178844
+ */
 import { axios } from 'boot/axios.js'
 
 /**
- * 添加分类
+ * @description: 查找分类列表
  * @param {String} name 分类名称
- */
-export const addCategory = params => {
-    return axios.post(`/category/add`, params)
-}
-
-/**
- * 查找分类列表
+ * @param {Number} pageNum 当前页码
+ * @param {Number} pageSize 每页条数
+ * @param {String} sortBy 排序字段
+ * @param {String} descending 1升序/-1降序
  */
 export const findCategoryList = params => {
-    return axios.get(`/category/list`, { params })
-}
-
-/**
- * 根据_id 编辑分类信息
- * @param {String} _id 分类_id
- * @param {String} name 分类名称
- */
-export const editCategoryById = (_id, params) => {
-    return axios.put(`/category/${_id}`, params)
-}
-
-/**
- * 根据_id 删除单个分类
- * @param {String} _id 分类_id
- */
-export const deleteCategoryById = _id => {
-    return axios.delete(`/category/${_id}`)
+    return axios.get('/category/list', { params })
 }

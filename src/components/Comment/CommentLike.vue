@@ -44,10 +44,10 @@ export default {
       if (!userId) {
         return this.$msg.warning('请先登录')
       }
-      this.$q.loading.show()
       let params = {
         userId
       }
+
       // 是否存在父评论
       if (this.parentComment) { // 存在, 当前为子评论
         params.commentId = this.parentComment._id
@@ -55,15 +55,11 @@ export default {
       } else { // 不存在, 当前为父评论
         params.commentId = this.comment._id
       }
+
       // 提交/取消 点赞
       likeComment(params).then(res => {
-        this.$q.loading.hide()
         this.$msg.success(res.msg)
-        if (!this.parentComment) {
-          return this.$set(this.comment, 'likes', res.data.likes)
-        }
-        let otherComment = res.data.otherComments.filter(item => item._id === this.comment._id)
-        this.$set(this.comment, 'likes', otherComment[0].likes)
+        this.$emit('loadComment')
       })
     },
   }

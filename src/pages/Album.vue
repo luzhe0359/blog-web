@@ -13,14 +13,10 @@
 </template>
 
 <script>
-import BaseContainer from 'src/components/Container/BaseContainer'
 import { findPhotoList, findAlbumList } from 'src/api/photo.js'
 
 export default {
   name: 'Album',
-  components: {
-    BaseContainer
-  },
   data () {
     return {
       list: []

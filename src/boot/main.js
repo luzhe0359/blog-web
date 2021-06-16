@@ -15,5 +15,4 @@ import './markdown' // 过滤器
 export default async ({ app, router, store, Vue }) => {
     // 初始化 store
     store.dispatch('user/InitUser')
-    store.dispatch('count/InitCount')
 }

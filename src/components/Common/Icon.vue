@@ -1,5 +1,5 @@
 <template>
-  <div class="icon row q-ml-none items-center">
+  <div class="icon row q-ml-none items-center justify-center">
     <q-icon :size="size" class="q-mr-xs" :name="icon"></q-icon>
     <div>{{name}}</div>
   </div>

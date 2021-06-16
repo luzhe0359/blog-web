@@ -7,13 +7,13 @@
         <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" placeholder-src="~assets/logo.png" />
       </q-avatar>
       <!-- 昵称 -->
-      <div class="text-h6 q-mt-sm text-grey-9">
+      <div class="text-h6 q-mt-sm text-grey-10">
         {{ nickname }}
       </div>
       <!-- 个签 -->
-      <div class="text-subtitle2 ellipsis text-grey-6">
+      <div class="text-subtitle2 ellipsis text-grey-8">
         {{ about }}
-        <q-tooltip anchor="center right" self="center left" transition-show="jump-right" transition-hide="jump-left">
+        <q-tooltip anchor="bottom middle" transition-show="jump-right" transition-hide="jump-left">
           {{ about }}
         </q-tooltip>
       </div>

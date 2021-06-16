@@ -1,6 +1,6 @@
 <template>
   <q-tabs align="left" narrow-indicator animated v-model="tab" active-color="white" indicator-color="white" style="height:30px;">
-    <q-tab style="height:30px;" :ripple="false" :name="tab._id" :label="tab.name" v-for="tab in tabList" :key="tab._id" @click="changeTab(tab._id)" />
+    <q-tab :ripple="false" :name="tab._id" :label="tab.name" v-for="tab in tabList" :key="tab._id" @click="changeTab(tab._id)" />
   </q-tabs>
 </template>
 
@@ -27,6 +27,7 @@ export default {
 <style lang="scss" scoped>
 .q-tab {
   padding: 0 14px;
+  height: 30px !important;
   min-height: 30px !important;
   color: #dcdcdc;
 }

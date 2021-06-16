@@ -34,6 +34,8 @@
     </q-page-scroller>
     <!-- 滚动监听器 -->
     <q-scroll-observer @scroll="scrollHandler" />
+    <!-- 大小调整侦听器 -->
+    <q-resize-observer @resize="resizeHandler" debounce="200" />
   </q-layout>
 </template>
 
@@ -61,7 +63,6 @@ export default {
       clientHeight: 966, // 屏幕高度
       bgOffsetHeight: 1345, // 背景图超出屏幕的宽度
       ypos: '0', // 背景图y轴定位
-      // cacheList: [],
       cacheList: ['Home'],
     }
   },
@@ -84,20 +85,30 @@ export default {
     initClient () {
       // 1345/960 背景图 高/宽比 
       // 获取屏幕宽高，计算背景图的高度，动态改变背景图定位
-      this.clientHeight = window.screen.availHeight
-      this.clientWidth = window.screen.availWidth
+      this.clientHeight = document.documentElement.clientHeight
+      this.clientWidth = document.documentElement.clientWidth
       // 超出高度 = 图片高度 - 屏幕高度
-      this.bgOffsetHeight = Math.ceil(this.clientWidth * (1345 / 960)) - this.clientHeight
+      this.bgOffsetHeight = (this.clientWidth * (1345 / 960)).toFixed(5) - this.clientHeight
     },
     // 滚动监听器
     scrollHandler (info) {
       const { position } = info
+
+      if (position <= 500) {
+        let header = document.getElementById('header')
+        header.classList.remove('q-header--hidden')
+      }
+
       // 滚动距离 > 背景超出高度 , 即背景图到底部了,图片定位至底部
       if (position > this.bgOffsetHeight) { // 背景图高度
         this.ypos = 'bottom'
       } else {
         this.ypos = - position + 'px'
       }
+    },
+    // 大小调整侦听器
+    resizeHandler () {
+      this.initClient()
     }
   },
 }
@@ -113,7 +124,8 @@ export default {
     min-width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
-    background-image: url("~assets/bg_body.png");
+    background-image: url("/bg/bg_body.webp");
+    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;

@@ -1,12 +1,6 @@
 <template>
-  <div>
-    <q-no-ssr class="q-gutter-x-md gt-xs row items-center">
-      <q-btn :flat="currentMenu !== ('/' + menu.path)" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
-      <template v-slot:placeholder>
-        <q-skeleton :animation="'pulse'" type="QBtn" class="bg-grey-9" rounded width="60px" height="26px" v-for="(item,index) in 5" :key="index" />
-        <q-space />
-      </template>
-    </q-no-ssr>
+  <div class="gt-xs">
+    <q-btn :flat="currentMenu !== ('/' + menu.path)" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
   </div>
 </template>
 

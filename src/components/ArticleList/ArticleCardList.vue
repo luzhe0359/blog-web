@@ -3,7 +3,10 @@
     <div v-if="articleList.length > 0">
       <ArticleCard v-for="article in articleList" :key="article._id" :article="article" />
     </div>
-    <div v-else class="text-center text-dark">暂无数据</div>
+    <div v-else class="q-mt-xl text-center text-white">
+      <q-icon name="error_outline" size="sm" />
+      暂无数据
+    </div>
   </div>
 </template>
 

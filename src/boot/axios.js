@@ -18,7 +18,7 @@ LoadingBar.setDefaults({
  * 请求配置
  */
 const axios = Axios.create({
-    baseURL: process.env.URL,
+    baseURL: process.env.URL + '/api',
     timeout: 20000, // 请求 20s 超时
 });
 

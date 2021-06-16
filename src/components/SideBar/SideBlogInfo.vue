@@ -1,6 +1,6 @@
 <template>
   <div id="SideBlogInfo" class="full-width q-pt-lg ">
-    <div class="text-h6 q-mb-md">博客信息</div>
+    <div class="text-h6 q-mb-sm">博客信息</div>
     <div>
       <q-chip outline v-for="item in countList" :key="item.icon" :icon="item.icon" color="grey" class="q-mr-md q-ml-none q-mb-sm">
         <div class="q-mr-xs">{{ item.name }}</div>
@@ -13,7 +13,8 @@
 
 <script>
 import countTo from 'vue-count-to';
-import { mapGetters } from 'vuex'
+
+import { countArticle } from 'src/api/article.js'
 
 export default {
   name: 'SideBlogInfo',
@@ -32,12 +33,6 @@ export default {
       timmer: null
     }
   },
-  computed: {
-    ...mapGetters([
-      'views',
-      'likes'
-    ]),
-  },
   watch: {
     views (newVal) {
       this.countList[1].count = parseInt(newVal)
@@ -46,16 +41,14 @@ export default {
       this.countList[3].count = parseInt(newVal)
     },
   },
+  created () {
+    this.initCount()
+  },
   mounted () {
     this.countList[0].count = this.dateDiff()
     this.timmer = setInterval(() => {
       this.countList[0].count = this.dateDiff()
     }, 1000)
-
-    let { views, likes, total } = this.$q.localStorage.getItem('count')
-    this.countList[1].count = views
-    this.countList[2].count = total
-    this.countList[3].count = likes
   },
   methods: {
     /**
@@ -90,10 +83,13 @@ export default {
       return num;
     },
     // 初始化统计信息
-    initCount ({ likes, total, views }) {
-      this.countList[1].count = views
-      this.countList[2].count = total
-      this.countList[3].count = likes
+    initCount () {
+      countArticle().then((res) => {
+        let { views, likes, total } = res.data
+        this.countList[1].count = views
+        this.countList[2].count = total
+        this.countList[3].count = likes
+      })
     }
   },
   beforeDestroy () {

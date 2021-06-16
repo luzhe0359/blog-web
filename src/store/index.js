@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
-import count from './modules/count'
 import article from './modules/article'
 import about from './modules/about'
+import link from './modules/link'
 import getters from './getters'
 
 // import example from './module-example'
@@ -23,8 +23,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       user,
-      count,
       about,
+      link,
       article
     },
     getters,

@@ -56,7 +56,7 @@ module.exports = function (ctx) {
       // rtl: false, // https://quasar.dev/options/rtl-support
       // preloadChunks: true,
       // showProgress: false,
-      // gzip: true,
+      gzip: true,
       // analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
@@ -71,7 +71,7 @@ module.exports = function (ctx) {
       env: {
         URL: ctx.dev
           ? 'http://127.0.0.1:3000'
-          : 'http://127.0.0.1:3000'
+          : 'https://zugelu.com'
       }
     },
 
@@ -124,10 +124,7 @@ module.exports = function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [
-      'fadeIn',
-      'fadeOut',
-    ],
+    animations: [],
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
@@ -139,9 +136,9 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Quasar Admin`,
-        short_name: `Quasar Admin`,
-        description: `lz_blog_admin`,
+        name: `Zugelu Blog`,
+        short_name: `Zugelu Blog`,
+        description: `Zugelu Blog`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

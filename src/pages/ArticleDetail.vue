@@ -24,14 +24,10 @@
       </div>
       <!-- 目录 -->
       <div class="gt-sm col-md-3 q-pl-md q-gutter-y-md">
-        <div class="bg-white q-px-md q-pb-md rounded-borders catalog overflow-hidden" ref="catalog">
-          <q-separator vertical inset color='grey-5' size='2px' class="absolute-left q-ml-xs" />
+        <div v-show="titles.length !== 0" class="bg-white q-px-md q-pb-md rounded-borders catalog overflow-hidden" ref="catalog">
+          <q-separator vertical inset color='grey-3' size='2px' class="absolute-left q-ml-xs" />
           <div class="active-ball absolute-left" :style="{top:activeBallTop  + 'px',left:'1px'}"></div>
           <div>
-            <!-- 骨架 -->
-            <div class="q-pt-sm" v-if="titles.length === 0">
-              <q-skeleton class="q-pt-sm" type="text" v-for=" (anchor,index) in 5" :key="index" />
-            </div>
             <div class="row no-wrap" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `10px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor,index)">
               <div class="ellipsis cursor-pointer text-subtitle2" :class="{'active-anchor':activeIndex === index}">{{ anchor.title }}</div>
             </div>
@@ -44,35 +40,31 @@
       <div class="col-xs-12 col-md-9">
         <div ref="comment" class="text-h5 q-mt-lg q-mb-md">评论</div>
         <CommentAdd :hideCancel="true" @comment="comment" />
-        <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
+        <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
         <q-no-ssr v-if="commentPageCount > 1">
-          <q-pagination class="q-mb-sm" color="grey" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+          <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
         </q-no-ssr>
       </div>
     </div>
   </q-page>
 </template>
 <script>
-import { scroll, dom, } from 'quasar'
-const { css, height, offset } = dom
-const { getScrollTarget, setScrollPosition, getScrollPosition } = scroll
+import { scroll, dom, date } from 'quasar'
+const { css, height } = dom
+const { getScrollTarget, setScrollPosition } = scroll
 import { mapGetters } from 'vuex'
 
-import BaseContainer from 'src/components/Container/BaseContainer'
 import Comment from 'src/components/Comment/Comment.vue'
 import CommentAdd from 'src/components/Comment/CommentAdd.vue'
-import { findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
-import { addComment, findCommentList } from 'src/api/comment.js'
 
-
-let defaultPageInfo = {
+let defaultParams = {
   pageNum: 1,
   pageSize: 5,
+  state: -1 // 违规评论过滤
 }
 export default {
   name: 'ArticleDetail',
   components: {
-    BaseContainer,
     Comment,
     CommentAdd,
   },
@@ -80,8 +72,25 @@ export default {
     const articleId = currentRoute.params._id
     return Promise.all([
       store.dispatch('article/LoadArtitcleDetail', articleId),
-      store.dispatch('article/LoadCommentList', { articleId, ...defaultPageInfo })
+      store.dispatch('article/LoadCommentList', { articleId, ...defaultParams })
     ])
+  },
+  meta () {
+    return {
+      title: this.article.title + ' | ZUGELU-足各路的个人博客',
+      meta: {
+        description: { name: 'description', content: this.article.desc },
+        ogTitle: { name: 'og:title', content: this.article.title + ' | ZUGELU-足各路的个人博客' },
+        ogDescription: { name: 'og:description', content: this.article.desc },
+        ogType: { name: 'og:type', content: '文章' },
+        ogImage: { name: 'og:image', content: this.article.imgCover },
+        // ogImageUrl: { name: 'og:image:url', content: this.article.imgUrl },
+        ogUrl: { name: 'og:url', content: 'https://zugelu.com' + this.$route.path },
+        articlePublishTime: { name: 'article:published_time', content: date.formatDate(this.article.createTime, 'YYYY-MM-DD HH:mm:ss') },
+        articleUpdateTime: { name: 'article:update_time', content: date.formatDate(this.article.updateTime, 'YYYY-MM-DD HH:mm:ss') },
+        articleSection: { name: 'article:section', content: '编码技术' }
+      }
+    }
   },
   data () {
     return {
@@ -89,9 +98,8 @@ export default {
       isLike: false, // 是否点赞
       // commentList: [], // 评论列表
       activeIndex: -1, // 高亮目录索引
-      pageNum: defaultPageInfo.pageNum, // 当前页
-      pageSize: defaultPageInfo.pageSize,
-      max: 1, // 总页数
+      pageNum: defaultParams.pageNum, // 当前页
+      pageSize: defaultParams.pageSize,
     }
   },
   computed: {
@@ -118,36 +126,14 @@ export default {
       },
       immediate: true,
     },
-    // 用户登录后，刷新页面
-    // "$store.state.user.nickname": function (n, o) {
-    //   this.commentList = [] // 清空,强制子组件重新渲染（自动高亮点赞）
-    //   this.initDetail()
-    // },
   },
   mounted () {
-    console.log(defaultPageInfo);
-    // this.initDetail()
     // 初始化目录
     this.$nextTick(() => {
       this.handleAnchorInit()
     })
-    // this.getCommentList()
   },
   methods: {
-    initDetail () {
-      this.getCommentList()
-      this.findArticleByIdFn()
-    },
-    // 评论列表
-    getCommentList () {
-      let params = {
-        articleId: this.articleId,
-        state: -1
-      }
-      findCommentList(params).then(res => {
-        this.commentList = res.data
-      })
-    },
     // 滚动到指定元素
     scrollToElement (el) {
       // 页面滚动距离
@@ -173,7 +159,6 @@ export default {
       css(catalog, {
         top
       })
-
 
       // 滚动md，目录跟随  
       let clientHeight = document.documentElement.clientHeight // 屏幕高
@@ -205,23 +190,6 @@ export default {
         }
       })
     },
-    // 根据_id查 文章
-    findArticleByIdFn () {
-      let params = {
-        view: this.isView
-      }
-      findArticleById(this.$route.params._id, params).then(res => {
-        this.article = res.data
-
-        this.md = res.data.mdContent
-
-        // this.isLike = this.article.isLike
-        this.$store.dispatch("count/AddView")
-        // this.$nextTick(() => {
-        //   this.scrollToElement(this.$refs.scrollBox)
-        // })
-      })
-    },
     // 点赞/消赞
     like () {
       // 判断用户是否登录
@@ -235,48 +203,10 @@ export default {
       }
 
       this.$store.dispatch('article/UserLikeArtitcle', this.articleId).then((res) => {
-        this.$store.dispatch("count/AddLike")
-        // this.$store.commit('user/SET_LIKES_ARTICLE', res)
         this.$msg.success('点赞成功')
       })
+    },
 
-      return
-      if (this.isLike) { // 取消点赞
-        nolikeArticle({
-          articleId: this.$route.params._id,
-        }).then(res => {
-          // 消赞成功
-          this.isLike = false
-          this.article.meta.likes--
-          this.$msg.success(res.msg)
-        }).catch(err => { })
-      } else { // 文章点赞
-        likeArticle({
-          articleId: this.$route.params._id,
-        }).then(res => {
-          // 点赞成功
-          this.isLike = true
-          this.article.meta.likes++
-          // 统计 点赞总数+1
-          this.$store.dispatch("count/AddLike")
-          this.$msg.success(res.msg)
-        }).catch(err => { })
-      }
-    },
-    // 添加评论
-    comment (content, commentId, to, level) {
-      let params = {
-        content,
-        commentId,
-        to,
-        level,
-        articleId: this.article._id
-      }
-      addComment(params).then(res => {
-        this.getCommentList()
-        // this.article.meta.comments++
-      })
-    },
     // 自定义锚点 滚动
     handleAnchorClick (anchor, index) {
       const { preview } = this.$refs;
@@ -286,9 +216,6 @@ export default {
 
       this.activeIndex = index;
       heading && this.scrollToElement(heading);
-    },
-    scrollTo (id) {
-      this.scrollToElement(document.getElementById(id));
     },
     // 自定义锚点 初始化
     handleAnchorInit () {
@@ -308,12 +235,31 @@ export default {
       }));
     },
     // 评论 --------------------------------
+    // 添加评论
+    comment (content, commentId, to, level) {
+
+      let params = {
+        content,
+        commentId,
+        to,
+        level,
+        articleId: this.article._id
+      }
+      this.$store.dispatch('article/AddComment', params).then(res => {
+        // 一级评论，切换至第一页
+        if (!level) {
+          this.pageNum = 1
+        }
+        this.changePage()
+      })
+    },
     // 切换页码
     changePage (current) {
       let params = {
         articleId: this.articleId,
-        pageNum: current,
-        pageSize: this.pageSize
+        pageNum: current || this.pageNum,
+        pageSize: this.pageSize,
+        state: -1
       }
       this.$store.dispatch('article/LoadCommentList', params)
     }

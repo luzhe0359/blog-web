@@ -1,55 +1,59 @@
 <template>
   <q-page id="about">
-    <q-infinite-scroll @load="onLoad" debounce='100' :offset="250">
-      <div class="text-h5 text-red q-my-sm">关于我</div>
-      <p>90后，一名前端开发者，现居北京。</p>
-      <p>技术宅一枚，喜欢折腾各种前端技术，完美主义者。</p>
-      <p>人生理念：生命不息，折腾不止。自己动手，丰衣足食。</p>
-      <p>爱好相关：电影、综艺、游戏(前DNF爱好者，现主玩LOL）</p>
-      <div class="text-h5 text-red q-my-sm">关于博客</div>
-      <p>首先得感谢我的发小@某萌，提供的UI支持。整个博客的设计都出自与她。她的邮箱xxxxx.@163.com</p>
-      <p>写这个博客的主要目的是分享一些实用的软件和技巧、技术难题、折腾经历、生活记录等。</p>
-      <div class="text-h5 text-red q-my-sm">博客记录</div>
-      <p class="text-dark">2020年末，开始有了建博客的idea。了解各种UI框架后，最终决定使用
-        <strong>quasar</strong>。
-        为什么使用Quasar？<a target="_blank" href="http://www.quasarchs.com/introduction-to-quasar/">点击此处了解更多。</a>
-      </p>
-      <!-- timeline -->
-      <q-timeline :layout="layout" color="secondary" class="text-dark">
-        <q-timeline-entry heading>
-          <div class="text-h5 text-center q-mt-xl"> 记录博客建站的点滴</div>
-        </q-timeline-entry>
-        <q-timeline-entry :title="item.title" :color="item.finish?'red':''" :icon="item.finish?'done_all':''" :subtitle="item.date" :side="index%2 === 0?'left':'right'" v-for="(item,index) in timelineList" :key="item._id">
-          <div class="pre-line">{{item.body}}</div>
-        </q-timeline-entry>
-      </q-timeline>
-      <!-- loading -->
-      <template v-slot:loading>
-        <div v-show="pageNum <= maxPageNum" class="row justify-center q-my-md">
-          <q-spinner-dots color="primary" size="40px" />
+    <div class="text-h5 text-deep-orange q-my-sm"> 关于我 </div>
+    <p>90后，一名前端开发者，现居北京。</p>
+    <p>技术宅一枚，喜欢折腾各种前端技术，完美主义者。</p>
+    <p>人生理念：生命不息，折腾不止。自己动手，丰衣足食。</p>
+    <p>爱好相关：敲代码、电影、综艺、游戏(前DNF爱好者，现主玩LOL）</p>
+
+    <div class="text-h5 text-deep-orange q-my-sm"> 关于博客</div>
+    <p>首先得感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供。她的邮箱xxxxx.@163.com</p>
+    <p>2020年末，开始有了搭建个人博客的idea。了解各种UI框架后，最终决定使用
+      <strong>quasar</strong>。
+      为什么使用Quasar？<a target="_blank" href="http://www.quasarchs.com/introduction-to-quasar/">点击此处了解更多。</a>
+    </p>
+    <p>写这个博客的主要目的是分享一些实用的软件和技巧、技术难题、折腾经历、生活记录等。</p>
+
+    <div class="text-h5 text-deep-orange q-my-sm"> 关于网站</div>
+    <p class="text-dark">前端: vue quasar axios</p>
+    <p class="text-dark">后端: node express mongodb redis</p>
+    <p class="text-dark">版本管理: git</p>
+    <q-separator class="q-mb-md" />
+
+    <!-- timeline -->
+    <q-timeline :layout="layout" color="secondary" class="text-dark">
+      <q-timeline-entry heading>
+        <div class="text-h5 text-center q-mt-xl">
+          <q-spinner-puff class="q-mb-xs q-mr-xs" color="deep-orange" size="1.2em" />
+          <span>记录博客建站的点滴</span>
         </div>
-      </template>
-      <q-banner v-show="pageNum > maxPageNum" inline-actions rounded class="no-more text-center text-dark">
-        加载完毕了
-      </q-banner>
-    </q-infinite-scroll>
+      </q-timeline-entry>
+      <q-timeline-entry :title="item.title" :color="item.finish?'deep-orange':'grey-5'" :icon="item.finish?'done_all':''" :subtitle="item.date" :side="index%2 === 0?'left':'right'" v-for="(item,index) in timelineList" :key="item._id">
+        <div class="pre-line">{{item.body}}</div>
+      </q-timeline-entry>
+    </q-timeline>
   </q-page>
 </template>
 
 <script>
-import { findTimelineList } from 'src/api/timeline.js'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'About',
+  preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
+    return store.dispatch('about/LoadTimelineList')
+  },
   data () {
     return {
-      timelineList: [],
       pageNum: 1,
       pageSize: 10,
       total: 10,
     }
   },
   computed: {
+    ...mapGetters([
+      'timelineList',
+    ]),
     layout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
     },
@@ -57,36 +61,22 @@ export default {
       return Math.ceil(this.total / this.pageSize)
     },
   },
-  created () {
-  },
   methods: {
-    onLoad (index, done) {
-      if (index > this.maxPageNum) return done()
-      let params = {
-        pageNum: this.pageNum,
-        pageSize: this.pageSize
-      }
-      findTimelineList(params).then(res => {
-        this.pageNum++;
-        this.timelineList.push(...res.data)
-        this.total = res.total
-        done()
-      }).catch(err => {
-        throw new Error(err)
-      })
-    },
   },
 }
 </script>
 <style lang="scss" scoped>
 #about {
-  color: white;
+  color: $grey-1;
   padding-top: 50px;
   p {
     font-size: 1rem;
     font-weight: 400;
-    line-height: 1.75rem;
+    line-height: 1.5rem;
     letter-spacing: 0.00937em;
+  }
+  a {
+    color: $deep-orange;
   }
 
   .pre-line {
@@ -104,6 +94,7 @@ export default {
 
 @media (max-width: $breakpoint-xs-max) {
   #about {
+    color: $grey-8;
     padding: 20px;
   }
   /deep/.q-timeline--dense--right .q-timeline__entry {

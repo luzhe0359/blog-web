@@ -16,8 +16,11 @@ const compression = require('compression')
 
 const ssr = require('quasar-ssr')
 const extension = require('./extension')
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3001
 
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
@@ -101,6 +104,14 @@ app.get(ssr.resolveUrl('*'), (req, res) => {
   })
 })
 
-app.listen(port, () => {
+const privateCrt = fs.readFileSync(path.join(process.cwd(), '5719479_www.zugelu.com.pem'), 'utf8');
+const privateKey = fs.readFileSync(path.join(process.cwd(), '5719479_www.zugelu.com.key'), 'utf8');
+const HTTPS_OPTOIN = {
+  key: privateKey,
+  cert: privateCrt
+};
+const server = https.createServer(HTTPS_OPTOIN, app);
+
+server.listen(port, () => {
   console.log(`Server listening at port ${port}`)
 })

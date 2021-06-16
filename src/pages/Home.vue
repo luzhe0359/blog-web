@@ -15,14 +15,10 @@
 </template>
 
 <script>
-import BaseContainer from 'src/components/Container/BaseContainer'
-import { morph, colors, copyToClipboard } from 'quasar'
+import { copyToClipboard } from 'quasar'
 
 export default {
   name: 'Home',
-  components: {
-    BaseContainer
-  },
   data () {
     return {
       iconSize: '32px',

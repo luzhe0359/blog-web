@@ -13,8 +13,6 @@ const count = {
     actions: {
         // 时间线
         LoadTimelineList ({ commit }, params) {
-            console.log('params');
-            console.log(params);
             return new Promise((resolve, reject) => {
                 findTimelineList(params).then(res => {
                     console.log('res');

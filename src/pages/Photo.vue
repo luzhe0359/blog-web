@@ -7,7 +7,7 @@
     </div>
     <q-dialog v-model="carouselVisible">
       <div class="q-pa-md fit" :class="{'md-box':$q.screen.lt.md}">
-        <q-carousel :transition-prev="$q.screen.gt.md?'slide-down':'slide-right'" :transition-next="$q.screen.gt.md?'slide-up':'slide-left'" dark swipeable animated :vertical="$q.screen.gt.md" v-model="slide" thumbnails infinite :fullscreen.sync="fullscreen">
+        <q-carousel transition-prev="slide-right" transition-next="slide-left" dark swipeable animated v-model="slide" thumbnails infinite :fullscreen.sync="fullscreen">
           <q-carousel-slide :name="item._id" v-for="item in photoList" :key="item._id" :img-src="item.url | imgBaseUrl" />
           <template v-slot:control>
             <q-carousel-control class="column" position="top-right" :offset="[12, 12]">
@@ -21,14 +21,10 @@
 </template>
 
 <script>
-import BaseContainer from 'src/components/Container/BaseContainer'
 import { findPhotoList } from 'src/api/photo.js'
 
 export default {
-  name: 'About',
-  components: {
-    BaseContainer,
-  },
+  name: 'Photo',
   data () {
     return {
       photoList: [],
