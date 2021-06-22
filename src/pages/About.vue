@@ -1,20 +1,25 @@
 <template>
   <q-page id="about">
     <div class="text-h5 text-deep-orange q-my-sm"> 关于我 </div>
-    <p>90后，一名前端开发者，现居北京。</p>
-    <p>技术宅一枚，喜欢折腾各种前端技术，完美主义者。</p>
-    <p>人生理念：生命不息，折腾不止。自己动手，丰衣足食。</p>
-    <p>爱好相关：敲代码、电影、综艺、游戏(前DNF爱好者，现主玩LOL）</p>
+    <p>朋友们都叫我毛路 (专属外号)</p>
+    <p>90后，一名前端开发者，现居北京</p>
+    <p>喜欢折腾各种前端技术，但又不精通，算是一个硬伤</p>
+    <p>爱代码、爱电影、爱篮球、爱游戏 (前DNF爱好者，现主玩LOL）</p>
 
-    <div class="text-h5 text-deep-orange q-my-sm"> 关于博客</div>
-    <p>首先得感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供。她的邮箱xxxxx.@163.com</p>
-    <p>2020年末，开始有了搭建个人博客的idea。了解各种UI框架后，最终决定使用
-      <strong>quasar</strong>。
-      为什么使用Quasar？<a target="_blank" href="http://www.quasarchs.com/introduction-to-quasar/">点击此处了解更多。</a>
+    <!-- <div class="text-h5 text-deep-orange q-my-sm"> 关于本站</div>
+    <p>首先得感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供</p>
+    <p>2020年末，开始有了搭建个人博客的idea。了解多种UI框架的利弊后，最终决定使用
+      <strong>Quasar</strong>。
+      为什么选择Quasar？<a target="_blank" href="http://www.quasarchs.com/introduction-to-quasar/">了解更多关于Quasar</a>
     </p>
-    <p>写这个博客的主要目的是分享一些实用的软件和技巧、技术难题、折腾经历、生活记录等。</p>
+    <p>写这个博客的主要目的是记录并分享一些实用的编码技巧、技术难题、折腾经历、生活记录等</p> -->
 
-    <div class="text-h5 text-deep-orange q-my-sm"> 关于网站</div>
+    <div class="text-h5 text-deep-orange q-my-sm"> 关于本站</div>
+    <p>本站 <a class="text-light-blue" href="https://zugelu.com">zugelu.com</a> 属于个人博客</p>
+    <p>当然，有意向写文章的朋友可以联系我开通后台权限，在本站发表属于你自己的文章</p>
+    <p>搭建这个博客的主要目的是记录并分享一些实用的编码技巧、技术难题、折腾经历、生活记录等</p>
+    <p>特别感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供</p>
+    <p>本站所使用的技术栈如下：</p>
     <p class="text-dark">前端: vue quasar axios</p>
     <p class="text-dark">后端: node express mongodb redis</p>
     <p class="text-dark">版本管理: git</p>
@@ -45,10 +50,10 @@ export default {
   },
   data () {
     return {
-      pageNum: 1,
-      pageSize: 10,
-      total: 10,
     }
+  },
+  mounted () {
+
   },
   computed: {
     ...mapGetters([
@@ -56,9 +61,6 @@ export default {
     ]),
     layout () {
       return this.$q.screen.lt.sm ? 'dense' : (this.$q.screen.lt.md ? 'comfortable' : 'loose')
-    },
-    maxPageNum () {
-      return Math.ceil(this.total / this.pageSize)
     },
   },
   methods: {
@@ -69,6 +71,7 @@ export default {
 #about {
   color: $grey-1;
   padding-top: 50px;
+  // background-color: rgba(255, 255, 255, 0.05);
   p {
     font-size: 1rem;
     font-weight: 400;
@@ -76,7 +79,7 @@ export default {
     letter-spacing: 0.00937em;
   }
   a {
-    color: $deep-orange;
+    color: $dark;
   }
 
   .pre-line {

@@ -20,7 +20,7 @@ export default {
     // 判断是否为客户端
     if (!process.env.CLIENT) return
     this.$nextTick(() => {
-      document.body.removeChild(document.getElementById('appLoading'))
+      document.body.removeChild(document.getElementById('app-loading'))
     })
   },
   mounted () {

@@ -28,6 +28,9 @@
       </keep-alive>
       <Footer />
     </q-page-container>
+    <!-- 下雪特效 -->
+    <SnowEffects />
+    <!-- <BallEffects /> -->
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="grey" />
@@ -41,10 +44,11 @@
 
 <script>
 import Footer from 'src/components/Footer/Footer'
+import SnowEffects from 'src/components/Common/SnowEffects.vue'
+import BallEffects from 'src/components/Common/BallEffects.vue'
 import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
-import { thumbStyle } from 'src/utils/thumbStyle'
 
 export default {
   name: 'MainLayout',
@@ -52,12 +56,13 @@ export default {
     SideMenu,
     ToolBarUtil,
     ToolBarMenu,
+    SnowEffects,
+    BallEffects,
     Footer,
   },
   data () {
     return {
       leftDrawerOpen: false,
-      thumbStyle,
       footer: true,
       clientWidth: 1920, // 屏幕宽度
       clientHeight: 966, // 屏幕高度

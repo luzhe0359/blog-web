@@ -8,9 +8,15 @@ Loading.setDefaults({
     spinnerColor: 'red',
 })
 
+// 懒加载
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+    loading: '/bg/img_loading.gif',
+})
+
 import './notify' // 弹窗
 import './filter' // 过滤器
-import './markdown' // 过滤器
+import './markdown' // markdown
 
 export default async ({ app, router, store, Vue }) => {
     // 初始化 store

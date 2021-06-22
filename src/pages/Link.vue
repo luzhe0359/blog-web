@@ -1,8 +1,8 @@
 <template>
   <q-page id="link">
     <div class="text-center q-pt-xl q-pb-md">
-      <div class="text-h3" :class="{'focus-in-contract':$q.screen.gt.md}">要逼自己优秀，然后骄傲的活着</div>
-      <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p>
+      <div class="text-h3" :class="{'focus-in-contract':$q.screen.gt.md}">欢迎各位博主互换链接</div>
+      <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">留言或发送相关信息至本人邮箱即可.</p>
     </div>
     <div class="row">
       <q-intersection transition="scale" class="card-box col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in linkList" :key="item._id">
@@ -18,7 +18,11 @@
               <div class="text-subtitle2">{{item.desc}}</div>
             </div>
             <!-- 链接 -->
-            <q-btn type="a" target="_blank" :href="item.url" class="glossy" padding="6px 32px" rounded color="deep-orange" label="前往参观" />
+            <a href="#">
+              <span>前往参观</span>
+              <span>前往参观</span>
+            </a>
+            <!-- <q-btn type="a" target="_blank" :href="item.url" class="glossy" padding="6px 32px" rounded color="deep-orange" label="前往参观" /> -->
           </q-card-section>
         </q-card>
       </q-intersection>
@@ -67,10 +71,9 @@ export default {
     border-radius: 4px;
     margin-bottom: 32px;
     .card-bg {
-      // color: #000;
       background-color: $grey-6;
-      .glossy {
-        height: 32px;
+      a {
+        height: 40px;
         position: absolute;
         bottom: -48px;
         left: 50%;
@@ -84,6 +87,49 @@ export default {
   .card-box {
     margin-bottom: 10px !important;
   }
+}
+
+// 使用 clip-path 实现一个炫酷的按钮悬停特效
+a {
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+a span {
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $cyan-6;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+a span:nth-child(2) {
+  color: $cyan-6;
+  background: #fff;
+  overflow: hidden;
+  z-index: 2;
+  transition: 0.5s;
+  clip-path: polygon(80% 0%, 100% 0%, 100% 100%, 80% 100%, 90% 50%);
+}
+
+a span:nth-child(2):hover {
+  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%, 0 54%);
+}
+
+a span:nth-child(1):hover ~ span:nth-child(2) {
+  clip-path: polygon(100% 0, 100% 0%, 100% 100%, 100% 100%, 100% 52%);
 }
 </style>
 

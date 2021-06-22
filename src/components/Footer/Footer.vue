@@ -3,7 +3,7 @@
     <div>
       <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
       <p>系统由 Vue + Node + Quasar Framework驱动</p>
-      <p>zugelu.com</p>
+      <p><a href="https://zugelu.com">zugelu.com</a></p>
     </div>
   </div>
 </template>

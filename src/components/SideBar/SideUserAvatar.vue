@@ -7,8 +7,11 @@
           <div class="avatar-bg fit"></div>
         </div>
         <div class="avatar cursor-pointer">
-          <q-avatar size="90px">
+          <q-avatar class="avatar-logo" size="90px">
             <q-img basic src="~assets/logo.png" spinner-color="white" />
+          </q-avatar>
+          <q-avatar class="avatar-user hidden" size="90px">
+            <q-img basic src="http://127.0.0.1:3000/images/photo-1621921809589.jpg" spinner-color="white" />
           </q-avatar>
         </div>
         <div class="text-center name">足各路</div>
@@ -53,10 +56,22 @@ export default {
     top: 55%;
     left: 50%;
     transform: translate(-50%, -60%);
-    .q-avatar {
+    background-size: cover;
+    background-repeat: no-repeat;
+    .avatar-logo {
       box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-      &:hover {
-        animation: jello-horizontal 0.9s both;
+      animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    &:hover {
+      .avatar-logo {
+        animation: rotate-out-2-fwd 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+          both;
+      }
+      .avatar-user {
+        position: relative;
+        top: -100%;
+        display: block !important;
+        animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
       }
     }
   }

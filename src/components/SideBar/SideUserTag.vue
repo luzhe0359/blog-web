@@ -2,7 +2,7 @@
   <div id="SideUserTag" class="full-width q-mt-lg">
     <div class="text-h6 q-mb-sm">个性标签</div>
     <div class="row wrap">
-      <div class="col-4 q-pa-xs cursor-pointer" v-for="tag in tagList" :key="tag.url">
+      <div class="tag-box col-4 q-pa-xs cursor-pointer" v-for="tag in tagList" :key="tag.url">
         <q-img class="tag q-mr-md" img-class="img-contain" :src="tag.url" spinner-color="white">
           <div class="desc absolute-full text-subtitle2 flex flex-center">
             {{tag.name}}
@@ -35,6 +35,9 @@ export default {
 
 <style lang="scss" scoped>
 #SideUserTag {
+  .tag-box {
+    border-radius: 40px;
+  }
   .tag {
     height: auto;
     border-radius: 24px;

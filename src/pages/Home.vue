@@ -5,7 +5,7 @@
       <p class="text-subtitle1 text-grey q-pt-md" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p>
     </div>
     <div class="q-gutter-sm">
-      <q-icon class="cursor-pointer slide-in-blurred-bottom" v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
+      <q-icon class="box cursor-pointer slide-in-blurred-bottom " v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
         <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
           {{item.tooltip}}
         </q-tooltip>
@@ -23,8 +23,9 @@ export default {
     return {
       iconSize: '32px',
       tagList: [
-        { name: '网易云音乐', tooltip: 'github: https://github.com/luzhe0359', link: 'https://github.com/luzhe0359', icon: 'iconfont icon-git' },
+        { name: 'github', tooltip: 'github: https://github.com/luzhe0359', link: 'https://github.com/luzhe0359', icon: 'iconfont icon-git' },
         { name: 'CSDN', tooltip: 'CSDN: https://blog.csdn.net/weixin_44388523', link: 'https://blog.csdn.net/weixin_44388523', icon: 'iconfont icon-csdn' },
+        { name: '网易邮箱', tooltip: '网易邮箱: luzhe0359@163.com', link: 'luzhe0359@163.com', icon: 'iconfont icon-wangyihao' },
         { name: 'QQ', tooltip: 'QQ: 1141178844', link: '1141178844', icon: 'iconfont icon-qq' },
         { name: '微信', tooltip: '微信: Mimanchi-zt', link: 'Mimanchi-zt', icon: 'iconfont icon-weixin' },
       ],
@@ -60,7 +61,7 @@ export default {
   .focus-in-contract {
     animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
-  @for $i from 1 to 5 {
+  @for $i from 1 to 6 {
     .slide-in-blurred-bottom:nth-child(#{$i}) {
       animation: slide-in-blurred-bottom
         #{$i *
@@ -69,6 +70,12 @@ export default {
         both;
       &:hover {
         color: grey;
+        &::before {
+          animation: rotate-center
+            0.6s
+            cubic-bezier(0.25, 0.46, 0.45, 0.94)
+            both;
+        }
       }
     }
   }

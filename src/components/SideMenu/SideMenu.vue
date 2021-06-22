@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { thumbStyle } from 'src/utils/thumbStyle'
 import BaseMenu from './BaseMenu'
 import UserMenu from './UserMenu'
 
@@ -23,7 +22,11 @@ export default {
   },
   data () {
     return {
-      thumbStyle,
+      thumbStyle: {
+        borderRadius: '6px',
+        backgroundColor: 'grey-1',
+        width: '6px'
+      }
     }
   },
   mounted () {

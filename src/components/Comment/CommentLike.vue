@@ -33,7 +33,7 @@ export default {
     },
     // 点赞状态
     isLikeColor () {
-      return this.isLike ? 'primary' : 'grey-5'
+      return this.isLike ? 'deep-orange' : 'grey-5'
     }
   },
   methods: {

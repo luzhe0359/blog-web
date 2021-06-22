@@ -100,4 +100,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/ .icon-yunhang {
+  animation: rotate-center 5s linear infinite both;
+}
 </style>

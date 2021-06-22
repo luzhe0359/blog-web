@@ -1,10 +1,10 @@
 <template>
   <div class="q-ml-xl">
     <q-btn-group class="q-gutter-x-md" flat>
-      <q-btn flat dense icon="star_border" :label="comment.createTime | dateFormat" size="sm" color="grey-5" />
+      <q-btn flat dense icon="star_border" :label="comment.createTime | dateFormat" size="sm" color="grey" />
       <CommentLike :comment="comment" :parentComment="parentComment" @loadComment="loadComment" />
-      <q-btn v-if="commentLength > 0" flat dense icon="message" :label="commentLength" size="sm" color="grey-5" />
-      <q-btn flat dense size="sm" color="primary" label="回复" @click="showComment" />
+      <q-btn v-if="commentLength > 0" flat dense icon="message" :label="commentLength" size="sm" color="grey" />
+      <q-btn flat dense size="sm" color="grey" label="回复" @click="showComment" />
     </q-btn-group>
   </div>
 </template>
