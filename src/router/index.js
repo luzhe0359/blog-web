@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { Loading, QSpinnerGears } from 'quasar'
+import { Loading, QSpinnerGears, scroll } from 'quasar'
+const { getScrollPosition, setScrollPosition, getScrollTarget } = scroll
 
 import routes from './routes'
 
@@ -17,7 +18,7 @@ Vue.use(VueRouter)
 
 export default async ({ store, ssrContext }) => {
   const router = new VueRouter({
-    // scrollBehavior: () => ({ x: 0, y: 0 }),
+    scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
     // Leave these as they are and change in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
@@ -30,6 +31,11 @@ export default async ({ store, ssrContext }) => {
     // // 判断是否为客户端
     if (!process.env.CLIENT) return next()
     window.scrollTo(0, 0)
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+    window.pageYOffset = 0
+    let tag = getScrollTarget(document.documentElement)
+    console.log(getScrollPosition(tag));
 
     Loading.show({
       spinner: QSpinnerGears,

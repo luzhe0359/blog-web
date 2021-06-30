@@ -1,7 +1,7 @@
 <template>
   <q-page id="ArticleDetail">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
-    <div class="title text-h4 q-py-md text-white overflow-hidden"> {{article.title}} </div>
+    <div class="title text-h4 q-py-md text-white"> {{article.title}} </div>
     <div class="text-white q-pb-sm row">
       <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
       <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
@@ -9,7 +9,7 @@
         <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
         <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
         <q-chip class="like-box" color="transparent" text-color="white">
-          <q-icon class="like q-mr-xs" name="iconfont icon-xin" :color="isLike ? 'red': ''" size="21px" @click="like"></q-icon>
+          <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
           {{article.meta.likes}}
         </q-chip>
       </div>
@@ -96,7 +96,6 @@ export default {
     return {
       titles: [], // 目录列表
       isLike: false, // 是否点赞
-      // commentList: [], // 评论列表
       activeIndex: -1, // 高亮目录索引
       pageNum: defaultParams.pageNum, // 当前页
       pageSize: defaultParams.pageSize,
@@ -132,6 +131,8 @@ export default {
     this.$nextTick(() => {
       this.handleAnchorInit()
     })
+    // 评论点赞 
+    this.$root.$on('loadComment', this.changePage)
   },
   methods: {
     // 滚动到指定元素
@@ -237,7 +238,6 @@ export default {
     // 评论 --------------------------------
     // 添加评论
     comment (content, commentId, to, level) {
-
       let params = {
         content,
         commentId,

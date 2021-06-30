@@ -14,7 +14,12 @@ const count = {
         // 友链
         LoadLinkList ({ commit }) {
             return new Promise((resolve, reject) => {
-                findLinkList().then(res => {
+                let params = {
+                    sortBy: 'isTop',
+                    isStop: false,
+                    descending: -1
+                }
+                findLinkList(params).then(res => {
                     commit('SET_LINK', { list: res.data })
                     resolve()
                 }).catch(err => {

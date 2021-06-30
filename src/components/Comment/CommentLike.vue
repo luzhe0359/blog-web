@@ -59,7 +59,7 @@ export default {
       // 提交/取消 点赞
       likeComment(params).then(res => {
         this.$msg.success(res.msg)
-        this.$emit('loadComment')
+        this.$root.$emit('loadComment')
       })
     },
   }

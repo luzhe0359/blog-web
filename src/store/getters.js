@@ -18,5 +18,8 @@ const getters = {
     timelineList: state => state.about.timelineList,
     // 友链
     linkList: state => state.link.linkList,
+    // 留言
+    messageList: state => state.message.messageList,
+    messagePageCount: state => state.message.messagePageCount,
 }
 export default getters

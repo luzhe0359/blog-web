@@ -19,8 +19,9 @@ export default {
   data () {
     return {
       tagList: [
-        { url: '/tag/tag1.webp', name: '幽默' },
         { url: '/tag/tag4.webp', name: '潜力股' },
+        { url: '/tag/tag6.webp', name: 'I T 男' },
+        { url: '/tag/tag1.webp', name: '幽默' },
         { url: '/tag/tag3.webp', name: '90后' },
         { url: '/tag/tag2.webp', name: '幸福' },
         { url: '/tag/tag5.webp', name: '狂吃不胖' },

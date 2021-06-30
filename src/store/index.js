@@ -4,6 +4,7 @@ import user from './modules/user'
 import article from './modules/article'
 import about from './modules/about'
 import link from './modules/link'
+import message from './modules/message'
 import getters from './getters'
 
 // import example from './module-example'
@@ -22,10 +23,11 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
+      article,
       user,
-      about,
       link,
-      article
+      about,
+      message
     },
     getters,
     // 启用严格模式（增加开销！）

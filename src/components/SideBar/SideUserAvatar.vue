@@ -8,24 +8,30 @@
         </div>
         <div class="avatar cursor-pointer">
           <q-avatar class="avatar-logo" size="90px">
-            <q-img basic src="~assets/logo.png" spinner-color="white" />
+            <q-img basic src="~assets/logo.webp" spinner-color="white" />
           </q-avatar>
           <q-avatar class="avatar-user hidden" size="90px">
-            <q-img basic src="http://127.0.0.1:3000/images/photo-1621921809589.jpg" spinner-color="white" />
+            <q-img basic src="~assets/auth_logo.webp" spinner-color="white" />
           </q-avatar>
         </div>
-        <div class="text-center name">足各路</div>
-        <div class="text-center about">一足一路一世界</div>
+        <div class="title-box">
+          <div class="text-center name">足各路</div>
+          <!-- <div class="text-center about">一足一路一世界</div> -->
+          <BallEffects />
+        </div>
       </div>
     </q-responsive>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import BallEffects from 'src/components/Common/BallEffects.vue'
 
 export default {
   name: 'SideUserAvatar',
+  components: {
+    BallEffects,
+  },
   data () {
     return {
     }
@@ -75,14 +81,15 @@ export default {
       }
     }
   }
+  .title-box {
+    height: 45%;
+    position: relative;
+  }
   .name {
-    margin-top: 15%;
+    padding-top: 15%;
     font-size: 18px;
     font-weight: 600;
     line-height: 26px;
-  }
-  .about {
-    padding-bottom: 40px;
   }
 }
 </style>

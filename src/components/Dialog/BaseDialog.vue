@@ -2,7 +2,7 @@
   <!-- 对话框 -->
   <q-dialog class="q-pa-sm" ref="dialog" persistent v-model="visible" @before-hide="beforeHide" transition-show="slide-down" transition-hide="slide-up">
     <q-card :style="$q.screen.lt.md? 'width:90vw':'width: 50vw'">
-      <q-bar class="text-white q-px-md">
+      <q-bar class="text-dark q-px-md">
         <div class="cursor-pointer">{{title}}</div>
         <q-space />
         <q-btn dense flat icon="close" v-close-popup>

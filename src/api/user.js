@@ -32,6 +32,22 @@ export const userRegister = params => {
 }
 
 /**
+ * @description: 校验用户名
+ * @param {String} username 用户名
+ */
+export const hasUsername = params => {
+    return axios.post('/user/username', params)
+}
+
+/**
+ * @description: 校验昵称
+ * @param {String} nickname 昵称
+ */
+export const hasNickname = params => {
+    return axios.post('/user/nickname', params)
+}
+
+/**
  * @description: 查找单个用户
  * @param {ObjectId} _id 用户_id
  */

@@ -19,7 +19,11 @@ export const findCommentList = params => {
 
 /**
  * 添加评论
- * @param {String} name 评论内容
+ * @param {ObjectId} articleId 文章id
+ * @param {ObjectId} commentId 评论id
+ * @param {ObjectId} to 对谁评论
+ * @param {String} content 评论内容
+ * @param {Number} level 评论层级
  */
 export const addComment = params => {
     return axios.post(`/comment/add`, params)

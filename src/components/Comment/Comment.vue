@@ -1,13 +1,13 @@
 <template>
   <!-- 二级评论 -->
-  <div class="full-width q-mb-md">
-    <q-chat-message name-sanitize text-sanitize :name="comment.from.nickname" :avatar="comment.from.avatar | imgBaseUrl" :text="[comment.content]" bg-color="primary" ref="scrollBox" />
-    <CommentBtns :comment="comment" @showComment="changeCurrent(comment._id)" @loadComment="loadComment" />
+  <div class="full-width q-mb-md" ref="main">
+    <q-chat-message name-sanitize text-sanitize :name="comment.from.nickname" :avatar="comment.from.avatar | imgBaseUrl" :text="[comment.content]" :stamp="comment.createTime | dateDiff" bg-color="primary" />
+    <CommentBtns :comment="comment" :isMessage="isMessage" @showComment="changeCurrent(comment._id)" />
     <CommentAdd v-if="currentComment === comment._id" @comment="addComment($event, comment._id, comment.from._id)" @cancelComment="currentComment = null" />
     <!-- 三级评论 -->
     <div class="q-pl-xl q-mt-sm" v-for="child in comment.otherComments" :key="child._id">
       <q-chat-message :name="child.level === 2?`${child.from.nickname}`:`${child.from.nickname} <span class='text-orange'>回复</span> ${child.to.nickname}`" :avatar="child.from.avatar | imgBaseUrl" :text="[child.content]" :stamp="child.createTime | dateDiff" bg-color="primary" />
-      <CommentBtns :comment="child" :parentComment="comment" @showComment="changeCurrent(child._id)" @loadComment="loadComment" />
+      <CommentBtns :comment="child" :isMessage="isMessage" :parentComment="comment" @showComment="changeCurrent(child._id)" />
       <CommentAdd v-if="currentComment === child._id" @comment="addComment($event, comment._id, child.from._id, 3)" @cancelComment="currentComment = null" />
     </div>
   </div>
@@ -24,9 +24,9 @@ export default {
       type: Object,
       default: () => { },
     },
-    level: { // 评论层级
-      type: Number,
-      default: 2
+    isMessage: { // 是否为留言
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -46,14 +46,19 @@ export default {
     },
     // 展示/隐藏 评论输入框
     changeCurrent (i) {
-      console.log(i);
       this.currentComment = i === this.currentComment ? null : i  // 多次点击, 切换展示
-      console.log(this.currentComment);
+      document.addEventListener('click', this.hideCommentInput, false)
     },
-    // 评论点赞 
-    loadComment () {
-      this.$emit("loadComment")
-    }
+    // 点击空白处隐藏评论输入框
+    hideCommentInput (e) {
+      if (!this.$refs.main.contains(e.target)) {
+        this.currentComment = null
+        document.removeEventListener('click', this.hideCommentInput, false)
+      }
+    },
+  },
+  beforeDestroy () {
+    document.removeEventListener('click', this.hideCommentInput, false)
   }
 }
 </script>

@@ -7,17 +7,6 @@
       <div class="mini-p-share"></div>
       <div class="mini-p-share"></div>
       <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
-      <div class="mini-p-share"></div>
     </div>
   </div>
 </template>
@@ -33,12 +22,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#mini-p-share-cont {
-  position: fixed;
+#ball-box {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 1;
 }
 .mini-p-share {
@@ -57,8 +46,8 @@ $count: 30;
   @keyframes particle-animation-#{$i} {
     100% {
       transform: translate3d(
-        (random(100) * 1vw),
-        (random(100) * 1vh),
+        (random(310) * 1px),
+        (random(125) * 1px),
         (random(100) * 1px)
       );
     }
@@ -72,17 +61,10 @@ $count: 30;
     background-color: nth($colors, random(length($colors)));
     animation: particle-animation-#{$i} 60s infinite;
     transform: translate3d(
-      (random(100) * 1vw),
-      (random(100) * 1vh),
+      (random(310) * 1px),
+      (random(125) * 1px),
       (random(100) * 1px)
     );
-    @media (max-width: 576px) {
-      transform: translate3d(
-        (random(100) * 1vw),
-        (random(100) * 1vh),
-        (random(100) * 1px)
-      );
-    }
   }
 }
 </style>

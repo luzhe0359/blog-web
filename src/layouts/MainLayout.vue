@@ -6,7 +6,7 @@
         <!-- <q-no-ssr> -->
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
-        <q-toolbar-title style="min-width:160px;"> 足各路</q-toolbar-title>
+        <q-toolbar-title style="min-width:100px;"> 足各路</q-toolbar-title>
         <q-space />
         <!-- 菜单 -->
         <ToolBarMenu />
@@ -22,21 +22,21 @@
       <SideMenu />
     </q-drawer>
     <!-- container -->
-    <q-page-container class="full-container" :class="$q.screen.lt.md ?'bg-cover': 'bg-fixed'" :style="$q.screen.lt.md ?{}:{'background-position': '0 ' + ypos}">
+    <q-page-container class="full-container" :style="$q.screen.lt.sm ?{}:{'background-position': '0 ' + ypos}">
       <keep-alive :include="cacheList">
         <router-view :key="$route.fullPath" />
       </keep-alive>
       <Footer />
     </q-page-container>
     <!-- 下雪特效 -->
-    <SnowEffects />
+    <!-- <SnowEffects /> -->
     <!-- <BallEffects /> -->
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
-      <q-btn fab icon="keyboard_arrow_up" color="grey" />
+      <q-btn fab icon="keyboard_arrow_up" color="grey-8" />
     </q-page-scroller>
     <!-- 滚动监听器 -->
-    <q-scroll-observer @scroll="scrollHandler" />
+    <q-scroll-observer class="gt-md" @scroll="scrollHandler" />
     <!-- 大小调整侦听器 -->
     <q-resize-observer @resize="resizeHandler" debounce="200" />
   </q-layout>
@@ -76,14 +76,14 @@ export default {
   },
   watch: {
     // $route (newVal, oldVal) {
-    //   let noFooter = ['/about']
-    //   console.log(noFooter.includes(newVal.fullPath));
-    //   if (noFooter.includes(newVal.fullPath)) {
-    //     console.log(this.footer);
-    //     this.footer = false
-    //   } else {
-    //     this.footer = true
-    //   }
+    // let noFooter = ['/about']
+    // console.log(noFooter.includes(newVal.fullPath));
+    // if (noFooter.includes(newVal.fullPath)) {
+    //   console.log(this.footer);
+    //   this.footer = false
+    // } else {
+    //   this.footer = true
+    // }
     // },
   },
   methods: {
@@ -113,6 +113,7 @@ export default {
     },
     // 大小调整侦听器
     resizeHandler () {
+      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
       this.initClient()
     }
   },
@@ -122,24 +123,27 @@ export default {
 
 <style lang="scss" scoped>
 #layout {
-  // width: 100vw;
-  // height: 100vh;
   .full-container {
     position: relative;
     min-width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
     background-image: url("/bg/bg_body.webp");
-    background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
-  }
-  .bg-fixed {
     background-size: 100% auto;
   }
-  .bg-cover {
-    background-size: cover;
+  @media (max-width: 710px) {
+    .full-container {
+      background-size: 100% 100%;
+    }
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    .full-container {
+      background-image: url("/bg/bg_iphone.webp");
+      background-size: 100% 100%;
+      background-position: 0 0 !important;
+    }
   }
 }
 </style>

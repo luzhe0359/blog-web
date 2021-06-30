@@ -1,13 +1,8 @@
 // app global css in SCSS form
+html,body {
+   font-family: "Helvetica Neue", "Helvetica", "tahoma","Arial", "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif" !important;
+}
 
-// 主体高度撑满
-#scrollArea {
-  >.scroll {
-    >div{
-      height: auto;
-    }
-  }
-} 
 // 最大宽度
 .max-width {
   max-width: 1200px;
@@ -39,38 +34,7 @@
     background-color: rgba(97, 97, 97, .6)
 }
 
-// markdown 样式 --------------------------------------------------------------------------------
-// iphone5/SE 适配
-.v-note-wrapper {
-  min-width: 280px !important;
-}
-// markdown 边距
-.v-note-wrapper .v-note-panel .v-note-show .v-show-content,
-.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
-  padding: 16px !important;
-}
-// 边框
-.v-note-wrapper {
-  border: none !important;
-}
-// 背景色
-.v-show-content {
-  background-color: rgba(256, 256, 256, 0.5) !important;
-  border-radius: 10px;
-}
-// > 字体颜色
-.markdown-body blockquote {
-  background-color: #ccc;
-  padding: 1em !important;
-  p {
-    margin-bottom: 0;
-  }
-}
-
-@media (max-width: $breakpoint-xs-max) {
-  // markdown 边距
-  .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
-  .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
-    padding: 10px !important;
-  }
+// title动画
+.focus-in-contract {
+  animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }

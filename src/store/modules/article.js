@@ -7,7 +7,7 @@ const count = {
     namespaced: true,
     state: {
         articleList: [], // 文章列表
-        articlePageCount: 0, // 文章评论总数
+        articlePageCount: 0, // 文章总数
         articleDetail: {}, // 文章详情
         categoryList: [], // 文章分类
         commentList: [], // 文章评论

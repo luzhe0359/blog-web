@@ -1,42 +1,62 @@
 <template>
   <q-page id="about">
-    <div class="text-h5 text-deep-orange q-my-sm"> 关于我 </div>
-    <p>朋友们都叫我毛路 (专属外号)</p>
-    <p>90后，一名前端开发者，现居北京</p>
-    <p>喜欢折腾各种前端技术，但又不精通，算是一个硬伤</p>
-    <p>爱代码、爱电影、爱篮球、爱游戏 (前DNF爱好者，现主玩LOL）</p>
-
-    <!-- <div class="text-h5 text-deep-orange q-my-sm"> 关于本站</div>
-    <p>首先得感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供</p>
-    <p>2020年末，开始有了搭建个人博客的idea。了解多种UI框架的利弊后，最终决定使用
-      <strong>Quasar</strong>。
-      为什么选择Quasar？<a target="_blank" href="http://www.quasarchs.com/introduction-to-quasar/">了解更多关于Quasar</a>
-    </p>
-    <p>写这个博客的主要目的是记录并分享一些实用的编码技巧、技术难题、折腾经历、生活记录等</p> -->
-
-    <div class="text-h5 text-deep-orange q-my-sm"> 关于本站</div>
-    <p>本站 <a class="text-light-blue" href="https://zugelu.com">zugelu.com</a> 属于个人博客</p>
-    <p>当然，有意向写文章的朋友可以联系我开通后台权限，在本站发表属于你自己的文章</p>
-    <p>搭建这个博客的主要目的是记录并分享一些实用的编码技巧、技术难题、折腾经历、生活记录等</p>
-    <p>特别感谢我的发小@某萌，提供的UI支持。整个博客的设计风格均由她提供</p>
-    <p>本站所使用的技术栈如下：</p>
-    <p class="text-dark">前端: vue quasar axios</p>
-    <p class="text-dark">后端: node express mongodb redis</p>
-    <p class="text-dark">版本管理: git</p>
-    <q-separator class="q-mb-md" />
-
-    <!-- timeline -->
-    <q-timeline :layout="layout" color="secondary" class="text-dark">
-      <q-timeline-entry heading>
-        <div class="text-h5 text-center q-mt-xl">
-          <q-spinner-puff class="q-mb-xs q-mr-xs" color="deep-orange" size="1.2em" />
-          <span>记录博客建站的点滴</span>
+    <div class="hey-box">
+      <div class="relative-position">
+        <div class="hey">
+          HEY !<br />
+          IT'S BAOUT ME.
         </div>
-      </q-timeline-entry>
-      <q-timeline-entry :title="item.title" :color="item.finish?'deep-orange':'grey-5'" :icon="item.finish?'done_all':''" :subtitle="item.date" :side="index%2 === 0?'left':'right'" v-for="(item,index) in timelineList" :key="item._id">
-        <div class="pre-line">{{item.body}}</div>
-      </q-timeline-entry>
-    </q-timeline>
+        <div class="absolute-top-right row">
+          <div class="dark-ball"></div>
+          <div class="dark-ball"></div>
+          <div class="dark-ball"></div>
+        </div>
+      </div>
+    </div>
+    <div class="content-box">
+      <div class="short-line"></div>
+      <div class="short-title">
+        关于我 <br />
+        朋友们都叫我毛路 (别称)
+      </div>
+      <div class="short-desc">
+        90后，一名前端开发者，现居北京 <br>
+        喜欢折腾各种前端技术，但又不精通，算是一个硬伤<br>
+        爱代码、爱电影、爱篮球、爱游戏 (前DNF爱好者，现主玩LOL）<br>
+      </div>
+      <!-- 站位 -->
+      <div class="row justify-end q-mt-xl gt-md" style="height:200px;"> </div>
+      <div class="short-line"></div>
+      <div class="short-title">
+        关于本站 <br />
+        本站 <a class="text-light-blue" target="_blank" href="https://zugelu.com">zugelu.com</a> 属于个人博客
+      </div>
+      <div class="short-desc">
+        当然，有意向写文章的朋友可以联系我开通后台权限，在本站发表属于你自己的文章 <br>
+        搭建这个博客的主要目的是记录并分享一些实用的编码技巧、折腾经历、生活记录等 <br>
+      </div>
+      <div class="short-desc">
+        特别感谢我的发小@萌，提供的UI支持，整个博客的设计风格均由她提供。她的 <a class="text-light-blue" target="_blank" href="https://www.zcool.com.cn/work/ZNTEwMjc4OTI=.html">作品集</a>
+      </div>
+      <div class="short-desc">
+        本站所使用的技术栈如下：<br>
+        前端： vue quasar axios <br>
+        后端： node express mongodb redis <br>
+        其他： git pm2
+      </div>
+
+      <!-- timeline -->
+      <div class="short-line" style="margin-top: 150px;"></div>
+      <div class="short-title">记录博客建站的点滴 </div>
+      <q-timeline layout="dense" color="secondary" class="text-dark">
+        <q-timeline-entry :title="item.title" color="dark" :subtitle="item.date" v-for="item in timelineList" :key="item._id">
+          <div class="pre-line">{{item.body}}</div>
+        </q-timeline-entry>
+      </q-timeline>
+      <div class="q-mt-xl gt-md" style="height:500px;opacity:0.2;">
+        <!-- <q-img src="~assets/arrow.webp" width="132px" contain /> -->
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -51,9 +71,6 @@ export default {
   data () {
     return {
     }
-  },
-  mounted () {
-
   },
   computed: {
     ...mapGetters([
@@ -71,23 +88,53 @@ export default {
 #about {
   color: $grey-1;
   padding-top: 50px;
-  // background-color: rgba(255, 255, 255, 0.05);
-  p {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5rem;
-    letter-spacing: 0.00937em;
-  }
-  a {
-    color: $dark;
+  .hey-box {
+    padding: 70px 60px 60px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.48);
+    .hey {
+      font-size: 100px;
+      line-height: 126px;
+      font-weight: 550;
+      font-family: Alibaba-PuHui Ti-H, Alibaba-PuHuiTi;
+      color: #000000;
+      span {
+        display: inline-block;
+        width: 15px;
+      }
+    }
+    .dark-ball {
+      width: 22px;
+      height: 22px;
+      background-color: #000;
+      margin-right: 20px;
+    }
   }
 
-  .pre-line {
-    white-space: pre-line;
-  }
-
-  .no-more {
-    background-color: rgba(255, 255, 255, 0.2);
+  .content-box {
+    padding: 0 60px;
+    color: #000000;
+    .short-line {
+      width: 75px;
+      height: 2px;
+      background: #000000;
+      margin-bottom: 60px;
+      margin-top: 150px;
+    }
+    .short-title {
+      font-size: 26px;
+      line-height: 48px;
+      font-weight: 600;
+    }
+    .short-desc {
+      font-size: 26px;
+      line-height: 48px;
+      font-weight: 500;
+      margin-top: 80px;
+    }
+    .pre-line {
+      font-size: 16px;
+    }
   }
 
   /deep/ .q-timeline--comfortable .q-timeline__heading {
@@ -95,16 +142,63 @@ export default {
   }
 }
 
-@media (max-width: $breakpoint-xs-max) {
+@media (max-width: $breakpoint-sm-max) {
   #about {
-    color: $grey-8;
+    color: $dark;
     padding: 20px;
+    .hey-box {
+      .hey {
+        font-size: 70px;
+      }
+    }
+    .content-box {
+      .short-title {
+        font-size: 18px;
+        line-height: 32px;
+      }
+      .short-desc {
+        font-size: 18px;
+        line-height: 32px;
+      }
+    }
   }
   /deep/.q-timeline--dense--right .q-timeline__entry {
     padding-left: 50px !important;
   }
   /deep/ .q-timeline--dense--right .q-timeline__entry--icon .q-timeline__dot {
     left: 0 !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #about {
+    .hey-box {
+      padding: 50px;
+      .hey {
+        font-size: 50px;
+        line-height: 80px;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-xs-max) {
+  #about {
+    .hey-box {
+      padding: 20px;
+      .hey {
+        font-size: 30px;
+        line-height: 50px;
+      }
+      .dark-ball {
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+      }
+    }
+    .content-box {
+      padding: 0 10px;
+    }
   }
 }
 </style>

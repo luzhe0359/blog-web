@@ -73,11 +73,6 @@ axios.interceptors.response.use(
             return Promise.reject(response);
         } else {
             tip('网络出现故障,请稍后再试')
-            // 处理断网的情况
-            // eg:请求超时或断网时，更新state的network状态
-            // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
-            // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
-            // store.commit('changeNetwork', false);
         }
     });
 
@@ -115,13 +110,8 @@ const toLogin = async (msg) => {
  * @param {Number} status 请求失败的状态码
  */
 const errorHandle = (status, msg) => {
-    console.log(status)
     // 状态码判断
     switch (status) {
-        // 2001: 账号已存在
-        case 2001:
-            tip('账号已存在，请重新输入!')
-            break;
         // 2002: 用户名/密码错误
         case 2002:
             tip('用户名或密码错误!')

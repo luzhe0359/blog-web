@@ -17,6 +17,7 @@
 /* 适配 */
 @media (max-width: 599px) {
   #app-loading {
+    background-image: url('/bg/bg_iphone.webp');
     background-position: center;
     background-size: cover;
   }

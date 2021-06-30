@@ -4,17 +4,28 @@
       <div class="text-h3 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">{{photoList[0].album.name}}</div>
       <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">{{photoList[0].album.desc}}</p>
     </div>
-    <div class="waterfall-width-column">
-      <div class="image-box q-ma-xs" v-for="(img,index) in photoList" :key="index" @click="show(index)">
+    <div v-if="$q.screen.gt.xs" class="waterfall-width-column waterfall">
+      <div class="image-box" v-for="(img,index) in photoList" :key="index" @click="show(index)">
         <img v-lazy="$url +img.url" alt="" />
       </div>
+    </div>
+    <div v-else class="row">
+      <!-- <div class="image-box" v-for="(img,index) in photoList" :key="index" @click="show(index)"> -->
+      <!-- <img v-lazy="$url +img.url" alt="" /> -->
+      <!-- <img v-lazy="$url +img.url" alt="" /> -->
+      <!-- <q-img width="100%" class="rounded-borders" :ratio="16/9" :src="img.url | imgBaseUrl" spinner-color="white"> </q-img> -->
+      <!-- </div> -->
+      <q-intersection transition="scale" class="phone-image-box col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-sm" v-for="(item,index) in photoList" :key="item._id" @click="show(index)">
+        <q-img class="rounded-borders" :ratio="16/9" :src="item.url | imgBaseUrl" spinner-color="white"> </q-img>
+      </q-intersection>
     </div>
     <q-dialog :maximized="$q.screen.lt.md" v-model="swiperVisible">
       <div class="thumb-example" :class="{'max80':$q.screen.gt.sm}">
         <q-btn class="absolute-top-right z-max q-mt-xs q-mr-xs" color="white" flat round dense icon="close" v-close-popup />
         <!-- swiper Top -->
         <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
-          <swiper-slide class="swiper-zoom-container" :style="{'background-image':'url('+$url+img.url+')'}" v-for="(img,index) in photoList" :key="index"></swiper-slide>
+          <swiper-slide class="swiper-zoom-container" :style="{'background-image':'url('+$url+img.url+')'}" v-for="(img,index) in photoList" :key="index">
+          </swiper-slide>
           <div class="swiper-button-next swiper-button-white gt-sm" slot="button-next"></div>
           <div class="swiper-button-prev swiper-button-white gt-sm" slot="button-prev"></div>
         </swiper>
@@ -84,15 +95,19 @@ export default {
       })
     },
     show (index) {
+      console.log('~');
       console.log(index);
       this.swiperVisible = true
       this.$nextTick(() => {
-        const swiperTop = this.$refs.swiperTop.$swiper
-        const swiperThumbs = this.$refs.swiperThumbs.$swiper
-        swiperTop.controller.control = swiperThumbs
-        swiperThumbs.controller.control = swiperTop
-        swiperTop.slideTo(index, 50, false);
-        swiperThumbs.slideTo(index, 0, false);
+        setTimeout(() => {
+          const swiperTop = this.$refs.swiperTop.$swiper
+          const swiperThumbs = this.$refs.swiperThumbs.$swiper
+          swiperTop.controller.control = swiperThumbs
+          swiperThumbs.controller.control = swiperTop
+          console.log(index);
+          swiperTop.slideTo(index, 200, false);
+          swiperThumbs.slideTo(index, 200, false);
+        }, 20)
       })
     }
   }
@@ -104,31 +119,31 @@ export default {
   animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.waterfall-width-column {
-  column-count: 5;
-  column-gap: 0;
+.waterfall {
+  display: flex;
+  flex-wrap: wrap;
+  &:after {
+    content: "";
+    display: block;
+    flex-grow: 99999;
+  }
   .image-box {
+    margin: 5px;
+    flex-grow: 1;
+    overflow: hidden;
     img {
       display: block;
-      width: 100%;
+      min-width: 100%;
+      height: 200px;
+      object-fit: cover;
     }
   }
 }
-
-@media (max-width: $breakpoint-lg-max) {
-  .waterfall-width-column {
-    column-count: 4;
-  }
-}
-@media (max-width: $breakpoint-md-max) {
-  .waterfall-width-column {
-    column-count: 3;
-  }
-}
-@media (max-width: $breakpoint-xs-max) {
-  .waterfall-width-column {
-    column-count: 2;
-  }
+// 手机端
+.phone-image-box {
+  height: 100%;
+  min-height: 150px;
+  min-width: 25%;
 }
 
 .q-dialog__inner--minimized > div {

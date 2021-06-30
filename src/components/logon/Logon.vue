@@ -12,6 +12,7 @@
                   <q-input class="logon-input" autofocus clearable standout="bg-cyan text-white" bottom-slots v-model="username" label="账号" debounce='500' lazy-rules :rules="[
                   val => (val && val.length > 0) || '请输入账号。',
                   val => (val.length >= 6 && val.length <= 12) || '请输入 6-12 位账号。',
+                  hasUsernameCheck
                 ]">
                     <template v-slot:prepend>
                       <q-icon name="account_circle" />
@@ -43,6 +44,7 @@
                   <q-input v-if="!isLogin" class="logon-input" clearable standout="bg-cyan text-white" bottom-slots v-model="nickname" label="昵称" debounce='500' lazy-rules :rules="[
                   val => (val && val.length > 0) || '请输入昵称。',
                   val => (val.length >= 2 && val.length <= 8) || '请输入 2-8 位昵称。',
+                  hasNicknameCheck
                 ]">
                     <template v-slot:prepend>
                       <q-icon name="face" />
@@ -70,7 +72,7 @@ import { morph } from 'quasar'
 import { aesEncrypt } from 'src/utils/crypto.js'
 import BaseDialog from 'components/Dialog/BaseDialog'
 
-import { userRegister } from 'src/api/user.js'
+import { userRegister, hasUsername, hasNickname } from 'src/api/user.js'
 
 export default {
   name: 'Login',
@@ -149,12 +151,15 @@ export default {
     handlerRegister () {
       userRegister({
         username: this.username,
-        password: aesEncrypt(this.password)
+        password: aesEncrypt(this.password),
+        email: this.email,
+        nickname: this.nickname,
       }).then(res => {
         this.$msg.success('注册成功')
         this.loading = false
         this.isLogin = true // 注册成功, 展示登录页
       }).catch(err => {
+        this.loading = false
       })
     },
     //  登录/注册 切换
@@ -192,6 +197,7 @@ export default {
     // 关闭
     close () {
       this.reset()
+      this.isLogin = true
       this.$emit('close')
     },
     // 重置
@@ -210,7 +216,27 @@ export default {
     emailStrengthCheck (email) {
       const emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
       return emailReg.test(email) || '邮箱格式错误，请重新输入。'
-    }
+    },
+    // 校验用户名
+    hasUsernameCheck (val) {
+      // 登录界面不校验
+      if (this.isLogin) return
+      return new Promise((resolve, reject) => {
+        hasUsername({ username: val }).then(res => {
+          console.log();
+          resolve(res.data.length <= 0 || '账号已存在')
+        })
+      })
+    },
+    // 校验昵称
+    hasNicknameCheck (val) {
+      if (this.isLogin) return
+      return new Promise((resolve, reject) => {
+        hasNickname({ nickname: val }).then(res => {
+          resolve(res.data.length <= 0 || '昵称已存在')
+        })
+      })
+    },
   }
 }
 </script>

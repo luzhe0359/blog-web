@@ -69,17 +69,6 @@ const routes = [
         component: () => import('src/pages/Photo.vue')
       },
       {
-        path: 'about',
-        name: 'About',
-        meta: {
-          title: '关于',
-          icon: 'icon-iconset0142',
-          menu: true,
-          keepAlive: true
-        },
-        component: () => import('pages/About.vue')
-      },
-      {
         path: 'link',
         name: 'Link',
         meta: {
@@ -91,18 +80,39 @@ const routes = [
         component: () => import('pages/Link.vue')
       },
       {
-        path: 'user',
-        name: 'User',
+        path: 'about',
+        name: 'About',
         meta: {
-          title: '个人中心',
-          icon: 'user',
-          menu: false,
+          title: '关于',
+          icon: 'icon-iconset0142',
+          menu: true,
           keepAlive: true
         },
-        component: () => import('pages/UserInfo.vue')
+        component: () => import('pages/About.vue')
+      },
+      {
+        path: 'message',
+        name: 'Message',
+        meta: {
+          title: '留言',
+          icon: 'icon-liuyan',
+          menu: true,
+          keepAlive: true
+        },
+        component: () => import('pages/Message.vue')
       },
     ],
   },
+  // {
+  //   path: '/baidu_verify_code-GpaUfxPEBZ',
+  //   name: 'baidu_verify_code',
+  //   meta: {
+  //     title: '百度验证',
+  //     menu: false,
+  //     keepAlive: false
+  //   },
+  //   component: () => import('../baidu_verify_code-GpaUfxPEBZ.html')
+  // },
   // Always leave this as last one,
   // but you can also remove it
   {

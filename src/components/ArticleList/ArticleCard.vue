@@ -6,7 +6,7 @@
       <!-- 文章分类 -->
       <div class="row">
         <q-space />
-        <div class="row items-center q-gutter-x-xs">
+        <div class="row items-center q-gutter-x-xs text-grey-8">
           <q-icon :name="'iconfont '+ article.category.icon"></q-icon>
           <div>{{article.category.name}}</div>
         </div>
@@ -14,7 +14,7 @@
       <!-- 标题&内容 -->
       <div>
         <div class="text-h6 q-my-sm ellipsis">{{article.title}}</div>
-        <div class="ellipsis-2-lines" style="font-size: 14px">{{article.desc}}</div>
+        <div class="ellipsis-2-lines q-mb-sm text-grey-8">{{article.desc}}</div>
       </div>
     </div>
     <!-- 分割线 -->
@@ -62,8 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$cardpx: 22px;
-$cardpy: 35px;
 .article {
   color: #000;
   border-radius: 24px;
@@ -77,22 +75,22 @@ $cardpy: 35px;
   .article-title {
     color: #000;
     // background: url("~assets/bg/game4.png") no-repeat;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // background-position: top center;
     padding: 32px 32px 10px;
   }
   .article-util {
-    background-color: rgba(255, 255, 255, 0.61);
-    box-sizing: border-box;
+    // background-color: rgba(255, 255, 255, 0.61);
+    // box-sizing: border-box;
     padding: 22px 32px 22px;
   }
   .line {
     height: 2px;
     margin-right: 80px;
-    margin-left: 35px;
+    margin-left: 32px;
     background: #000000;
-    opacity: 0.2;
+    opacity: 0.08;
   }
 }
 

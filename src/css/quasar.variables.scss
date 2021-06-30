@@ -34,10 +34,6 @@ $warning   : #F2C037;
   animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-// 顶部菜单
-.q-layout__shadow:after {
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2), 0 0px 5px rgba(0, 0, 0, 0.24);
-}
 // q-dialog对话框，按钮样式
 .q-dialog {
     .q-dialog-plugin {
@@ -71,4 +67,9 @@ $warning   : #F2C037;
 }
 .q-message-text--received:last-child:before {
     color: rgba(255, 255, 255, 0.5) ;
+}
+
+// input聚焦时，边框颜色
+.q-field__control {
+    color: #000 !important;
 }

@@ -1,8 +1,7 @@
 <template>
   <!-- 一级评论 -->
   <div class="q-mb-lg" :class="{'q-ml-xl':!hideCancel}">
-    <q-input type="textarea" autofocus :autogrow="!hideCancel" dense outlined v-model="content" maxlength='200' placeholder="欢迎发表评论" lazy-rules @blur="cancelComment" />
-
+    <q-input type="textarea" :autofocus="!hideCancel" :autogrow="!hideCancel" dense outlined v-model="content" maxlength='200' placeholder="说点什么 ..." lazy-rules />
     <div class="q-gutter-x-sm q-mt-xs row">
       <emoji-picker class="relative-position" style="width:24px;height:24px;" @emoji="append" :search="search">
         <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
@@ -13,12 +12,12 @@
         </div>
         <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
           <div class="emoji-picker">
-            <div class="emoji-picker__search">
+            <!-- <div class="emoji-picker__search">
               <input type="text" v-model="search" v-focus>
-            </div>
+            </div> -->
             <div>
               <div v-for="(emojiGroup, category) in emojis" :key="category">
-                <h5>{{ category }}</h5>
+                <h5 class="q-mt-none">{{ category }}</h5>
                 <div class="emojis">
                   <span v-for="(emoji, emojiName) in emojiGroup" :key="emojiName" @click="insert(emoji)" :title="emojiName">{{ emoji }}</span>
                 </div>
@@ -28,8 +27,8 @@
         </div>
       </emoji-picker>
       <q-space />
-      <q-btn v-if="!hideCancel" size="sm" color="primary" label="取消评论" @click="cancelComment" />
-      <q-btn color="grey-7" padding="xs md" label="发表评论" @click="addComment" />
+      <q-btn v-if="!hideCancel" size="sm" color="primary" label="取消" @click="cancelComment" />
+      <q-btn color="grey-7" padding="xs md" label="发表" :disable="!content.length" @click="addComment" />
     </div>
   </div>
 </template>
@@ -115,6 +114,21 @@ export default {
   background: #fff;
   box-shadow: 1px 1px 8px #c7dbe6;
 }
+
+@media (max-width: $breakpoint-xs-max) {
+  .emoji-picker {
+    position: fixed;
+    top: auto;
+    bottom: -200px;
+    left: 0;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}
+
 .emoji-picker__search {
   display: flex;
 }

@@ -1,8 +1,8 @@
 <template>
   <q-page class="max-width row">
     <div id="articleList" class="col">
-      <div class="friends gt-xs">Hey Friends！</div>
-      <div class="welcome gt-xs">Welcome</div>
+      <div class="friends gt-sm">Hey Friends！</div>
+      <div class="welcome gt-sm">Welcome</div>
       <!-- 分类列表 -->
       <TabList :tabList="categoryList" @changeTab="changeTab" />
       <!-- 文章列表 -->
@@ -45,12 +45,8 @@ export default {
   },
   data () {
     return {
-      // tabList: [], // 文章分类
-      // articleList: [], // 文章列表
-      // tabId: 'zugelu', // 当前分类Id
       pageNum: defaultParams.pageNum, // 当前页
       pageSize: defaultParams.pageSize,
-      loading: true, // 是否展示分页（切换tab强制渲染）
     }
   },
   computed: {
