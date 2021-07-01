@@ -147,12 +147,5 @@ export default {
     }
   }
 }
-
-@media (max-width: $breakpoint-xs-max) {
-  .title {
-    font-size: 2rem;
-    line-height: normal;
-  }
-}
 </style>
 

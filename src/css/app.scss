@@ -38,3 +38,16 @@ html,body {
 .focus-in-contract {
   animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
+// title字体
+@media (max-width: $breakpoint-xs-max) {
+  .title {
+    font-size: 2rem;
+    line-height: normal;
+  }
+}
+
+// viewer背景色
+.viewer-backdrop {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}

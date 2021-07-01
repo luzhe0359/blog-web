@@ -8,10 +8,12 @@ Loading.setDefaults({
     spinnerColor: 'red',
 })
 
-// 懒加载
-import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload, {
-    loading: '/bg/img_loading.gif',
+
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(Viewer)
+Viewer.setDefaults({
+    Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
 })
 
 import './notify' // 弹窗

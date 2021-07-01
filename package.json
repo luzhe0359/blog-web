@@ -1,6 +1,6 @@
 {
   "name": "blog_web",
-  "version": "0.0.1",
+  "version": "1.1.1",
   "description": "zugelu - 博客",
   "productName": "足各路の博客",
   "author": "zhe <luzhe0359@163.com>",
@@ -15,11 +15,9 @@
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
     "quasar": "^1.0.0",
-    "swiper": "5.x",
-    "vue-awesome-swiper": "^4.1.1",
+    "v-viewer": "^1.6.3",
     "vue-count-to": "^1.0.13",
-    "vue-emoji-picker": "^1.0.3",
-    "vue-lazyload": "^1.3.3"
+    "vue-emoji-picker": "^1.0.3"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

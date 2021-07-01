@@ -19,15 +19,15 @@
 [ES6](https://es6.ruanyifeng.com/) | [Node.js](https://nodejs.org/en/) | [Webpack](https://www.webpackjs.com/) | [Vue](https://cn.vuejs.org/) | [Vuex](https://vuex.vuejs.org/zh/) | [Vue-Router](https://router.vuejs.org/zh/) | [Vuex](https://vuex.vuejs.org/zh/) | [Quasar-cli](http://www.quasarchs.com/start/quasar-cli) | [Axios](http://www.axios-js.com/) | [ESlint](https://eslint.bootcss.com/) 
 
 ### 如何运行
-请确保您的计算机已经安装了 ```Node.js``` 以及 ```git```，当前项目主要用于展示说明文档
+请确保您的计算机已经安装了 ```Node.js``` 以及 ```git```
 
 1、克隆项目
 
 ```sh
-## 克隆模板项目
 git clone https://github.com/luzhe0359/blog_web.git
 ```
 2、下载项目所需依赖
+
 ```yarn
 yarn install
 ```

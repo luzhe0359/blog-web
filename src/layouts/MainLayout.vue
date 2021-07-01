@@ -36,7 +36,7 @@
       <q-btn fab icon="keyboard_arrow_up" color="grey-8" />
     </q-page-scroller>
     <!-- 滚动监听器 -->
-    <q-scroll-observer class="gt-md" @scroll="scrollHandler" />
+    <q-scroll-observer @scroll="scrollHandler" />
     <!-- 大小调整侦听器 -->
     <q-resize-observer @resize="resizeHandler" debounce="200" />
   </q-layout>
@@ -97,6 +97,7 @@ export default {
     },
     // 滚动监听器
     scrollHandler (info) {
+      if (this.$q.screen.lt.sm) return
       const { position } = info
 
       if (position <= 500) {
@@ -140,9 +141,18 @@ export default {
   }
   @media (max-width: $breakpoint-xs-max) {
     .full-container {
-      background-image: url("/bg/bg_iphone.webp");
-      background-size: 100% 100%;
-      background-position: 0 0 !important;
+      background-image: none;
+      &::before {
+        content: " ";
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: url("/bg/bg_iphone.webp");
+        background-size: cover;
+      }
     }
   }
 }

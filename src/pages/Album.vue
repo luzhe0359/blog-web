@@ -1,14 +1,14 @@
 <template>
   <q-page id="Album">
     <div class="text-center q-pt-xl q-pb-md">
-      <div class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">真心的世界 , 真我的展示 。 </div>
+      <div class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">真心的世界 , 真我的展示 。</div>
       <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">记忆 , 让生活更精彩 </p>
     </div>
     <div class="row">
       <q-intersection transition="scale" class="card-box overflow-hidden col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in list" :key="item._id">
         <div class="q-ma-sm overflow-hidden">
           <div class="card-item overflow-hidden relative-position">
-            <q-img :ratio="16/9" :src="item.photos[0].url | imgBaseUrl" spinner-color="white" img-class="blur-image"></q-img>
+            <q-img :ratio="16/9" :src="item.photos[0].url | imgBaseUrl" spinner-color="white" img-class="blur-image" placeholder-src="~assets/img_loading.gif"></q-img>
             <div class="absolute-bottom text-subtitle1 text-center cursor-pointer" @click="toDetail(item._id)">
               {{item.album.name}}
             </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { findPhotoList, findAlbumList } from 'src/api/photo.js'
+import { findAlbumList } from 'src/api/photo.js'
 
 export default {
   name: 'Album',
@@ -56,6 +56,7 @@ export default {
     min-height: 120px;
     min-width: 25%;
     .card-item {
+      z-index: 0; // 手机端 radius触摸失效
       border-radius: 36px;
       > div {
         line-height: 40px;
@@ -83,8 +84,11 @@ export default {
 @media (max-width: $breakpoint-xs-max) {
   #Album {
     padding-top: 10px;
-    .rounded-borders {
+    .card-box {
       border-radius: 10px !important;
+      .card-item {
+        border-radius: 10px !important;
+      }
     }
   }
 }

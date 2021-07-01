@@ -57,9 +57,9 @@ export default {
         ldJson: {
           type: 'application/ld+json',
           innerHTML: `{ 
-            "@context": "http://zugelu.icu",
+            "@context": "https://zugelu.com",
             "name": "足各路の个人博客",
-            "url": "http://zugelu.icu",
+            "url": "https://zugelu.com",
             "author": {
               "@type": "Person",
               "name": "足各路"
@@ -70,7 +70,7 @@ export default {
 
       // <html>属性
       htmlAttr: {
-        'xmlns:cc': 'http://zugelu.icu:3000/home', // 生成<html xmlns:cc="http://creativecommons.org/ns#">,
+        'xmlns:cc': 'https://zugelu.com/', // 生成<html xmlns:cc="http://creativecommons.org/ns#">,
         empty: undefined // 生成<html empty>
       },
 

@@ -223,7 +223,6 @@ export default {
       if (this.isLogin) return
       return new Promise((resolve, reject) => {
         hasUsername({ username: val }).then(res => {
-          console.log();
           resolve(res.data.length <= 0 || '账号已存在')
         })
       })

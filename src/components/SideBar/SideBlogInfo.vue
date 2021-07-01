@@ -29,7 +29,7 @@ export default {
         { name: '文章总数', count: 0, icon: 'iconfont icon-wenzhang' },
         { name: '点赞总数', count: 0, icon: 'favorite_border' },
       ],
-      creatTime: '2021-6-6 00:00:00',
+      creatTime: '2021-7-1 00:00:00',
       timmer: null
     }
   },
@@ -81,7 +81,6 @@ export default {
         this.countList[1].count = views || 0
         this.countList[2].count = total || 0
         this.countList[3].count = likes || 0
-        console.log(this.countList);
       })
     }
   },

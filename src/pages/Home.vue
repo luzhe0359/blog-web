@@ -1,7 +1,7 @@
 <template>
   <q-page id="Home">
     <div class="text-center q-py-md">
-      <div class="text-h3" :class="{'focus-in-contract':$q.screen.gt.md}" style="line-height: 4rem;">要逼自己优秀, 然后骄傲的活着。</div>
+      <div class="text-h4" :class="{'focus-in-contract':$q.screen.gt.md}" style="line-height: 4rem;">要逼自己优秀 , 然后骄傲的活着 。</div>
       <p class="text-subtitle1 text-grey q-pt-md" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p>
     </div>
     <div class="q-gutter-sm">
