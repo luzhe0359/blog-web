@@ -1,7 +1,11 @@
 <template>
   <div id="footer" class="text-grey">
     <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
-    <p>系统由 Vue + Node + Quasar Framework驱动</p>
+    <p>系统由 Vue + Node + Quasar Framework 驱动</p>
+    <div>
+      <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"></span> 次 </span>
+      <span id="busuanzi_container_site_uv">| 总访客数 <span id="busuanzi_value_site_uv"></span> 人 </span>
+    </div>
     <div class="row justify-center items-center">
       <q-icon class="iconfont icon-yunhang q-mr-xs"> </q-icon>
       已运行 {{runTime}}
