@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="content-box">
+    <div class="content-box text-h6">
       <div class="short-line"></div>
       <div class="short-title">
         关于我 <br />
@@ -48,7 +48,7 @@
       <!-- timeline -->
       <div class="short-line" style="margin-top: 150px;"></div>
       <div class="short-title">记录博客建站的点滴 </div>
-      <q-timeline layout="dense" color="secondary" class="text-dark">
+      <q-timeline layout="dense" class="text-dark" dark>
         <q-timeline-entry :title="item.title" color="dark" :subtitle="item.date" v-for="item in timelineList" :key="item._id">
           <div class="pre-line">{{item.body}}</div>
         </q-timeline-entry>
@@ -122,13 +122,10 @@ export default {
       margin-top: 150px;
     }
     .short-title {
-      font-size: 26px;
-      line-height: 48px;
       font-weight: 600;
     }
     .short-desc {
-      font-size: 26px;
-      line-height: 48px;
+      opacity: 0.7;
       font-weight: 500;
       margin-top: 80px;
     }
@@ -137,8 +134,11 @@ export default {
     }
   }
 
-  /deep/ .q-timeline--comfortable .q-timeline__heading {
-    display: table-caption;
+  // /deep/ .q-timeline--comfortable .q-timeline__heading {
+  //   display: table-caption;
+  // }
+  /deep/ .q-timeline__dot:before {
+    border: 3px solid #ffffffbd;
   }
 }
 
@@ -149,16 +149,6 @@ export default {
     .hey-box {
       .hey {
         font-size: 70px;
-      }
-    }
-    .content-box {
-      .short-title {
-        font-size: 18px;
-        line-height: 32px;
-      }
-      .short-desc {
-        font-size: 18px;
-        line-height: 32px;
       }
     }
   }

@@ -20,7 +20,7 @@
     <div class="md-content row">
       <!-- 文章 -->
       <div class="col-xs-12 col-md-9">
-        <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent"></v-md-preview>
+        <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
       </div>
       <!-- 目录 -->
       <div class="gt-sm col-md-3 q-pl-md q-gutter-y-md">
@@ -235,6 +235,9 @@ export default {
         indent: hTags.indexOf(el.tagName),
       }));
     },
+    handleCopyCodeSuccess () {
+      this.$msg.success('复制成功')
+    },
     // 评论 --------------------------------
     // 添加评论
     comment (content, commentId, to, level) {
@@ -264,7 +267,6 @@ export default {
       this.$store.dispatch('article/LoadCommentList', params)
     }
   },
-
 }
 </script>
 <style lang="scss" scoped>

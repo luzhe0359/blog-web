@@ -39,7 +39,7 @@
             <div>博客名称：足各路的个人博客</div>
             <div>博客介绍：一足一路一世界</div>
             <div>博客地址：https://www.zugelu.com</div>
-            <div>博客标识：https://www.zugelu.com/img/logo.webp</div>
+            <div>博客标识：https://www.zugelu.com/images/logo.webp</div>
           </div>
         </q-card-section>
 

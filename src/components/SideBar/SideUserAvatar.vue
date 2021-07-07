@@ -59,6 +59,7 @@ export default {
     width: 90px;
     height: 90px;
     position: absolute;
+    z-index: 100;
     top: 55%;
     left: 50%;
     transform: translate(-50%, -60%);

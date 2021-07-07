@@ -140,6 +140,7 @@ $mess-margin: calc(50vh - 360px);
       }
     }
     .mess-desc {
+      opacity: 0.7;
       margin-top: 80px;
       font-size: 18px;
       font-weight: 400;
@@ -166,14 +167,14 @@ $mess-margin: calc(50vh - 360px);
           min-height: 100%;
           border-radius: 12px;
           padding: 16px 26px;
-          // &:before {
-          //   border: 2px solid rgba(0, 0, 0, 0.12);
-          // }
+          &:before {
+            border: 2px solid rgba(0, 0, 0, 0.12);
+          }
           .q-field__control-container {
             overflow-y: scroll;
           }
           textarea {
-            font-size: 20px;
+            font-size: 16px;
             line-height: 32px !important;
           }
         }
