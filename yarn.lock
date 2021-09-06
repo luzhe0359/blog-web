@@ -2754,6 +2754,11 @@ chalk@^2.0.0, chalk@^2.3.0, chalk@^2.3.2, chalk@^2.4.0, chalk@^2.4.1, chalk@^2.4
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chance@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.npm.taobao.org/chance/download/chance-1.1.7.tgz#e99dde5ac16681af787b5ba94c8277c090d6cfe8"
+  integrity sha1-6Z3eWsFmga94e1upTIJ3wJDWz+g=
+
 chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/chardet/download/chardet-0.7.0.tgz?cache=0&sync_timestamp=1601032614899&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchardet%2Fdownload%2Fchardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
@@ -10000,6 +10005,11 @@ vue@2.6.12:
   version "2.6.12"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha1-9evU+mvShpQD4pqJau1JBEVskSM=
+
+vuewordcloud@^18.7.12:
+  version "18.7.12"
+  resolved "https://registry.nlark.com/vuewordcloud/download/vuewordcloud-18.7.12.tgz#7cd02aafc57315f0548c9b9940f9f5e9de1d07f6"
+  integrity sha1-fNAqr8VzFfBUjJuZQPn16d4dB/Y=
 
 vuex@3.5.1:
   version "3.5.1"

@@ -35,7 +35,6 @@ export default async ({ store, ssrContext }) => {
     document.documentElement.scrollTop = 0
     window.pageYOffset = 0
     let tag = getScrollTarget(document.documentElement)
-    console.log(getScrollPosition(tag));
 
     Loading.show({
       spinner: QSpinnerGears,

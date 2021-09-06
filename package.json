@@ -12,12 +12,14 @@
     "@kangc/v-md-editor": "^1.7.2",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
+    "chance": "^1.1.7",
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
     "quasar": "^1.0.0",
     "v-viewer": "^1.6.3",
     "vue-count-to": "^1.0.13",
-    "vue-emoji-picker": "^1.0.3"
+    "vue-emoji-picker": "^1.0.3",
+    "vuewordcloud": "^18.7.12"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

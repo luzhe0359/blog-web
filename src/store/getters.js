@@ -12,6 +12,7 @@ const getters = {
     articlePageCount: state => state.article.articlePageCount,
     articleDetail: state => state.article.articleDetail,
     categoryList: state => state.article.categoryList,
+    tagList: state => state.article.tagList,
     commentList: state => state.article.commentList,
     commentPageCount: state => state.article.commentPageCount,
     // 时间线

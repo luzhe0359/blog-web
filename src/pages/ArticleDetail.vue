@@ -1,7 +1,8 @@
 <template>
   <q-page id="ArticleDetail">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
-    <div class="title text-h4 q-py-md text-white"> {{article.title}} </div>
+    <!-- <div class="title text-h4 q-py-md text-white"> {{article.title}} </div> -->
+    <h1 class="title text-h4 q-py-md text-white"> {{article.title}} </h1>
     <div class="text-white q-pb-sm row">
       <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
       <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>

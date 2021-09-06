@@ -3,6 +3,14 @@ html,body {
    font-family: "Helvetica Neue", "Helvetica", "tahoma","Arial", "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif" !important;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+
 // 最大宽度
 .max-width {
   max-width: 1200px;
@@ -44,6 +52,13 @@ html,body {
   .title {
     font-size: 2rem;
     line-height: normal;
+  }
+}
+
+// 顶部slogan
+@media (min-width: $breakpoint-md-min) {
+  .slogan {
+    height: 180px;
   }
 }
 

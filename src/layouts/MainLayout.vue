@@ -6,7 +6,9 @@
         <!-- <q-no-ssr> -->
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
-        <q-toolbar-title style="min-width:100px;"> 足各路</q-toolbar-title>
+        <q-toolbar-title style="min-width:100px;">
+          <router-link class="text-white" to="/" replace>足各路 </router-link>
+        </q-toolbar-title>
         <q-space />
         <!-- 菜单 -->
         <ToolBarMenu />
@@ -30,7 +32,6 @@
     </q-page-container>
     <!-- 下雪特效 -->
     <!-- <SnowEffects /> -->
-    <!-- <BallEffects /> -->
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="grey-8" />
@@ -45,7 +46,6 @@
 <script>
 import Footer from 'src/components/Footer/Footer'
 import SnowEffects from 'src/components/Common/SnowEffects.vue'
-import BallEffects from 'src/components/Common/BallEffects.vue'
 import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
@@ -57,7 +57,6 @@ export default {
     ToolBarUtil,
     ToolBarMenu,
     SnowEffects,
-    BallEffects,
     Footer,
   },
   data () {
@@ -73,18 +72,9 @@ export default {
   },
   mounted () {
     this.initClient()
-  },
-  watch: {
-    // $route (newVal, oldVal) {
-    // let noFooter = ['/about']
-    // console.log(noFooter.includes(newVal.fullPath));
-    // if (noFooter.includes(newVal.fullPath)) {
-    //   console.log(this.footer);
-    //   this.footer = false
-    // } else {
-    //   this.footer = true
-    // }
-    // },
+    console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路");
+    console.log("%c 本站地址: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com");
+    console.log("%c 个人邮箱: ", "border:1px solid #e1e1e8; color:#1e73be;", " luzhe0359@163.com");
   },
   methods: {
     initClient () {

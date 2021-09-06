@@ -53,9 +53,6 @@
           <div class="pre-line">{{item.body}}</div>
         </q-timeline-entry>
       </q-timeline>
-      <div class="q-mt-xl gt-md" style="height:500px;opacity:0.2;">
-        <!-- <q-img src="~assets/arrow.webp" width="132px" contain /> -->
-      </div>
     </div>
   </q-page>
 </template>
@@ -134,11 +131,17 @@ export default {
     }
   }
 
-  // /deep/ .q-timeline--comfortable .q-timeline__heading {
-  //   display: table-caption;
-  // }
   /deep/ .q-timeline__dot:before {
-    border: 3px solid #ffffffbd;
+    border: 2px solid rgba(255, 255, 255, 1);
+    height: 14px;
+    width: 14px;
+  }
+}
+
+@media (min-width: $breakpoint-sm-min) {
+  .q-timeline {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
   }
 }
 

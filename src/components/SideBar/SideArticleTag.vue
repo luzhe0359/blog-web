@@ -2,7 +2,7 @@
   <div id="SideArticleTag" class="full-width q-mt-lg ">
     <div class="text-h6 q-mb-sm">文章标签</div>
     <div>
-      <q-chip outline color="grey-8" class="q-mr-md q-ml-none q-mb-sm" v-for="tag in tagList" :key="tag.icon">{{tag.name}}</q-chip>
+      <q-btn outline color="grey-8" size="sm" type="a" :to="`/tag/${tag._id}`" padding="6px 12px" class="q-mr-sm q-ml-none q-mb-sm" v-for="tag in tagList" :key="tag.icon" :label="tag.name" />
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
       findTagList().then(res => {
         this.$q.sessionStorage.set('tagList', res.data)
         this.tagList = res.data
+      })
+    },
+    handleTag (_id) {
+      this.$router.push({
+        path: `/tag/${_id}`
       })
     }
   }

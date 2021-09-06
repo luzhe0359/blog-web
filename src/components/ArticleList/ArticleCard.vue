@@ -2,7 +2,7 @@
   <div class="article q-mb-md">
     <!-- 主内容 -->
     <!-- <div class="article-title cursor-pointer" @click="toArticleDetail" :style="{'backgroundImage': `url(${randomBg})`}"> -->
-    <div class="article-title cursor-pointer" @click="toArticleDetail">
+    <router-link class="article-title" :to="`/articleDetail/${article._id}`">
       <!-- 文章分类 -->
       <div class="row">
         <q-space />
@@ -13,10 +13,10 @@
       </div>
       <!-- 标题&内容 -->
       <div>
-        <div class="text-h6 q-my-sm ellipsis">{{article.title}}</div>
+        <h1 class="text-h6 q-my-sm ellipsis">{{article.title}}</h1>
         <div class="ellipsis-2-lines q-mb-sm text-grey-8">{{article.desc}}</div>
       </div>
-    </div>
+    </router-link>
     <!-- 分割线 -->
     <div class="line"></div>
     <!-- 底部工具栏 -->
@@ -49,14 +49,6 @@ export default {
       const randomNum = Math.ceil(Math.random() * 20)
       return `/bg/code${randomNum}.png`
     }
-  },
-  methods: {
-    // 查看文章详情
-    toArticleDetail () {
-      this.$router.push({
-        path: `/articleDetail/${this.article._id}`
-      })
-    }
   }
 }
 </script>
@@ -73,6 +65,7 @@ export default {
     box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   }
   .article-title {
+    display: block;
     color: #000;
     // background: url("~assets/bg/game4.png") no-repeat;
     // background-repeat: no-repeat;

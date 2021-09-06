@@ -18,7 +18,7 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'axios',
-      'main'
+      'main',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -65,6 +65,20 @@ module.exports = function (ctx) {
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack (cfg) {
 
+      },
+
+      chainWebpack (chain, { isServer, isClient }) {
+        //发布模式
+        chain.when(ctx.prod, config => {
+          //使用externals设置排除项
+          config.set('externals', {
+            // vue: 'Vue',
+            // 'vue-router': 'VueRouter',
+            axios: 'axios',
+            // chance: 'Chance',
+            // 'crypto-js': 'CryptoJS'
+          })
+        })
       },
 
       // 自定义 env
@@ -191,6 +205,7 @@ module.exports = function (ctx) {
       extendWebpack (/* cfg */) {
         // do something with Electron main process Webpack cfg
         // chainWebpack also available besides this extendWebpack
+
       }
     }
   }

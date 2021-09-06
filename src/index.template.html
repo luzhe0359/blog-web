@@ -23,7 +23,19 @@
   <meta name="viewport"
     content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
   <link rel="icon" type="image/ico" href="favicon.ico">
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_2346517_w6jd3ar2xeg.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_2346517_aaxx40wcbj.css">
+  <% if(ctx.prod){ %>
+    <!-- vue -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script> -->
+    <!-- vue-router -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.2.0/vue-router.min.js"></script> -->
+    <!-- axios -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.18.1/axios.min.js"></script>
+    <!-- chance -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/chance/1.1.7/chance.min.js"></script> -->
+    <!-- crypto-js -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script> -->
+    <% }%>
 </head>
 
 <body>

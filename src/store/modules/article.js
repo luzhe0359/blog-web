@@ -1,6 +1,7 @@
 import { findArticleById, findArticleList, likeArticle, nolikeArticle } from 'src/api/article.js'
 import { findCommentList, addComment, likeComment } from 'src/api/comment.js'
 import { findCategoryList } from 'src/api/category.js'
+import { findTagList } from 'src/api/tag.js'
 import { setUser } from 'src/utils/auth'
 
 const count = {
@@ -10,6 +11,7 @@ const count = {
         articlePageCount: 0, // 文章总数
         articleDetail: {}, // 文章详情
         categoryList: [], // 文章分类
+        tagList: [], // 文章标签
         commentList: [], // 文章评论
         commentPageCount: 0 // 评论总数
     },
@@ -25,6 +27,9 @@ const count = {
         },
         SET_CATEGORY_LIST: (state, { list = [] }) => {
             state.categoryList = list
+        },
+        SET_TAG_LIST: (state, { list = [] }) => {
+            state.tagList = list
         },
         SET_COMMENT_LIST: (state, { list = [] }) => {
             state.commentList = list
@@ -66,6 +71,17 @@ const count = {
                 findCategoryList(parmas).then(res => {
                     let list = [{ name: 'ALL', _id: 'zugelu' }, ...res.data]
                     commit('SET_CATEGORY_LIST', { list })
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        },
+        // 标签列表
+        LoadTagList ({ commit }, parmas) {
+            return new Promise((resolve, reject) => {
+                findTagList(parmas).then(res => {
+                    commit('SET_TAG_LIST', { list: res.data })
                     resolve(res)
                 }).catch(err => {
                     reject(err)

@@ -1,6 +1,6 @@
 <template>
   <q-page id="link">
-    <div class="text-center q-pt-xl q-pb-md">
+    <div class="slogan text-center q-pt-xl q-pb-md">
       <div class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">
         如果可以 , 带着你的
         <q-btn round icon="iconfont icon-youlianguanliicon" @click="dialog=true" /> ,
@@ -10,25 +10,22 @@
     </div>
     <div class="row">
       <q-intersection transition="scale" class="card-box col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in linkList" :key="item._id">
-        <q-card class="q-ma-sm q-py-md shadow-12 cursor-pointer card-bg overflow-hidden" @click="openLink(item.url)">
-          <div v-if="item.isTop" class="good absolute-top-right rotate-45"> 优 秀</div>
-          <q-card-section class="row no-wrap">
-            <!-- 头像 -->
-            <q-avatar size="90px">
-              <img :src="item.logo">
-            </q-avatar>
-            <!-- 网站名、简介 -->
-            <div class="q-pl-md">
-              <div class="text-h5 q-mb-sm">{{item.title}}</div>
-              <div class="text-subtitle2 ellipsis-2-lines text-grey-8">{{item.desc}}</div>
-            </div>
-            <!-- 链接 -->
-            <!-- <a href="javascript:;" @click="openLink(item.url)">
-              <span>去看看</span>
-              <span>去看看</span>
-            </a> -->
-          </q-card-section>
-        </q-card>
+        <a class="text-dark" :href="item.url" target="_blank">
+          <q-card class="q-ma-sm q-py-md shadow-12 cursor-pointer card-bg overflow-hidden">
+            <div v-if="item.isTop" class="good absolute-top-right rotate-45"> 优 秀</div>
+            <q-card-section class="row no-wrap">
+              <!-- 头像 -->
+              <q-avatar size="90px">
+                <img :src="item.logo">
+              </q-avatar>
+              <!-- 网站名、简介 -->
+              <div class="q-pl-md">
+                <div class="text-h5 q-mb-sm">{{item.title}}</div>
+                <div class="text-subtitle2 ellipsis-2-lines text-grey-8">{{item.desc}}</div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </a>
       </q-intersection>
     </div>
     <q-dialog v-model="dialog" position="right">
@@ -115,7 +112,7 @@ export default {
     min-height: 120px;
     min-width: 25%;
     .card-bg {
-      border-radius: 16px;
+      border-radius: 36px;
       background-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease-in-out;

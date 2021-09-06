@@ -15,8 +15,6 @@ const count = {
         LoadTimelineList ({ commit }, params) {
             return new Promise((resolve, reject) => {
                 findTimelineList(params).then(res => {
-                    console.log('res');
-                    console.log(res);
                     commit('SET_TIMELINE', { list: res.data })
                     resolve()
                 }).catch(err => {

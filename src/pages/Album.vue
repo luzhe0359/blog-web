@@ -1,19 +1,21 @@
 <template>
   <q-page id="Album">
-    <div class="text-center q-pt-xl q-pb-md">
+    <div class="slogan text-center q-pt-xl q-pb-md">
       <div class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">真心的世界 , 真我的展示 。</div>
       <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">记忆 , 让生活更精彩 </p>
     </div>
     <div class="row">
       <q-intersection transition="scale" class="card-box overflow-hidden col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in list" :key="item._id">
-        <div class="q-ma-sm overflow-hidden">
-          <div class="card-item overflow-hidden relative-position">
-            <q-img :ratio="16/9" :src="item.photos[0].url | imgBaseUrl" spinner-color="white" img-class="blur-image" placeholder-src="~assets/img_loading.gif"></q-img>
-            <div class="absolute-bottom text-subtitle1 text-center cursor-pointer" @click="toDetail(item._id)">
-              {{item.album.name}}
+        <router-link class="article-title" :to="`/photo/${item._id}`">
+          <div class="q-ma-sm overflow-hidden">
+            <div class="card-item overflow-hidden relative-position">
+              <q-img :ratio="16/9" :src="item.photos[0].url | imgBaseUrl" spinner-color="white" img-class="blur-image" placeholder-src="~assets/img_loading.gif"></q-img>
+              <div class="absolute-bottom text-subtitle1 text-center cursor-pointer">
+                {{item.album.name}}
+              </div>
             </div>
           </div>
-        </div>
+        </router-link>
       </q-intersection>
     </div>
   </q-page>
@@ -39,12 +41,6 @@ export default {
         this.list = res.data
       })
     },
-    // 跳转照片列表
-    toDetail (_id) {
-      this.$router.push({
-        path: `/photo/${_id}`
-      })
-    }
   },
 }
 </script>

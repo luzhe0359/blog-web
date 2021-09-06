@@ -47,6 +47,17 @@ const routes = [
         component: () => import('pages/ArticleDetail.vue')
       },
       {
+        path: 'tag/:_id',
+        name: 'Tag',
+        meta: {
+          title: '文章标签',
+          icon: 'icon-biaoqian',
+          menu: false,
+          keepAlive: false
+        },
+        component: () => import('pages/Tag.vue')
+      },
+      {
         path: 'album',
         name: 'Album',
         meta: {
@@ -55,7 +66,7 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('src/pages/Album.vue')
+        component: () => import('pages/Album.vue')
       },
       {
         path: 'photo/:_id?',
@@ -66,7 +77,7 @@ const routes = [
           menu: false,
           keepAlive: true
         },
-        component: () => import('src/pages/Photo.vue')
+        component: () => import('pages/Photo.vue')
       },
       {
         path: 'link',
