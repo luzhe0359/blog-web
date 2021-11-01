@@ -28,31 +28,18 @@ $warning   : #F2C037;
 .q-page {
     max-width: 1200px;
     min-height: calc(100vh - 50px) !important;
-    padding: 20px;
+    padding: 16px;
     margin: 0 auto;
     box-sizing: border-box;
     animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
-@media screen and (max-width: 599px) {
-    .q-page {
-        padding: 10px;
-    }
-}
+// @media screen and (max-width: 599px) {
+//     .q-page {
+//         padding: 10px;
+//     }
+// }
 
-// q-dialog对话框，按钮样式
-.q-dialog {
-    .q-dialog-plugin {
-        .q-card__actions{
-            .q-btn--push {
-                border-radius: 2px;
-                .q-btn__wrapper:before {
-                    border-bottom: none;
-                }
-            }
-        }
-    }
-}
 // 上传 图片高100%
 .q-uploader__file--img {
     height: 100% !important ; 

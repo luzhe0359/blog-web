@@ -2,7 +2,7 @@
   <div id="SideBlogInfo" class="full-width q-pt-lg ">
     <div class="text-h6 q-mb-sm">博客信息</div>
     <div>
-      <q-chip outline v-for="item in countList" :key="item.icon" :icon="item.icon" color="grey-8" class="q-mr-md q-ml-none q-mb-sm">
+      <q-chip v-for="item in countList" :key="item.icon" :icon="item.icon" class="q-mr-md q-ml-none q-mb-sm q-pa-md small-shadow">
         <div class="q-mr-xs">{{ item.name }}</div>
         <div v-if="item.name === '已运行'">{{item.count}}</div>
         <countTo v-else :startVal='0' :endVal='item.count' :duration='3000'></countTo>

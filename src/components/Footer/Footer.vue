@@ -98,6 +98,7 @@ export default {
 }
 
 /deep/ .icon-yunhang {
+  margin-bottom: 2px;
   animation: rotate-center 5s linear infinite both;
 }
 </style>

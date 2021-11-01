@@ -1,7 +1,7 @@
 import { findArticleById, findArticleList, likeArticle, nolikeArticle } from 'src/api/article.js'
 import { findCommentList, addComment, likeComment } from 'src/api/comment.js'
 import { findCategoryList } from 'src/api/category.js'
-import { findTagList } from 'src/api/tag.js'
+import { findTagCount } from 'src/api/tag.js'
 import { setUser } from 'src/utils/auth'
 
 const count = {
@@ -80,7 +80,7 @@ const count = {
         // 标签列表
         LoadTagList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
-                findTagList(parmas).then(res => {
+                findTagCount(parmas).then(res => {
                     commit('SET_TAG_LIST', { list: res.data })
                     resolve(res)
                 }).catch(err => {

@@ -4,18 +4,20 @@
     <!-- <div class="title text-h4 q-py-md text-white"> {{article.title}} </div> -->
     <h1 class="title text-h4 q-py-md text-white"> {{article.title}} </h1>
     <div class="text-white q-pb-sm row">
-      <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
-      <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
-      <div v-if="article.meta">
-        <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
-        <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
-        <q-chip class="like-box" color="transparent" text-color="white">
-          <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
-          {{article.meta.likes}}
-        </q-chip>
+      <div class="row col-xs-12 col-md-9">
+        <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
+        <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
+        <div v-if="article.meta">
+          <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
+          <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
+          <q-chip class="like-box" color="transparent" text-color="white">
+            <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
+            {{article.meta.likes}}
+          </q-chip>
+        </div>
+        <q-space />
+        <q-chip color="grey-8" text-color="white" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
       </div>
-      <q-space />
-      <q-chip color="grey-6" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
     </div>
     <!-- md -->
     <div class="md-content row">
@@ -78,18 +80,17 @@ export default {
   },
   meta () {
     return {
-      title: this.article.title + ' | ZUGELU-足各路的个人博客',
+      title: this.article.title,
       meta: {
         description: { name: 'description', content: this.article.desc },
-        ogTitle: { name: 'og:title', content: this.article.title + ' | ZUGELU-足各路的个人博客' },
+        ogTitle: { name: 'og:title', content: this.article.title + ' | ZUGELU-专注前端开发' },
         ogDescription: { name: 'og:description', content: this.article.desc },
-        ogType: { name: 'og:type', content: '文章' },
-        ogImage: { name: 'og:image', content: this.article.imgCover },
+        ogType: { name: 'og:type', content: this.article.category.name + '文章' },
         // ogImageUrl: { name: 'og:image:url', content: this.article.imgUrl },
         ogUrl: { name: 'og:url', content: 'https://zugelu.com' + this.$route.path },
-        articlePublishTime: { name: 'article:published_time', content: date.formatDate(this.article.createTime, 'YYYY-MM-DD HH:mm:ss') },
+        articlePublishTime: { name: 'article:publish_time', content: date.formatDate(this.article.createTime, 'YYYY-MM-DD HH:mm:ss') },
         articleUpdateTime: { name: 'article:update_time', content: date.formatDate(this.article.updateTime, 'YYYY-MM-DD HH:mm:ss') },
-        articleSection: { name: 'article:section', content: '编码技术' }
+        articleSection: { name: 'article:section', content: this.article.tags.map(tag => tag.name).join(',') }
       }
     }
   },

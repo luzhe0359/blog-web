@@ -14,7 +14,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: 'home',
+        path: '',
         name: 'Home',
         meta: {
           title: '首页',
@@ -36,7 +36,7 @@ const routes = [
         component: () => import('pages/ArticleList.vue')
       },
       {
-        path: 'articleDetail/:_id?',
+        path: 'detail/:_id?',
         name: 'ArticleDetail',
         meta: {
           title: '文章详情',

@@ -16,3 +16,10 @@ import { axios } from 'boot/axios.js'
 export const findTagList = params => {
     return axios.get('/tag/list', { params })
 }
+
+/**
+ * @description: 查找标签统计
+ */
+export const findTagCount = () => {
+    return axios.get('/tag/count')
+}

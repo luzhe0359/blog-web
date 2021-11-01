@@ -17,7 +17,7 @@
       <div class="short-line"></div>
       <div class="short-title">
         关于我 <br />
-        朋友们都叫我毛路 (别称)
+        朋友们都叫我 “毛路”
       </div>
       <div class="short-desc">
         90后，一名前端开发者，现居北京 <br>
@@ -94,7 +94,7 @@ export default {
       line-height: 126px;
       font-weight: 550;
       font-family: Alibaba-PuHui Ti-H, Alibaba-PuHuiTi;
-      color: #000000;
+      color: #000;
       span {
         display: inline-block;
         width: 15px;

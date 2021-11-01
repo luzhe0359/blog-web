@@ -1,6 +1,6 @@
 <template>
   <div class="gt-xs">
-    <q-btn class="q-mr-sm" :flat="!currentMenu.startsWith(menu.path)" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
+    <q-btn class="q-mr-sm" :flat="currentMenu !== '/' + menu.path" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
   </div>
 </template>
 
@@ -17,12 +17,17 @@ export default {
   },
   created () {
     // 刷新时，同步选中菜单按钮
-    this.currentMenu = this.$route.path.slice(1)
+    this.currentMenu = this.$route.path
     this.getMenuList()
+  },
+  computed: {
+    isCurrentMenu () {
+
+    }
   },
   watch: {
     $route (newVal) {
-      this.currentMenu = newVal.path.substring(1)
+      this.currentMenu = newVal.path
     }
   },
   methods: {
@@ -34,7 +39,7 @@ export default {
     },
     // 切换菜单
     switchMenu (val) {
-      this.currentMenu = val
+      this.currentMenu = '/' + val
     },
   }
 }

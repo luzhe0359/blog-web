@@ -1,13 +1,10 @@
 <template>
   <q-page id="tag">
-    <div class="word-cloud">
-      <vue-word-cloud :words="words" :color="colors">
-        <template slot-scope=" {text, weight, word}">
-          <div class="tag" :class="{'active':currentId === word[2]}" :title="weight" @click="changeTag( word[2])">
-            {{ text }}
-          </div>
-        </template>
-      </vue-word-cloud>
+    <div class="q-gutter-md">
+      <q-chip class="small-shadow" :class="{'text-light-blue':currentId === tag._id}" text-color="dark" clickable @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+        {{tag.name}}
+        <q-badge align="top" color="grey" text-color="dark" :label="tag.count" />
+      </q-chip>
     </div>
     <!-- 文章列表 -->
     <ArticleCardList :articleList="articleList" />
@@ -20,12 +17,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import VueWordCloud from 'vuewordcloud';
-import Chance from 'chance'
 
 import ArticleCardList from 'src/components/ArticleList/ArticleCardList'
 
-const chance = new Chance()
 let defaultParams = {
   state: 1, // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
   pageNum: 1,
@@ -34,7 +28,6 @@ let defaultParams = {
 export default {
   name: 'Tag',
   components: {
-    [VueWordCloud.name]: VueWordCloud,
     ArticleCardList,
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
@@ -47,8 +40,6 @@ export default {
     return {
       pageNum: defaultParams.pageNum, // 当前页
       pageSize: defaultParams.pageSize,
-      colors: () => chance.color(),
-      words: [],
       currentId: null // 当前标签
     }
   },
@@ -59,17 +50,6 @@ export default {
       'articlePageCount',
     ]),
   },
-  watch: {
-    tagList: {
-      handler: function (n, o) {
-        this.words = [...n.map(tag => {
-          return [tag.name, chance.natural({ min: 1, max: 10 }), tag._id]
-        })]
-      },
-      deep: true,
-      immediate: true,
-    }
-  },
   mounted () {
     this.currentId = this.$route.params._id
     this.currentId && this.changePage()
@@ -77,9 +57,7 @@ export default {
   methods: {
     // 切换文章标签
     changeTag (_id) {
-      if (this.currentId === _id) { // 切换
-        return this.currentId = null
-      }
+      if (this.currentId === _id) return
       this.currentId = _id
       this.pageNum = 1
       // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
@@ -94,7 +72,7 @@ export default {
     // 切换页码
     changePage (current) {
       let params = {
-        pageNum: current,
+        pageNum: current || 1,
         pageSize: this.pageSize,
         state: 1,
         tag: this.currentId
@@ -108,32 +86,14 @@ export default {
 #tag {
   padding-top: 50px;
 }
-.word-cloud {
-  width: 100%;
-  height: 380px;
-  padding: 20px;
-  /* background-color: rgba(255, 255, 255, 0.48); */
-  border-radius: 12px;
-}
-.tag {
-  padding: 0 5px;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: all 0.2s ease-in;
-  &:hover {
-    transform: scale(1.05);
-  }
-}
+
 .active {
-  background-color: #fff;
+  background-color: #03a9f4;
 }
 
 @media (max-width: $breakpoint-sm-max) {
   #tag {
     padding-top: 20px;
-  }
-  .word-cloud {
-    height: 300px;
   }
 }
 </style>

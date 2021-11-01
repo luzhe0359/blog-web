@@ -30,8 +30,6 @@
       </keep-alive>
       <Footer />
     </q-page-container>
-    <!-- 下雪特效 -->
-    <!-- <SnowEffects /> -->
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="grey-8" />
@@ -45,7 +43,6 @@
 
 <script>
 import Footer from 'src/components/Footer/Footer'
-import SnowEffects from 'src/components/Common/SnowEffects.vue'
 import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
@@ -56,7 +53,6 @@ export default {
     SideMenu,
     ToolBarUtil,
     ToolBarMenu,
-    SnowEffects,
     Footer,
   },
   data () {

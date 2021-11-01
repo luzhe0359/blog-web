@@ -66,3 +66,44 @@ a {
 .viewer-backdrop {
   background-color: rgba(0, 0, 0, 0.95) !important;
 }
+
+// 基础阴影
+.base-shadow {
+  border-radius: 36px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 20px 20px 36px #bfbfbf, inset -20px -20px 36px #ffffff;
+  &:hover {
+    background: #E1E1E1;
+    box-shadow: inset -20px -20px 60px #bfbfbf, inset 20px 20px 60px #ffffff;
+  }
+}
+@media (max-width: $breakpoint-xs-max) {
+  .base-shadow {
+    margin: 0;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+}
+// 小按钮阴影
+.small-shadow {
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset -5px -5px 10px #c6c6c6, inset 5px 5px 10px #fcfcfc;
+  &:hover {
+    background: #E1E1E1;
+    box-shadow: inset 5px -5px 10px #c6c6c6, inset -5px 5px 10px #fcfcfc;
+  }
+}
+
+// 基础圆角
+.base-radius {
+  border-radius: 36px;
+}
+
+
+.q-avatar {
+  &:hover {
+    animation: rotate-center 0.6s ease-in-out both;
+  }
+}

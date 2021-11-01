@@ -11,7 +11,7 @@
     <div class="row">
       <q-intersection transition="scale" class="card-box col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="item in linkList" :key="item._id">
         <a class="text-dark" :href="item.url" target="_blank">
-          <q-card class="q-ma-sm q-py-md shadow-12 cursor-pointer card-bg overflow-hidden">
+          <q-card class="q-ma-sm q-py-md cursor-pointer overflow-hidden base-shadow">
             <div v-if="item.isTop" class="good absolute-top-right rotate-45"> 优 秀</div>
             <q-card-section class="row no-wrap">
               <!-- 头像 -->
@@ -87,9 +87,6 @@ export default {
   mounted () {
   },
   methods: {
-    openLink (url) {
-      window.open(url)
-    },
     copy (e) {
       copyToClipboard(e.currentTarget.innerHTML)
         .then(() => {
@@ -111,17 +108,7 @@ export default {
     height: 100%;
     min-height: 120px;
     min-width: 25%;
-    .card-bg {
-      border-radius: 36px;
-      background-color: rgba(255, 255, 255, 0.5);
-      box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease-in-out;
-      &:hover {
-        box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
-        .q-avatar {
-          animation: rotate-center 0.6s ease-in-out both;
-        }
-      }
+    .base-shadow {
       .good {
         width: 100px;
         height: 38px;

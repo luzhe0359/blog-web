@@ -72,7 +72,7 @@ export default {
     // 跳转文章详情
     toArticleDetail (_id) {
       this.$router.push({
-        path: `/articleDetail/${_id}`
+        path: `/detail/${_id}`
       })
     }
   }

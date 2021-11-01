@@ -17,7 +17,6 @@
         <div class="title-box">
           <div class="text-center name">足各路</div>
           <!-- <div class="text-center about">一足一路一世界</div> -->
-          <BallEffects />
         </div>
       </div>
     </q-responsive>
@@ -25,13 +24,9 @@
 </template>
 
 <script>
-import BallEffects from 'src/components/Common/BallEffects.vue'
 
 export default {
   name: 'SideUserAvatar',
-  components: {
-    BallEffects,
-  },
   data () {
     return {
     }

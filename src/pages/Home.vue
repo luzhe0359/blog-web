@@ -21,7 +21,7 @@ export default {
   name: 'Home',
   data () {
     return {
-      iconSize: '32px',
+      iconSize: '36px',
       tagList: [
         { name: 'github', tooltip: 'github: https://github.com/luzhe0359', link: 'https://github.com/luzhe0359', icon: 'iconfont icon-git' },
         { name: 'CSDN', tooltip: 'CSDN: https://blog.csdn.net/weixin_44388523', link: 'https://blog.csdn.net/weixin_44388523', icon: 'iconfont icon-csdn' },

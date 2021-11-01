@@ -41,6 +41,14 @@ module.exports = function (ctx) {
       'material-icons', // optional, you are not bound to it
     ],
 
+    vendor: {
+      // /* 可选的; @quasar/app v1.4.2+; 
+      //  禁用vendor块: */ 
+      // disable: true,
+      add: [],
+      remove: ['@kangc/v-md-editor', 'v-viewer', 'vue-count-to', 'crypto-js']
+    },
+
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       publicPath: '/',
@@ -57,7 +65,9 @@ module.exports = function (ctx) {
       // preloadChunks: true,
       // showProgress: false,
       gzip: true,
-      // analyze: true,
+      // analyze: { // 使用webpack-bundle-analyzer显示构建包的分析
+      //   analyzerPort: 8889, // 启用的端口
+      // },
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
@@ -76,7 +86,6 @@ module.exports = function (ctx) {
             // 'vue-router': 'VueRouter',
             axios: 'axios',
             // chance: 'Chance',
-            // 'crypto-js': 'CryptoJS'
           })
         })
       },
