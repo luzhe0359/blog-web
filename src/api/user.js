@@ -26,9 +26,30 @@ export const userLogout = () => {
  * @description: 用户注册
  * @param {String} username 用户名
  * @param {String} password 密码(aes加密)
+ * @param {String} email 邮箱
+ * @param {String} code 验证码
  */
 export const userRegister = params => {
     return axios.post('/user/add', params)
+}
+
+/**
+ * @description: 修改密码
+ * @param {String} password 新密码(aes加密)
+ * @param {String} email 邮箱
+ * @param {String} code 验证码
+ */
+export const changePassword = params => {
+    return axios.post('/user/password', params)
+}
+
+/**
+ * @description: 发送验证码
+ * @param {String} email 邮箱
+ * @param {String} username 用户名
+ */
+export const sendEmailCode = params => {
+    return axios.post('/user/code', params)
 }
 
 /**
@@ -45,6 +66,14 @@ export const hasUsername = params => {
  */
 export const hasNickname = params => {
     return axios.post('/user/nickname', params)
+}
+
+/**
+ * @description: 校验邮箱
+ * @param {String} nickname 昵称
+ */
+export const hasEmail = params => {
+    return axios.post('/user/email', params)
 }
 
 /**

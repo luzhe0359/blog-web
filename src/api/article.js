@@ -18,6 +18,14 @@ export const findArticleList = params => {
 }
 
 /**
+ * @description: 查找置顶/热门文章列表
+ */
+export const findTopHotArticleList = params => {
+    return axios.get('/article/tophot', { params })
+}
+
+
+/**
  * @description: 添加文章
  * @param {String} title 文章标题
  * @param {String} desc 文章描述

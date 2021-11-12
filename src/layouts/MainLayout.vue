@@ -24,7 +24,7 @@
       <SideMenu />
     </q-drawer>
     <!-- container -->
-    <q-page-container class="full-container" :style="$q.screen.lt.sm ?{}:{'background-position': '0 ' + ypos}">
+    <q-page-container :style="$q.screen.lt.sm ?{}:{'background-position': '0 ' + ypos}">
       <keep-alive :include="cacheList">
         <router-view :key="$route.fullPath" />
       </keep-alive>
@@ -32,10 +32,10 @@
     </q-page-container>
     <!-- 回到顶部 -->
     <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
-      <q-btn fab icon="keyboard_arrow_up" color="grey-8" />
+      <q-btn fab icon="keyboard_arrow_up" class="top-btn" />
     </q-page-scroller>
     <!-- 滚动监听器 -->
-    <q-scroll-observer @scroll="scrollHandler" />
+    <!-- <q-scroll-observer @scroll="scrollHandler" /> -->
     <!-- 大小调整侦听器 -->
     <q-resize-observer @resize="resizeHandler" debounce="200" />
   </q-layout>
@@ -47,6 +47,10 @@ import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
 
+let defaultParams = {
+  pageNum: 1,
+  pageSize: 5
+}
 export default {
   name: 'MainLayout',
   components: {
@@ -54,6 +58,12 @@ export default {
     ToolBarUtil,
     ToolBarMenu,
     Footer,
+  },
+  preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
+    // 预取数据 - 网页只请求一次的数据
+    return Promise.all([
+      store.dispatch('article/LoadTopHotArticleList', defaultParams)
+    ])
   },
   data () {
     return {
@@ -70,10 +80,12 @@ export default {
     this.initClient()
     console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路");
     console.log("%c 本站地址: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com");
+    console.log("%c 个人简历: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com/resume.html");
     console.log("%c 个人邮箱: ", "border:1px solid #e1e1e8; color:#1e73be;", " luzhe0359@163.com");
   },
   methods: {
     initClient () {
+      console.log(111);
       // 1345/960 背景图 高/宽比 
       // 获取屏幕宽高，计算背景图的高度，动态改变背景图定位
       this.clientHeight = document.documentElement.clientHeight
@@ -115,7 +127,8 @@ export default {
     min-width: 100%;
     min-height: 100vh;
     box-sizing: border-box;
-    background-image: url("/bg/bg_body.webp");
+    /* background-color: $grey-2; */
+    background-image: url("https://oss.zugelu.com/other/bg_body.webp");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% auto;
@@ -136,10 +149,15 @@ export default {
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: url("/bg/bg_iphone.webp");
+        background-image: url("https://oss.zugelu.com/other/bg_iphone.webp");
         background-size: cover;
       }
     }
   }
+}
+.top-btn {
+  border-radius: 50%;
+  background: #f5f5f5;
+  box-shadow: inset -5px -5px 10px #cecece, inset 5px 5px 10px #ffffff;
 }
 </style>

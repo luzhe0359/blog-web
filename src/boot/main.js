@@ -21,6 +21,8 @@ import './filter' // 过滤器
 import './markdown' // markdown
 
 export default async ({ app, router, store, Vue }) => {
+    // logo(默认展位图图片)
+    Vue.prototype.$BASE_IMG_URL = 'https://oss.zugelu.com/other/logo.webp'
     // 初始化 store
     store.dispatch('user/InitUser')
 }

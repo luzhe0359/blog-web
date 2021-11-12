@@ -38,7 +38,7 @@ export default async ({ store, ssrContext }) => {
 
     Loading.show({
       spinner: QSpinnerGears,
-      spinnerColor: 'red',
+      spinnerColor: 'light-blue-5',
       messageColor: 'grey-2',
       backgroundColor: 'transparent',
       message: 'loading  . . .'

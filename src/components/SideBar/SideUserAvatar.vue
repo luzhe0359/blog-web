@@ -1,41 +1,91 @@
 <template>
-  <div id="SideUserAvatar" class="full-width">
-    <!-- 响应式容器 子元素height:100%-->
-    <q-responsive :ratio="10/9">
-      <div class="relative-position">
-        <div class="bg-box overflow-hidden">
-          <div class="avatar-bg fit"></div>
+  <q-card class="q-mb-lg">
+    <q-card-section class="column flex-center">
+      <q-avatar class="cursor-pointer" size="100px">
+        <q-img basic native-context-menu alt="足各路" src="https://oss.zugelu.com/other/logo.webp" spinner-color="grey" />
+      </q-avatar>
+      <div class="text-h6 text-weight-bold q-my-xs">足各路</div>
+      <div class="text-grey-8">要逼自己优秀, 然后骄傲的活着 。</div>
+    </q-card-section>
+    <q-card-section class="row q-pt-none">
+      <router-link class="col-4" :to="`/article`">
+        <div class="column flex-center">
+          <div>文章</div>
+          <countTo :startVal='0' :endVal='50' :duration='3000'></countTo>
         </div>
-        <div class="avatar cursor-pointer">
-          <q-avatar class="avatar-logo" size="90px">
-            <q-img basic src="~assets/logo.webp" spinner-color="white" />
-          </q-avatar>
-          <q-avatar class="avatar-user hidden" size="90px">
-            <q-img basic src="~assets/auth_logo.webp" spinner-color="white" />
-          </q-avatar>
+      </router-link>
+      <router-link class="col-4" :to="`/article`">
+        <div class="column flex-center">
+          <div>标签</div>
+          <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>
         </div>
-        <div class="title-box">
-          <div class="text-center name">足各路</div>
-          <!-- <div class="text-center about">一足一路一世界</div> -->
+      </router-link>
+      <router-link class="col-4" :to="`/article`">
+        <div class="column flex-center">
+          <div>分类</div>
+          <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>
         </div>
+      </router-link>
+    </q-card-section>
+    <!-- <q-separator inset /> -->
+    <q-card-section class="q-pt-none">
+      <div class="row justify-center items-center no-wrap q-mb-sm">
+        <q-separator inset />
+        <div class="col-3 text-h6 text-center">社交</div>
+        <q-separator inset />
       </div>
-    </q-responsive>
-  </div>
+      <div class="row justify-center q-gutter-sm">
+        <q-icon class="cursor-pointer social" v-for="item in tagList" :key="item.name" :name="item.icon" size="26px" @click="copy(item)">
+          <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
+            {{item.tooltip}}
+          </q-tooltip>
+        </q-icon>
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
+import countTo from 'vue-count-to';
+import { copyToClipboard } from 'quasar'
+
 
 export default {
   name: 'SideUserAvatar',
+  components: {
+    countTo
+  },
   data () {
     return {
+      tagList: [
+        { name: 'github', tooltip: 'github: https://github.com/luzhe0359', link: 'https://github.com/luzhe0359', icon: 'iconfont icon-git' },
+        { name: 'CSDN', tooltip: 'CSDN: https://blog.csdn.net/weixin_44388523', link: 'https://blog.csdn.net/weixin_44388523', icon: 'iconfont icon-csdn' },
+        { name: '网易邮箱', tooltip: '网易邮箱: luzhe0359@163.com', link: 'luzhe0359@163.com', icon: 'iconfont icon-wangyihao' },
+        { name: 'QQ', tooltip: 'QQ: 1141178844', link: '1141178844', icon: 'iconfont icon-qq' },
+        { name: '微信', tooltip: '微信: Mimanchi-zt', link: 'Mimanchi-zt', icon: 'iconfont icon-weixin' },
+      ],
     }
   },
+  methods: {
+    copy ({ link, tooltip }) {
+      if (link.indexOf("http") != -1) {
+        window.open(link)
+        return
+      }
+      copyToClipboard(link)
+        .then(() => {
+          this.$msg.success('成功复制 ' + tooltip)
+        })
+        .catch(() => {
+          this.$msg.error('复制失败')
+        })
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-#SideUserAvatar {
+/* #SideUserAvatar {
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
@@ -87,5 +137,5 @@ export default {
     font-weight: 600;
     line-height: 26px;
   }
-}
+} */
 </style>

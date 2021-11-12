@@ -1,10 +1,19 @@
 <template>
-  <div id="SideArticleTag" class="full-width q-mt-lg ">
-    <div class="text-h6 q-mb-sm">文章标签</div>
-    <div>
-      <q-btn rounded size="sm" type="a" :to="`/tag/${tag._id}`" padding="6px 12px" class="q-mr-sm q-ml-none q-mb-sm small-shadow" v-for="tag in tagList" :key="tag.icon" :label="tag.name" />
-    </div>
-  </div>
+  <q-card class="q-mb-lg">
+    <q-card-section>
+      <div class="row justify-center items-center no-wrap q-mb-sm">
+        <q-separator inset />
+        <div class="col-3 text-h6 text-center">标签</div>
+        <q-separator inset />
+      </div>
+      <router-link :to="`/tag/${tag._id}`" v-for="tag in tagList" :key="tag._id">
+        {{tag.name}}
+        {{tag.name}}
+      </router-link>
+      <div @click="$q.dark.toggle()">点击切换黑暗模式</div>
+      <!-- <q-button @click="$q.dark.toggle()">点击切换黑暗模式</q-button> -->
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>

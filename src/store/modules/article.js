@@ -1,4 +1,4 @@
-import { findArticleById, findArticleList, likeArticle, nolikeArticle } from 'src/api/article.js'
+import { findArticleList, findTopHotArticleList, findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
 import { findCommentList, addComment, likeComment } from 'src/api/comment.js'
 import { findCategoryList } from 'src/api/category.js'
 import { findTagCount } from 'src/api/tag.js'
@@ -8,6 +8,8 @@ const count = {
     namespaced: true,
     state: {
         articleList: [], // 文章列表
+        topArticleList: [], // 置顶文章
+        hotArticleList: [], // 热门文章
         articlePageCount: 0, // 文章总数
         articleDetail: {}, // 文章详情
         categoryList: [], // 文章分类
@@ -18,6 +20,12 @@ const count = {
     mutations: {
         SET_ARTICLE_LIST: (state, { list = [] }) => {
             state.articleList = list
+        },
+        SET_TOP_ARTICLE_LIST: (state, list) => {
+            state.topArticleList = list
+        },
+        SET_HOT_ARTICLE_LIST: (state, list) => {
+            state.hotArticleList = list
         },
         SET_ARTICLE_PAGE_COUNT: (state, pageCount = 0) => {
             state.articlePageCount = pageCount
@@ -48,6 +56,18 @@ const count = {
                 findArticleList(parmas).then(res => {
                     commit('SET_ARTICLE_LIST', { list: res.data })
                     commit('SET_ARTICLE_PAGE_COUNT', res.pageCount)
+                    resolve(res)
+                }).catch(err => {
+                    reject(err)
+                })
+            })
+        },
+        // 置顶/热门文章列表
+        LoadTopHotArticleList ({ commit }, parmas) {
+            return new Promise((resolve, reject) => {
+                findTopHotArticleList(parmas).then(res => {
+                    commit('SET_TOP_ARTICLE_LIST', res.top.list)
+                    commit('SET_HOT_ARTICLE_LIST', res.hot.list)
                     resolve(res)
                 }).catch(err => {
                     reject(err)

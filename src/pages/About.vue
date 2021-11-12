@@ -29,7 +29,7 @@
       <div class="short-line"></div>
       <div class="short-title">
         关于本站 <br />
-        本站 <a class="text-light-blue" target="_blank" href="https://zugelu.com">zugelu.com</a> 属于个人博客
+        <h1 class="text-h6">本站 <a class="text-light-blue" target="_blank" href="https://zugelu.com">zugelu.com</a> 属于个人博客</h1>
       </div>
       <div class="short-desc">
         当然，有意向写文章的朋友可以联系我开通后台权限，在本站发表属于你自己的文章 <br>
@@ -120,6 +120,9 @@ export default {
     }
     .short-title {
       font-weight: 600;
+      h1 {
+        font-weight: 600;
+      }
     }
     .short-desc {
       opacity: 0.7;

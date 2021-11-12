@@ -1,7 +1,7 @@
 <template>
   <q-page id="Album">
     <div class="slogan text-center q-pt-xl q-pb-md">
-      <div class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">真心的世界 , 真我的展示 。</div>
+      <h1 class="title text-h4 text-white" :class="{'focus-in-contract':$q.screen.gt.md}">真心的世界 , 真我的展示 。</h1>
       <p class="text-subtitle1 text-grey q-pt-lg" :class="{'focus-in-contract':$q.screen.gt.md}">记忆 , 让生活更精彩 </p>
     </div>
     <div class="row">
@@ -9,7 +9,7 @@
         <router-link class="article-title" :to="`/photo/${item._id}`">
           <div class="q-ma-sm overflow-hidden">
             <div class="card-item overflow-hidden relative-position">
-              <q-img :ratio="16/9" :src="item.photos[0].url | imgBaseUrl" spinner-color="white" img-class="blur-image" placeholder-src="~assets/img_loading.gif"></q-img>
+              <q-img :ratio="16/9" :src="item.photos[0].url" :placeholder-src="$BASE_IMG_URL" spinner-color="grey" img-class="blur-image"></q-img>
               <div class="absolute-bottom text-subtitle1 text-center cursor-pointer">
                 {{item.album.name}}
               </div>

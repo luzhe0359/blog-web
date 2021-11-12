@@ -4,7 +4,7 @@
     <q-card-section>
       <!-- 头像 -->
       <q-avatar round size="60px" class="cursor-pointer shadow-6">
-        <q-img no-default-spinner transition="slide-down" :src="avatar" placeholder-src="~assets/logo.webp" />
+        <q-img transition="slide-down" :src="avatar" :placeholder-src="$BASE_IMG_URL" spinner-color="grey" />
       </q-avatar>
       <!-- 昵称 -->
       <div class="text-h6 q-mt-sm text-grey-10">

@@ -1,12 +1,20 @@
 <template>
   <!-- 二级评论 -->
   <div class="full-width q-mb-md" ref="main">
-    <q-chat-message name-sanitize text-sanitize :name="comment.from.nickname" :avatar="comment.from.avatar | imgBaseUrl" :text="[comment.content]" :stamp="comment.createTime | dateDiff" bg-color="primary" />
+    <q-chat-message name-sanitize text-sanitize :name="comment.from.nickname" :avatar="comment.from.avatar" :text="[comment.content]" :stamp="comment.createTime | dateDiff" bg-color="primary">
+      <template v-slot:avatar>
+        <img :alt="comment.from.nickname" class="q-message-avatar q-message-avatar--received" :src="comment.from.avatar" />
+      </template>
+    </q-chat-message>
     <CommentBtns :comment="comment" :isMessage="isMessage" @showComment="changeCurrent(comment._id)" />
     <CommentAdd v-if="currentComment === comment._id" @comment="addComment($event, comment._id, comment.from._id)" @cancelComment="currentComment = null" />
     <!-- 三级评论 -->
     <div class="q-pl-xl q-mt-sm" v-for="child in comment.otherComments" :key="child._id">
-      <q-chat-message :name="child.level === 2?`${child.from.nickname}`:`${child.from.nickname} <span class='text-orange'>回复</span> ${child.to.nickname}`" :avatar="child.from.avatar | imgBaseUrl" :text="[child.content]" :stamp="child.createTime | dateDiff" bg-color="primary" />
+      <q-chat-message :name="child.level === 2?`${child.from.nickname}`:`${child.from.nickname} <span class='text-orange'>回复</span> ${child.to.nickname}`" :avatar="child.from.avatar" :text="[child.content]" :stamp="child.createTime | dateDiff" bg-color="primary">
+        <template v-slot:avatar>
+          <img :alt="comment.from.nickname" class="q-message-avatar q-message-avatar--received" :src="comment.from.avatar" />
+        </template>
+      </q-chat-message>
       <CommentBtns :comment="child" :isMessage="isMessage" :parentComment="comment" @showComment="changeCurrent(child._id)" />
       <CommentAdd v-if="currentComment === child._id" @comment="addComment($event, comment._id, child.from._id, 3)" @cancelComment="currentComment = null" />
     </div>

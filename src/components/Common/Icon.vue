@@ -22,14 +22,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon {
+/* .icon {
   margin-right: 32px;
-}
+} */
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .icon {
     margin-right: 10px;
   }
-}
+} */
 </style>
 

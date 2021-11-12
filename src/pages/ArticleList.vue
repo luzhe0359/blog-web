@@ -6,7 +6,7 @@
       <!-- 分类列表 -->
       <TabList :tabList="categoryList" @changeTab="changeTab" />
       <!-- 文章列表 -->
-      <ArticleCardList :articleList="articleList" />
+      <ArticleCardList direction="row" :articleList="articleList" />
       <!-- 文章分页 -->
       <q-no-ssr v-if="articlePageCount > 1">
         <q-pagination color="grey" class="q-mb-sm justify-center" v-model="pageNum" :max="articlePageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
@@ -40,7 +40,7 @@ export default {
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     return Promise.all([
       store.dispatch('article/LoadArticleList', defaultParams),
-      store.dispatch('article/LoadCategoryList'),
+      store.dispatch('article/LoadCategoryList')
     ])
   },
   data () {

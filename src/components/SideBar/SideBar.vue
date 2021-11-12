@@ -2,16 +2,20 @@
   <q-layout id="SideBar">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
     <!-- 正常定位 -->
-    <div class="user-container container overflow-hidden">
-      <SideUserAvatar />
-      <SideUserTag />
-    </div>
+    <!-- <div class="user-container container overflow-hidden"> -->
+    <SideUserAvatar />
+    <SideBlogInfo />
+
+    <!-- <SideUserTag /> -->
+    <!-- </div> -->
     <!-- sticky定位 -->
-    <div ref="sideSticky" class="blog-container container overflow-hidden">
-      <SideBlogInfo />
-      <!-- <SideArticleInfo /> -->
+    <div ref="sideSticky" class="side-sticky">
       <SideArticleTag />
+      <SideArticleHot />
     </div>
+    <!-- <div ref="sideSticky" class="blog-container container overflow-hidden">
+    <SideArticleInfo />
+    </div> -->
   </q-layout>
 </template>
 
@@ -24,6 +28,7 @@ import SideUserTag from './SideUserTag'
 import SideBlogInfo from './SideBlogInfo'
 import SideArticleInfo from './SideArticleInfo'
 import SideArticleTag from './SideArticleTag'
+import SideArticleHot from './SideArticleHot'
 export default {
   name: 'SideBar',
   components: {
@@ -32,6 +37,7 @@ export default {
     SideBlogInfo,
     SideArticleInfo,
     SideArticleTag,
+    SideArticleHot
   },
   data () {
     return {
@@ -40,13 +46,13 @@ export default {
   methods: {
     // 监听滚动
     handlerScroll (info) {
-      const { direction, position } = info
+      const { direction } = info
       let sideSticky = this.$refs.sideSticky
 
       // 滚动页面，SideBar fixed  
-      let top = "0px"
+      let top = "20px"
       if (direction === 'up') { // 上滑
-        top = '50px'
+        top = '70px'
       }
       css(sideSticky, {
         top
@@ -57,29 +63,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#SideBar {
-  width: 100%;
-  height: 100%;
-  padding-top: 130px;
-  .container {
-    background-color: rgba(255, 255, 255, 0.5);
-    box-sizing: border-box;
-    border-radius: 50px;
-    overflow: hidden;
-  }
-  .user-container {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: 30px 30px 0;
-  }
-  .blog-container {
-    position: sticky;
-    left: 0;
-    top: 0;
-    transition: all 0.2s ease-out;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    padding: 0px 30px 30px;
-  }
+.side-sticky {
+  transition: all 0.2s ease-out;
+  position: sticky;
+  left: 0;
+  top: 20px;
 }
 </style>

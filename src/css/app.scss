@@ -1,6 +1,11 @@
 // app global css in SCSS form
 html,body {
-   font-family: "Helvetica Neue", "Helvetica", "tahoma","Arial", "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif" !important;
+  // font-family: "Helvetica Neue", "Helvetica", "tahoma","Arial", "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif" !important;
+  // font-family:
+  // /* 1 */ -apple-system, BlinkMacSystemFont,
+  // /* 2 */ "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+  // /* 3 */ "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -8,7 +13,12 @@ h1,h2,h3,h4,h5,h6 {
   margin: 0;
 }
 a {
+  color: inherit;
   text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #03a9f4;
+  }
 }
 
 // 最大宽度
@@ -69,22 +79,16 @@ a {
 
 // 基础阴影
 .base-shadow {
-  border-radius: 36px;
-  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  background: #f5f5f5;
+  box-shadow: inset -10px -10px 20px #d8d8d8, inset 10px 10px 20px #ffffff;
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
-  box-shadow: inset 20px 20px 36px #bfbfbf, inset -20px -20px 36px #ffffff;
   &:hover {
-    background: #E1E1E1;
-    box-shadow: inset -20px -20px 60px #bfbfbf, inset 20px 20px 60px #ffffff;
+    box-shadow: inset -10px 10px 20px #d8d8d8, inset 10px -10px 20px #ffffff;
   }
 }
-@media (max-width: $breakpoint-xs-max) {
-  .base-shadow {
-    margin: 0;
-    border-radius: 10px;
-    margin-bottom: 16px;
-  }
-}
+
 // 小按钮阴影
 .small-shadow {
   background-color: rgba(255, 255, 255, 0.8);
@@ -96,14 +100,95 @@ a {
   }
 }
 
-// 基础圆角
-.base-radius {
-  border-radius: 36px;
+//  2.0 ----------------------------------------------
+@media (max-width: $breakpoint-sm-max) {
+  .page-header {
+    height: 15rem !important;
+  }
+}
+// 头部
+.page-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  height: 20rem;
+  background-image: url("~assets/body.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  animation: header-effect 1s;
+  .scroll-down {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .scroll-down-effect {
+      animation: scroll-down-effect 1.5s infinite;
+    }
+  }
+}
+// 内容
+.page-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 10px 30px 10px;
+  animation: inner-effect 1s;
+}
+// 卡片
+.q-card {
+  border-radius: 12px 8px 8px 12px;
+  box-shadow: 0 3px 8px 6px rgba(7,17,27,0.06);
+  transition: all 0.3s;
+  overflow: hidden;
+  &:hover {
+    box-shadow: 0 3px 8px 6px rgba(7,17,27,0.15);
+  }
 }
 
-
 .q-avatar {
+  border-radius: 50%;
+  transition: all 0.5s;
   &:hover {
-    animation: rotate-center 0.6s ease-in-out both;
+    transform: rotate(360deg);
+  }
+}
+
+.q-icon {
+  &.social {
+    transition: all 0.5s;
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// dark -------------
+body.body--dark {
+  .q-dark { 
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .page-header {
+    &::before {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      content: '';
+    }
+  }
+  // 卡片
+  .q-card {
+    background-color: #0d0d0d;
+    // background-color: #0d0d0d;
+    &:hover {
+      box-shadow: 0 3px 8px 6px rgba(7,17,27,0.15);
+    }
+  }
+  .text-grey-8 {
+    color: rgba(255, 255, 255, 0.65) !important;
   }
 }

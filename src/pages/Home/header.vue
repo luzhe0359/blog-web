@@ -1,24 +1,31 @@
 <template>
-  <q-page id="Home">
+  <div class="page-header">
     <div class="text-center q-py-md">
-      <div class="text-h4" :class="{'focus-in-contract':$q.screen.gt.md}" style="line-height: 4rem;">要逼自己优秀 , 然后骄傲的活着 。</div>
+      <h1 class="text-h4" :class="{'focus-in-contract':$q.screen.gt.md}" style="line-height: 4rem;">要逼自己优秀 , 然后骄傲的活着 。</h1>
       <p class="text-subtitle1 text-grey q-pt-md" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p>
     </div>
-    <div class="q-gutter-sm">
-      <q-icon class="box cursor-pointer slide-in-blurred-bottom " v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
+    <div class="text-center q-gutter-sm">
+      <q-icon class="cursor-pointer slide-in-blurred-bottom " v-for="item in tagList" :key="item.name" :name="item.icon" :size="iconSize" @click="copy(item)">
         <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
           {{item.tooltip}}
         </q-tooltip>
       </q-icon>
     </div>
-  </q-page>
+    <div class="scroll-down cursor-pointer text-center" @click="scrollToMain">
+      <q-icon class="scroll-down-effect" name="keyboard_arrow_down" size="50px" color="grey-6" />
+    </div>
+  </div>
 </template>
 
 <script>
-import { copyToClipboard } from 'quasar'
+import { copyToClipboard, scroll } from 'quasar'
+const { getScrollTarget, setScrollPosition } = scroll
+import Icon from 'components/common/Icon'
 
 export default {
-  name: 'Home',
+  components: {
+    Icon
+  },
   data () {
     return {
       iconSize: '36px',
@@ -31,9 +38,8 @@ export default {
       ],
     }
   },
-  mounted () {
-  },
   methods: {
+    // 复制相关信息
     copy ({ link, tooltip }) {
       if (link.indexOf("http") != -1) {
         window.open(link)
@@ -46,36 +52,40 @@ export default {
         .catch(() => {
           this.$msg.error('复制失败')
         })
-    }
-  },
-}
-</script>
-<style lang="scss" scoped>
-#Home {
-  height: calc(100vh - 50px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  @for $i from 1 to 6 {
-    .slide-in-blurred-bottom:nth-child(#{$i}) {
-      animation: slide-in-blurred-bottom
-        #{$i *
-        0.5}s
-        cubic-bezier(0.23, 1, 0.32, 1)
-        both;
-      &:hover {
-        color: grey;
-        &::before {
-          animation: rotate-center
-            0.6s
-            cubic-bezier(0.25, 0.46, 0.45, 0.94)
-            both;
-        }
-      }
+    },
+    // 滚动到内容区
+    scrollToMain () {
+      let el = document.getElementsByClassName('page-inner')[0]
+      this.scrollToElement(el)
+    },
+    // 滚动到元素
+    scrollToElement (el) {
+      let target = getScrollTarget(el)
+      let offset = target.innerHeight // 滚动位置
+      let duration = 300 // 动画时长
+      setScrollPosition(target, offset, duration)
     }
   }
 }
-</style>
+</script>
 
+<style lang="scss" scoped>
+.page-header {
+  height: calc(100vh - 50px);
+  .scroll-down {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .scroll-down-effect {
+      animation: scroll-down-effect 1.5s infinite;
+    }
+  }
+}
+@media (max-width: $breakpoint-sm-max) {
+  .page-header {
+    height: calc(100vh - 50px) !important;
+  }
+}
+</style>

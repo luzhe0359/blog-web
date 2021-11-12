@@ -6,13 +6,13 @@
     </div>
     <div v-if="$q.screen.gt.xs" class="waterfall-width-column waterfall" v-viewer>
       <div class="image-box" v-for="(item,index) in photoList" :key="index">
-        <img :src="$url +item.url" alt="">
-        <!-- <q-img height="200px" class="image" native-context-menu :src="item.url | imgBaseUrl" spinner-color="white"> </q-img> -->
+        <img :src="item.url" alt="photo">
+        <!-- <q-img class="image" native-context-menu :src="item.url" spinner-color="white"> </q-img> -->
       </div>
     </div>
     <div v-else class="row wrap" v-viewer>
       <div class="phone-image-box col-6 q-pa-sm" v-for="(item,index) in photoList" :key="index">
-        <q-img class="image" native-context-menu :ratio="16/9" :src="item.url | imgBaseUrl" spinner-color="white"> </q-img>
+        <q-img class="image" native-context-menu :ratio="16/9" :src="item.url" :placeholder-src="$BASE_IMG_URL" spinner-color="grey"> </q-img>
       </div>
     </div>
   </q-page>

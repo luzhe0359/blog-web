@@ -22,7 +22,18 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/Home.vue')
+        component: () => import('pages/Home')
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        meta: {
+          title: '分类',
+          icon: 'icon-wenzhang',
+          menu: true,
+          keepAlive: true
+        },
+        component: () => import('pages/category')
       },
       {
         path: 'article',

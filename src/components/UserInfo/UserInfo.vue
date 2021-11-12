@@ -6,11 +6,13 @@
           <div class="column">
             <span class="q-mb-sm text-white">头像</span>
             <div>
-              <q-img :disable="!readonly" :src="formData.avatar | imgBaseUrl" spinner-color="primary" class="border-radius50" :class="!readonly && 'cursor-pointer'" width='100px' height='100px' placeholder-src="~assets/logo.webp" @click="uploadDialog">
-                <div v-show="!readonly" class="absolute-bottom text-subtitle2 text-center">
-                  更换头像
-                </div>
-              </q-img>
+              <q-avatar round size="100px">
+                <q-img :disable="!readonly" :src="formData.avatar" :placeholder-src="$BASE_IMG_URL" spinner-color="grey" transition="slide-down" :class="!readonly && 'cursor-pointer'" @click="uploadDialog">
+                  <div v-show="!readonly" class="absolute-bottom text-subtitle2 text-center">
+                    更换头像
+                  </div>
+                </q-img>
+              </q-avatar>
             </div>
           </div>
 

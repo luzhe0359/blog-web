@@ -11,7 +11,7 @@
     <q-btn flat round size="sm" v-show="name">
       <!-- 头像 -->
       <q-avatar size="28px" class="cursor-pointer">
-        <q-img no-default-spinner transition="slide-down" :src="avatar | imgBaseUrl" placeholder-src="~assets/logo.webp" />
+        <q-img transition="slide-down" :src="avatar" :placeholder-src="$BASE_IMG_URL" spinner-color="grey" />
       </q-avatar>
       <!-- 菜单 -->
       <q-menu transition-show="jump-down" transition-hide="jump-up" anchor="bottom middle" self="top middle">

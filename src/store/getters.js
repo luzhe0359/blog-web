@@ -9,6 +9,8 @@ const getters = {
     likeArticles: state => state.user.likeArticles,
     // 文章
     articleList: state => state.article.articleList,
+    hotArticleList: state => state.article.hotArticleList,
+    topArticleList: state => state.article.topArticleList,
     articlePageCount: state => state.article.articlePageCount,
     articleDetail: state => state.article.articleDetail,
     categoryList: state => state.article.categoryList,

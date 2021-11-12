@@ -10,8 +10,8 @@ import router from 'src/router/index.js'
 import { getToken, removeToken, removeUser } from 'src/utils/auth.js'
 
 LoadingBar.setDefaults({
-    color: 'light-blue-4',
-    size: '4px',
+    color: 'light-blue-5',
+    size: '2px',
     position: 'top'
 })
 /**

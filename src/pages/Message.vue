@@ -3,7 +3,7 @@
     <div class="mess-box row">
       <div class="mess-left col">
         <div class="mess-title">
-          留言须知
+          <h1>留言须知</h1>
           <p> Note for message</p>
         </div>
         <div class="mess-desc">
@@ -128,9 +128,11 @@ $mess-margin: calc(50vh - 360px);
   .mess-left {
     min-width: 350px;
     .mess-title {
-      font-size: 52px;
-      font-weight: 500;
-      line-height: 72px;
+      h1 {
+        font-size: 52px;
+        font-weight: 500;
+        line-height: 72px;
+      }
       p {
         text-transform: uppercase;
         font-size: 16px;
@@ -215,8 +217,10 @@ $mess-margin: calc(50vh - 360px);
     }
     .mess-left {
       .mess-title {
-        font-size: 30px;
-        line-height: 42px;
+        h1 {
+          font-size: 30px;
+          line-height: 42px;
+        }
       }
       .mess-desc {
         margin-top: 30px !important;

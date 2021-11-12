@@ -3,7 +3,7 @@
     <div class="col">
       <q-card-section class="text-center">
         <q-item-label class="row justify-center" :class="{'q-my-lg': $q.screen.gt.xs}">
-          <q-img class="col" style="max-width: 400px;" src="~assets/404.png" :ratio="16/9" />
+          <q-img class="col" style="max-width: 400px;" src="https://oss.zugelu.com/other/404.webp" :ratio="16/9" />
         </q-item-label>
         <q-item-section class="q-mt-md">
           <q-item-label class="text-h5">404</q-item-label>

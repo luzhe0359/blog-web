@@ -1,5 +1,5 @@
 <template>
-  <q-tabs align="left" narrow-indicator animated v-model="tab" active-color="white" indicator-color="white" style="height:30px;">
+  <q-tabs align="left" outside-arrows mobile-arrows narrow-indicator animated v-model="tab" active-color="light-blue" indicator-color="light-blue" style="height:30px;">
     <q-tab :ripple="false" :name="tab._id" :label="tab.name" v-for="tab in tabList" :key="tab._id" @click="changeTab(tab._id)" />
   </q-tabs>
 </template>
@@ -29,6 +29,5 @@ export default {
   padding: 0 14px;
   height: 30px !important;
   min-height: 30px !important;
-  color: #dcdcdc;
 }
 </style>

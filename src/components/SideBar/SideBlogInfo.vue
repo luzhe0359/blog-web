@@ -1,5 +1,5 @@
 <template>
-  <div id="SideBlogInfo" class="full-width q-pt-lg ">
+  <!-- <div id="SideBlogInfo" class="full-width q-pt-lg ">
     <div class="text-h6 q-mb-sm">博客信息</div>
     <div>
       <q-chip v-for="item in countList" :key="item.icon" :icon="item.icon" class="q-mr-md q-ml-none q-mb-sm q-pa-md small-shadow">
@@ -8,7 +8,25 @@
         <countTo v-else :startVal='0' :endVal='item.count' :duration='3000'></countTo>
       </q-chip>
     </div>
-  </div>
+  </div> -->
+  <q-card class="q-mb-lg">
+    <q-card-section>
+      <div class="row justify-center items-center no-wrap q-mb-sm">
+        <q-separator inset />
+        <div class="col-3 text-h6 text-center">网站</div>
+        <q-separator inset />
+      </div>
+      <div>
+        <div class="row justify-center q-mb-md">
+          {{runTime}}
+        </div>
+        <div class="row justify-between" v-for="item in countList">
+          <span>{{item.name}}</span>
+          <countTo :startVal='0' :endVal='item.count' :duration='3000'></countTo>
+        </div>
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -24,11 +42,12 @@ export default {
   data () {
     return {
       countList: [
-        { name: '已运行', count: 0, icon: 'iconfont icon-yunhang' },
+        // { name: '已运行', count: 0, icon: 'iconfont icon-yunhang' },
         { name: '访问总数', count: 0, icon: 'iconfont icon-fangwenliang' },
-        { name: '文章总数', count: 0, icon: 'iconfont icon-wenzhang' },
         { name: '点赞总数', count: 0, icon: 'favorite_border' },
+        { name: '评论总数', count: 0, icon: 'iconfont icon-wenzhang' },
       ],
+      runTime: '',
       creatTime: '2021-7-1 00:00:00',
       timmer: null
     }
@@ -37,9 +56,9 @@ export default {
     this.initCount()
   },
   mounted () {
-    this.countList[0].count = this.dateDiff()
+    this.runTime = this.dateDiff()
     this.timmer = setInterval(() => {
-      this.countList[0].count = this.dateDiff()
+      this.runTime = this.dateDiff()
     }, 1000)
   },
   methods: {
@@ -77,10 +96,10 @@ export default {
     // 初始化统计信息
     initCount () {
       countArticle().then((res) => {
-        let { views, likes, total } = res.data
-        this.countList[1].count = views || 0
-        this.countList[2].count = total || 0
-        this.countList[3].count = likes || 0
+        let { views, likes, comments } = res.data
+        this.countList[0].count = views || 0
+        this.countList[1].count = likes || 0
+        this.countList[2].count = comments || 0
       })
     }
   },

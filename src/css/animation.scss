@@ -214,3 +214,54 @@
     opacity: 1;
   }
 }
+
+
+
+
+// -----------------------------------------------
+// 头部 上 -> 下
+@keyframes header-effect {
+  0% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
+// 内容 下 -> 上
+@keyframes inner-effect {
+  0% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
+// 首页箭头 上下循环跳动
+@keyframes scroll-down-effect {
+  0% {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    transform: translateY(0);
+  }
+}
