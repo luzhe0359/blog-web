@@ -1,10 +1,10 @@
 <template>
   <q-card class="q-mb-lg">
     <q-card-section :horizontal="$q.screen.gt.xs" class="q-pa-none">
-      <router-link class="col-5 overflow-hidden" :to="`/detail/${article._id}`">
+      <router-link class="col overflow-hidden" :to="`/detail/${article._id}`">
         <q-img :src="article.imgCover" native-context-menu :ratio="$q.screen.gt.xs ? 3/2 : 16/9" alt="article_err" />
       </router-link>
-      <q-card-section class="col column justify-center">
+      <q-card-section class="col-7 column justify-center">
         <router-link :to="`/detail/${article._id}`">
           <h2 class="text-h6 ellipsis-2-lines">{{article.title}}</h2>
         </router-link>
@@ -42,10 +42,8 @@ export default {
 
 <style lang="scss" scoped>
 .q-card {
-  &:nth-child(even) {
-    .q-card__section--horiz {
-      flex-direction: row-reverse;
-    }
+  .q-card__section--horiz {
+    max-height: 240px;
   }
   .q-img {
     transition: all 0.5s;

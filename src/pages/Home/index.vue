@@ -3,7 +3,7 @@
     <!-- header -->
     <Header />
     <!-- main -->
-    <Main :articleList="articleList" />
+    <Main :articleList="articleList" :pageNum="pageNum" :articlePageCount="articlePageCount" @changePage="changePage" />
   </q-page>
 </template>
 
@@ -25,24 +25,37 @@ export default {
     Main
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
-    console.log('home index');
     return Promise.all([
       store.dispatch('article/LoadArticleList', defaultParams),
-      // store.dispatch('article/LoadTopHotArticleList')
     ])
   },
   data () {
     return {
+      pageNum: defaultParams.pageNum,
+      pageSize: defaultParams.pageSize
     }
   },
   computed: {
     ...mapGetters([
       'articleList',
-      'hotArticleList'
+      'articlePageCount'
     ]),
   },
   methods: {
-  }
+    // 切换页码
+    changePage (current) {
+      this.pageNum = current
+      this.getList()
+    },
+    getList () {
+      let params = {
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+        state: 1 // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
+      }
+      this.$store.dispatch('article/LoadArticleList', params)
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

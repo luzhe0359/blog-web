@@ -1,13 +1,13 @@
 <template>
   <q-layout view="hHh Lpr lff" id="layout">
     <!-- header -->
-    <q-header id="header" height-hint="50" elevated reveal class="bg-dark" :reveal-offset="500">
-      <q-toolbar class="max-width">
+    <q-header id="header" class="bg-dark" reveal height-hint="50" :reveal-offset="500">
+      <q-toolbar>
         <!-- <q-no-ssr> -->
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
-        <q-toolbar-title style="min-width:100px;">
-          <router-link class="text-white" to="/" replace>足各路 </router-link>
+        <q-toolbar-title style="min-width:155px;">
+          <router-link class="text-white" to="/" replace> 足各路的博客 </router-link>
         </q-toolbar-title>
         <q-space />
         <!-- 菜单 -->
@@ -24,20 +24,23 @@
       <SideMenu />
     </q-drawer>
     <!-- container -->
-    <q-page-container :style="$q.screen.lt.sm ?{}:{'background-position': '0 ' + ypos}">
+    <q-page-container>
       <keep-alive :include="cacheList">
         <router-view :key="$route.fullPath" />
       </keep-alive>
       <Footer />
     </q-page-container>
+    <!-- 配置项 -->
+    <Setting :showSetting="showSetting" />
     <!-- 回到顶部 -->
-    <q-page-scroller position="bottom-right" :scroll-offset="220" :offset="[18, 18]">
-      <q-btn fab icon="keyboard_arrow_up" class="top-btn" />
+    <q-page-scroller position="bottom-right" :scroll-offset="300" :offset="[0, 64]">
+      <!-- <q-btn fab icon="keyboard_arrow_up" class="top-btn" /> -->
+      <q-btn padding="xs" color="light-blue" icon="expand_less">
+        <q-tooltip anchor="center left" self="center right" :offset="[5, 5]" transition-show="jump-left" transition-hide="jump-right">回到顶部</q-tooltip>
+      </q-btn>
     </q-page-scroller>
     <!-- 滚动监听器 -->
-    <!-- <q-scroll-observer @scroll="scrollHandler" /> -->
-    <!-- 大小调整侦听器 -->
-    <q-resize-observer @resize="resizeHandler" debounce="200" />
+    <q-scroll-observer debounce="200" @scroll="scrollHandler" />
   </q-layout>
 </template>
 
@@ -46,6 +49,7 @@ import Footer from 'src/components/Footer/Footer'
 import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
+import Setting from 'components/Common/Setting'
 
 let defaultParams = {
   pageNum: 1,
@@ -58,62 +62,43 @@ export default {
     ToolBarUtil,
     ToolBarMenu,
     Footer,
+    Setting
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     // 预取数据 - 网页只请求一次的数据
     return Promise.all([
-      store.dispatch('article/LoadTopHotArticleList', defaultParams)
+      store.dispatch('article/LoadTopHotArticleList', defaultParams),
+      store.dispatch('article/LoadCategoryList'),
+      store.dispatch('article/LoadTagList')
     ])
   },
   data () {
     return {
       leftDrawerOpen: false,
-      footer: true,
-      clientWidth: 1920, // 屏幕宽度
-      clientHeight: 966, // 屏幕高度
-      bgOffsetHeight: 1345, // 背景图超出屏幕的宽度
-      ypos: '0', // 背景图y轴定位
+      showSetting: false,
       cacheList: ['Home'],
+      scrollTop: 0
+    }
+  },
+  created () {
+    let them = this.$q.sessionStorage.getItem('them-dark')
+    if (them) {
+      this.$q.dark.set(true)
     }
   },
   mounted () {
-    this.initClient()
     console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路");
     console.log("%c 本站地址: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com");
     console.log("%c 个人简历: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com/resume.html");
     console.log("%c 个人邮箱: ", "border:1px solid #e1e1e8; color:#1e73be;", " luzhe0359@163.com");
   },
   methods: {
-    initClient () {
-      console.log(111);
-      // 1345/960 背景图 高/宽比 
-      // 获取屏幕宽高，计算背景图的高度，动态改变背景图定位
-      this.clientHeight = document.documentElement.clientHeight
-      this.clientWidth = document.documentElement.clientWidth
-      // 超出高度 = 图片高度 - 屏幕高度
-      this.bgOffsetHeight = (this.clientWidth * (1345 / 960)).toFixed(5) - this.clientHeight
-    },
     // 滚动监听器
     scrollHandler (info) {
-      if (this.$q.screen.lt.sm) return
       const { position } = info
-
-      if (position <= 500) {
-        let header = document.getElementById('header')
-        header.classList.remove('q-header--hidden')
-      }
-
-      // 滚动距离 > 背景超出高度 , 即背景图到底部了,图片定位至底部
-      if (position > this.bgOffsetHeight) { // 背景图高度
-        this.ypos = 'bottom'
-      } else {
-        this.ypos = - position + 'px'
-      }
-    },
-    // 大小调整侦听器
-    resizeHandler () {
-      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-      this.initClient()
+      console.log(info);
+      this.scrollTop = position
+      this.showSetting = position > 220 ? true : false
     }
   },
 }
@@ -121,43 +106,20 @@ export default {
 
 
 <style lang="scss" scoped>
-#layout {
-  .full-container {
-    position: relative;
-    min-width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
-    /* background-color: $grey-2; */
-    background-image: url("https://oss.zugelu.com/other/bg_body.webp");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% auto;
-  }
-  @media (max-width: 710px) {
-    .full-container {
-      background-size: 100% 100%;
-    }
-  }
-  @media (max-width: $breakpoint-xs-max) {
-    .full-container {
-      background-image: none;
-      &::before {
-        content: " ";
-        position: fixed;
-        z-index: -1;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-image: url("https://oss.zugelu.com/other/bg_iphone.webp");
-        background-size: cover;
-      }
-    }
-  }
+#header {
+  background-color: transparent;
+  /* background-color: grey; */
+  /* position: relative;
+  top: 0;
+  left: 0; */
 }
-.top-btn {
-  border-radius: 50%;
-  background: #f5f5f5;
-  box-shadow: inset -5px -5px 10px #cecece, inset 5px 5px 10px #ffffff;
+/* .q-page-container {
+  padding-top: 0 !important;
+  margin-top: -50px;
+} */
+@media (min-width: $breakpoint-md-min) {
+  #header {
+    padding: 0 20px;
+  }
 }
 </style>

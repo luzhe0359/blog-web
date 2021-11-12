@@ -11,7 +11,9 @@ const user = {
         avatar: '/images/default_avatar.jpeg',
         role: '',
         about: '',
-        likeArticles: []
+        likeArticles: [],
+        theme: 'white', // 模式 | white:白色 | dark:黑色
+        column: 'double' // 栏 | double:双栏 | Single:单栏
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -32,8 +34,14 @@ const user = {
         SET_ABOUT: (state, about) => {
             state.about = about
         },
-        SET_LIKES_ARTICLE: (state, likeArticles = []) => {
+        SET_LIKES_ARTICLE: (state, likeArticles) => {
             state.likeArticles = likeArticles
+        },
+        SET_THEM: (state, them) => {
+            state.them = them
+        },
+        SET_COLUMN: (state, column) => {
+            state.column = column
         },
     },
     actions: {
@@ -95,6 +103,8 @@ const user = {
             commit('SET_ROLE', user.role || '')
             commit('SET_ABOUT', user.about || '')
             commit('SET_LIKES_ARTICLE', user.likeArticles || [])
+            commit('SET_THEM', 'dark')
+            commit('SET_COLUMN', 'double')
         },
     }
 }

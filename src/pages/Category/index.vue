@@ -1,7 +1,7 @@
 <template>
-  <q-page id="Home">
+  <q-page id="Category">
     <!-- header -->
-    <Header :tabList="categoryList" @changeTab="changeTab" />
+    <Header @changeTab="changeTab" />
     <!-- main -->
     <Main :articleList="articleList" :pageNum="pageNum" :articlePageCount="articlePageCount" @changePage="changePage" />
   </q-page>
@@ -26,48 +26,45 @@ export default {
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     return Promise.all([
-      store.dispatch('article/LoadArticleList', defaultParams),
-      store.dispatch('article/LoadCategoryList')
+      store.dispatch('article/LoadArticleList', defaultParams)
     ])
   },
   data () {
     return {
-      pageNum: defaultParams.pageNum, // 当前页
+      pageNum: defaultParams.pageNum,
       pageSize: defaultParams.pageSize,
+      currentId: null
     }
   },
   computed: {
     ...mapGetters([
       'articleList',
-      'categoryList',
-      'articlePageCount',
+      'articlePageCount'
     ]),
   },
   methods: {
     // 切换分类
-    changeTab (tabId) {
+    changeTab (TabId) {
       this.pageNum = 1
-      // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
-      let params = {
-        pageNum: 1, // 切换tab重置页码
-        pageSize: this.pageSize,
-        state: 1
-      }
-      if (tabId !== 'zugelu') {
-        params['category'] = tabId
-      }
-      this.$store.dispatch('article/LoadArticleList', params)
+      this.currentId = TabId
+      this.getList()
     },
     // 切换页码
     changePage (current) {
       this.pageNum = current
+      this.getList()
+    },
+    getList () {
       let params = {
         pageNum: this.pageNum,
         pageSize: this.pageSize,
-        state: 1
+        state: 1 // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
+      }
+      if (this.currentId && this.currentId !== 'zugelu') {
+        params['category'] = this.currentId
       }
       this.$store.dispatch('article/LoadArticleList', params)
-    },
+    }
   },
 }
 </script>

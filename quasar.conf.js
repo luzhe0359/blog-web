@@ -135,6 +135,7 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'AppFullscreen', // 应用全屏
         'Notify', // 弹框toast
         'Dialog', // alert/comfirm/prompt
         'Loading', // 加载

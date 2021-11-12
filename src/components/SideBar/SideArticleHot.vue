@@ -1,11 +1,7 @@
 <template>
   <q-card class="q-mb-lg">
     <q-card-section>
-      <div class="row justify-center items-center no-wrap q-mb-sm">
-        <q-separator inset />
-        <div class="col-3 text-h6 text-center">热门</div>
-        <q-separator inset />
-      </div>
+      <SideTitle title="热门" />
       <div>
         <div class="hot-article row q-mb-sm" v-for="article in hotArticleList">
           <router-link class="overflow-hidden" :to="`/detail/${article._id}`" style="width:4.2rem;height:4.2rem;">
@@ -25,9 +21,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import SideTitle from 'components/Common/SideTitle'
 
 export default {
   name: 'SideArticleHot',
+  components: {
+    SideTitle
+  },
   data () {
     return {
     }

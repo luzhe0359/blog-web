@@ -7,6 +7,8 @@ const getters = {
     role: state => state.user.role,
     about: state => state.user.about,
     likeArticles: state => state.user.likeArticles,
+    theme: state => state.user.theme,
+    column: state => state.user.column,
     // 文章
     articleList: state => state.article.articleList,
     hotArticleList: state => state.article.hotArticleList,

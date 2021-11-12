@@ -101,9 +101,20 @@ a {
 }
 
 //  2.0 ----------------------------------------------
+// 大于md
+@media (min-width: $breakpoint-md-min) {
+  
+}
+// 小于sm
 @media (max-width: $breakpoint-sm-max) {
   .page-header {
     height: 15rem !important;
+  }
+  // 内容
+  .page-inner {
+    > div{ // 切换至小屏幕时card变现的bug
+        transition: none !important;
+    }
   }
 }
 // 头部
@@ -137,6 +148,9 @@ a {
   margin: 0 auto;
   padding: 40px 10px 30px 10px;
   animation: inner-effect 1s;
+  > div{
+      transition: all 1s;
+  }
 }
 // 卡片
 .q-card {

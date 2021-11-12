@@ -4,9 +4,9 @@
       <div class="article-card" v-for="article in articleList" :key="article._id">
         <ArticleCard :article="article" />
       </div>
-      <q-no-ssr v-if="articlePageCount > 1">
-        <q-pagination color="grey" class="q-mb-sm justify-center" v-model="pageNum" :max="articlePageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
-      </q-no-ssr>
+      <!-- <q-no-ssr v-if="articlePageCount > 1">
+        <q-pagination color="grey" class="q-mb-sm justify-center" v-model="current" :max="articlePageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+      </q-no-ssr> -->
     </div>
     <q-card v-else>
       <q-card-section class="column items-center ">
@@ -34,15 +34,10 @@ export default {
     articleList: {
       type: Array,
       default: () => []
-    },
-    articlePageCount: {
-      type: Number,
-      default: 0
     }
   },
   data () {
     return {
-      pageNum: 1
     }
   },
   methods: {
@@ -54,12 +49,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-/* .article-card {
+.article-card {
   &:nth-child(even) {
     /deep/ .q-card__section--horiz {
       flex-direction: row-reverse;
     }
   }
-} */
+}
 </style>
 

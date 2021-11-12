@@ -1,19 +1,28 @@
 <template>
-  <div class="page-inner row">
-    <div class="col-sm-12 col-md-9">
-      <ArticleCardList :articleList="articleList" :articlePageCount="articlePageCount" @changePage="changePage" />
-    </div>
-    <div class="col-md-3 gt-sm q-pl-lg">
+  <PageInner>
+    <template v-slot:inner-left>
+      <ArticleCardList :articleList="articleList" @changePage="changePage" />
+      <q-no-ssr v-if="articlePageCount > 1">
+        <q-pagination color="grey" class="q-mb-sm justify-center" v-model="current" :max="articlePageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+      </q-no-ssr>
+    </template>
+    <template v-slot:inner-right>
       <SideBar />
-    </div>
-  </div>
+    </template>
+  </PageInner>
 </template>
 
 <script>
-import SideBar from 'src/components/SideBar/SideBar'
+import PageInner from 'components/common/PageInner'
+import SideBar from 'components/SideBar/SideBar'
 import ArticleCardList from 'components/ArticleList/ArticleCardList'
 
 export default {
+  components: {
+    PageInner,
+    ArticleCardList,
+    SideBar
+  },
   props: {
     articleList: {
       type: Array,
@@ -22,14 +31,20 @@ export default {
     articlePageCount: {
       type: Number,
       default: 0
+    },
+    pageNum: {
+      type: Number,
+      default: 0
     }
-  },
-  components: {
-    ArticleCardList,
-    SideBar
   },
   data () {
     return {
+      current: 1
+    }
+  },
+  watch: {
+    pageNum (n, o) {
+      this.current = n
     }
   },
   methods: {

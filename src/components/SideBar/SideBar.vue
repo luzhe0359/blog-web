@@ -63,6 +63,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#SideBar {
+  height: 100%;
+}
 .side-sticky {
   transition: all 0.2s ease-out;
   position: sticky;

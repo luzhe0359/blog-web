@@ -33,19 +33,30 @@ const routes = [
           menu: true,
           keepAlive: true
         },
-        component: () => import('pages/category')
+        component: () => import('pages/Category')
       },
       {
-        path: 'article',
-        name: 'Article',
+        path: 'tag/:_id?',
+        name: 'Tag',
         meta: {
-          title: '文章',
-          icon: 'icon-wenzhang',
+          title: '标签',
+          icon: 'icon-biaoqian',
           menu: true,
-          keepAlive: true
+          keepAlive: false
         },
-        component: () => import('pages/ArticleList.vue')
+        component: () => import('pages/Tag/index')
       },
+      // {
+      //   path: 'article',
+      //   name: 'Article',
+      //   meta: {
+      //     title: '文章',
+      //     icon: 'icon-wenzhang',
+      //     menu: true,
+      //     keepAlive: true
+      //   },
+      //   component: () => import('pages/ArticleList.vue')
+      // },
       {
         path: 'detail/:_id?',
         name: 'ArticleDetail',
@@ -56,17 +67,6 @@ const routes = [
           keepAlive: false
         },
         component: () => import('pages/ArticleDetail.vue')
-      },
-      {
-        path: 'tag/:_id',
-        name: 'Tag',
-        meta: {
-          title: '文章标签',
-          icon: 'icon-biaoqian',
-          menu: false,
-          keepAlive: false
-        },
-        component: () => import('pages/Tag.vue')
       },
       {
         path: 'album',
