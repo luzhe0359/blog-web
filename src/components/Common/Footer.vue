@@ -1,5 +1,5 @@
 <template>
-  <div id="footer" class="text-grey">
+  <q-footer id="footer" class="text-grey-8 q-gutter-xs">
     <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
     <div class="row justify-center items-center">
       <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon>
@@ -11,7 +11,7 @@
       <span id="busuanzi_container_site_uv" style='display:none'>| 总访客数 <span id="busuanzi_value_site_uv"></span> 人 </span>
     </div>
     <p><a href="https://zugelu.com">zugelu.com</a></p>
-  </div>
+  </q-footer>
 </template>
 
 <script>
@@ -73,27 +73,14 @@ export default {
 
 <style lang="scss" scoped>
 #footer {
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: transparent;
   text-align: center;
-  padding: 20px 0 10px;
   div {
     padding: 0 0 6px;
   }
   p {
     margin-bottom: 0;
     padding: 0 0 6px;
-    a {
-      color: $grey;
-      text-decoration: none;
-      background-color: transparent;
-      outline: none;
-      cursor: pointer;
-      transition: color 0.3s;
-      &:hover {
-        color: #1890ff;
-      }
-    }
   }
 }
 

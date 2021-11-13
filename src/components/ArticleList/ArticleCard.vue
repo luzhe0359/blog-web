@@ -11,10 +11,13 @@
         <div class="row q-my-sm text-grey-8">
           <div class="col">
             <div class="row q-col-gutter-md">
-              <Icon :icon="'iconfont icon-fangwenliang'" :name="article.meta.views" />
+              <!-- RemoveRedEye Favorite-->
+              <q-icon name="remove_red_eye" size="20px" />
+              <Icon :icon="'remove_red_eye'" :name="article.meta.views" />
               <Icon :icon="'iconfont icon-pinglun'" :name="article.meta.comments" />
-              <Icon :icon="'iconfont iconfont icon-xin'" :name="article.meta.likes" />
+              <Icon :icon="'favorite'" :name="article.meta.likes" />
               <q-space />
+              <!-- AccessTime -->
               <Icon :icon="'iconfont icon-biao'" :name="article.createTime | yearFormat" />
             </div>
           </div>

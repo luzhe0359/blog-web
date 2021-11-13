@@ -1,6 +1,7 @@
 <template>
   <div class="gt-xs">
-    <q-btn class="q-mr-sm" :flat="currentMenu !== '/' + menu.path" rounded color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" />
+    <!-- <q-btn class="q-mr-sm" :flat="currentMenu !== '/' + menu.path" :outline="currentMenu === '/' + menu.path" color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" /> -->
+    <q-btn class="q-mr-xs" padding="5px 16px" flat :text-color="currentMenu === menu.name ? 'light-blue': ''" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="{ name: menu.name }" @click="currentMenu = menu.name" />
   </div>
 </template>
 
@@ -15,20 +16,15 @@ export default {
       menuList: [],
     }
   },
+  watch: {
+    $route (n) {
+      this.currentMenu = n.name
+    }
+  },
   created () {
     // 刷新时，同步选中菜单按钮
-    this.currentMenu = this.$route.path
+    this.currentMenu = this.$route.name
     this.getMenuList()
-  },
-  computed: {
-    isCurrentMenu () {
-
-    }
-  },
-  watch: {
-    $route (newVal) {
-      this.currentMenu = newVal.path
-    }
   },
   methods: {
     // 获取顶部菜单
@@ -36,22 +32,21 @@ export default {
       this.menuList = routes[0].children.filter(item => {
         return item.meta.menu
       })
-    },
-    // 切换菜单
-    switchMenu (val) {
-      this.currentMenu = '/' + val
-    },
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
 .q-btn {
-  width: 60px;
-  height: 32px;
-  font-size: 16px;
-  /deep/ .q-btn__wrapper {
-    min-height: 100%;
-    padding: 0;
+  font-size: 1.2rem;
+}
+// title字体
+@media (max-width: 888px) {
+  .q-btn {
+    margin-right: 0;
+    /deep/ .q-btn__wrapper {
+      padding: 5px 10px !important;
+    }
   }
 }
 </style>

@@ -6,9 +6,10 @@ html,body {
   // /* 2 */ "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   // /* 3 */ "Helvetica Neue", sans-serif;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
 }
 
-h1,h2,h3,h4,h5,h6 {
+p,h1,h2,h3,h4,h5,h6 {
   padding: 0;
   margin: 0;
 }
@@ -111,11 +112,11 @@ a {
     height: 15rem !important;
   }
   // 内容
-  .page-inner {
-    > div{ // 切换至小屏幕时card变现的bug
-        transition: none !important;
-    }
-  }
+  // .page-inner {
+  //   > div{ // 切换至小屏幕时card变形的bug
+  //       transition: none !important;
+  //   }
+  // }
 }
 // 头部
 .page-header {
@@ -130,16 +131,6 @@ a {
   background-repeat: no-repeat;
   background-position: center center;
   animation: header-effect 1s;
-  .scroll-down {
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    .scroll-down-effect {
-      animation: scroll-down-effect 1.5s infinite;
-    }
-  }
 }
 // 内容
 .page-inner {
@@ -182,27 +173,36 @@ a {
 
 // dark -------------
 body.body--dark {
+  background-color: #0d0d0d;
+  #header {
+    &.bg-mask {
+      color: #fff;
+      background-color: rgba(0, 0, 0, .6);
+    }
+  }
+  
   .q-dark { 
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, .9) !important;
   }
   .page-header {
     &::before {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0,0,0,.7);
       content: '';
     }
   }
   // 卡片
   .q-card {
-    background-color: #0d0d0d;
     // background-color: #0d0d0d;
+    // background-color: #0d0d0d;
+    background-color: #121212 !important;
     &:hover {
-      box-shadow: 0 3px 8px 6px rgba(7,17,27,0.15);
+      box-shadow: 0 3px 8px 6px rgba(7,17,27,.15);
     }
   }
   .text-grey-8 {
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: rgba(255, 255, 255, .65) !important;
   }
 }

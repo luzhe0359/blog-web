@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lff" id="layout">
     <!-- header -->
-    <q-header id="header" class="bg-dark" reveal height-hint="50" :reveal-offset="500">
+    <q-header id="header" :class="{'bg-mask': menuMerge}" :elevated="menuMerge" reveal height-hint="50" :reveal-offset="10">
       <q-toolbar>
         <!-- <q-no-ssr> -->
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
@@ -17,9 +17,9 @@
       </q-toolbar>
     </q-header>
     <!-- footer -->
-    <!-- <Footer /> -->
+    <Footer />
     <!-- darwer -->
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1" class="lt-sm text-grey-8" :width="240">
+    <q-drawer class="lt-sm text-grey-8 z-max" v-model="leftDrawerOpen" bordered content-class="bg-grey-1" :width="240">
       <!-- 侧边导航栏-->
       <SideMenu />
     </q-drawer>
@@ -28,7 +28,7 @@
       <keep-alive :include="cacheList">
         <router-view :key="$route.fullPath" />
       </keep-alive>
-      <Footer />
+      <!-- <Footer /> -->
     </q-page-container>
     <!-- 配置项 -->
     <Setting :showSetting="showSetting" />
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Footer from 'src/components/Footer/Footer'
+import Footer from 'components/Common/Footer'
 import SideMenu from 'components/SideMenu/SideMenu.vue'
 import ToolBarMenu from 'components/ToolBar/ToolBarMenu.vue'
 import ToolBarUtil from 'components/ToolBar/ToolBarUtil.vue'
@@ -76,8 +76,8 @@ export default {
     return {
       leftDrawerOpen: false,
       showSetting: false,
-      cacheList: ['Home'],
-      scrollTop: 0
+      menuMerge: true,
+      cacheList: ['Home']
     }
   },
   created () {
@@ -96,8 +96,7 @@ export default {
     // 滚动监听器
     scrollHandler (info) {
       const { position } = info
-      console.log(info);
-      this.scrollTop = position
+      this.menuMerge = position > 10 ? true : false
       this.showSetting = position > 220 ? true : false
     }
   },
@@ -108,15 +107,15 @@ export default {
 <style lang="scss" scoped>
 #header {
   background-color: transparent;
-  /* background-color: grey; */
-  /* position: relative;
-  top: 0;
-  left: 0; */
+  &.bg-mask {
+    color: $grey-8;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
 }
-/* .q-page-container {
+.q-page-container {
   padding-top: 0 !important;
-  margin-top: -50px;
-} */
+}
+
 @media (min-width: $breakpoint-md-min) {
   #header {
     padding: 0 20px;

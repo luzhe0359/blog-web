@@ -18,7 +18,7 @@
         </q-tooltip>
       </div>
     </q-card-section>
-    <q-separator color="grey-5" />
+    <q-separator color="grey-8" />
   </q-card>
 </template>
 

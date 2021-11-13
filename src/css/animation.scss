@@ -247,7 +247,7 @@
   }
 }
 
-// 首页箭头 上下循环跳动
+// 上下循环跳动 | 首页箭头 
 @keyframes scroll-down-effect {
   0% {
     opacity: 0.4;
@@ -263,5 +263,19 @@
     opacity: 0.4;
     filter: alpha(opacity=40);
     transform: translateY(0);
+  }
+}
+
+// 缩放 | 首页博客名
+@keyframes titlescale {
+  0% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
   }
 }

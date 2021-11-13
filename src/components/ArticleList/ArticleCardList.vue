@@ -4,9 +4,6 @@
       <div class="article-card" v-for="article in articleList" :key="article._id">
         <ArticleCard :article="article" />
       </div>
-      <!-- <q-no-ssr v-if="articlePageCount > 1">
-        <q-pagination color="grey" class="q-mb-sm justify-center" v-model="current" :max="articlePageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
-      </q-no-ssr> -->
     </div>
     <q-card v-else>
       <q-card-section class="column items-center ">
@@ -17,10 +14,6 @@
         </div>
       </q-card-section>
     </q-card>
-    <!-- <div class="q-mt-xl text-center text-white">
-      <q-icon name="error_outline" size="sm" />
-      暂无数据
-    </div> -->
   </div>
 </template>
 
@@ -38,12 +31,6 @@ export default {
   },
   data () {
     return {
-    }
-  },
-  methods: {
-    // 切换页码
-    changePage (current) {
-      this.$emit('changePage', current)
     }
   }
 }

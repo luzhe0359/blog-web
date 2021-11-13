@@ -5,12 +5,12 @@
     <!-- <div class="user-container container overflow-hidden"> -->
     <SideUserAvatar />
     <SideBlogInfo />
-
+    <SideArticleTag />
     <!-- <SideUserTag /> -->
     <!-- </div> -->
     <!-- sticky定位 -->
     <div ref="sideSticky" class="side-sticky">
-      <SideArticleTag />
+      <slot name="catalog"></slot>
       <SideArticleHot />
     </div>
     <!-- <div ref="sideSticky" class="blog-container container overflow-hidden">

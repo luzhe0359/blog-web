@@ -20,13 +20,13 @@ export default {
     }
   },
   watch: {
-    $route (newVal) {
-      this.currentMenu = newVal.path
+    $route (n) {
+      this.currentMenu = n.name
     }
   },
   created () {
     // 刷新时，同步选中菜单按钮
-    this.currentMenu = this.$route.path
+    this.currentMenu = this.$route.name
     this.getMenuList()
   },
   methods: {

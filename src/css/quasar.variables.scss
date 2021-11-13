@@ -26,19 +26,9 @@ $warning   : #F2C037;
 // 所有原生组件的样式 --------------------------------------------------------------------------------
 // 最大宽度
 .q-page {
-    max-width: 1200px;
-    min-height: calc(100vh - 50px) !important;
-    padding: 16px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    width: 100%;
+    min-height: 100vh;
 }
-
-// @media screen and (max-width: 599px) {
-//     .q-page {
-//         padding: 10px;
-//     }
-// }
 
 // 上传 图片高100%
 .q-uploader__file--img {

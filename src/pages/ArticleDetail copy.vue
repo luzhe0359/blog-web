@@ -1,74 +1,54 @@
 <template>
   <q-page id="ArticleDetail">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
-    <!-- header -->
-    <div class="page-header">
-      <div class="absolute-center full-width">
-        <h1 class="text-h4 text-center q-mb-lg"> {{article.title}} </h1>
-        <div class="text-white q-pb-sm row">
-          <div class="row col-xs-12 col-md-9">
-            <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
-            <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
-            <div v-if="article.meta">
-              <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
-              <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
-              <q-chip class="like-box" color="transparent" text-color="white">
-                <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
-                {{article.meta.likes}}
-              </q-chip>
+    <!-- <div class="title text-h4 q-py-md text-white"> {{article.title}} </div> -->
+    <h1 class="title text-h4 q-py-md text-white"> {{article.title}} </h1>
+    <div class="text-white q-pb-sm row">
+      <div class="row col-xs-12 col-md-9">
+        <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
+        <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
+        <div v-if="article.meta">
+          <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
+          <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
+          <q-chip class="like-box" color="transparent" text-color="white">
+            <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
+            {{article.meta.likes}}
+          </q-chip>
+        </div>
+        <q-space />
+        <q-chip color="grey-8" text-color="white" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
+      </div>
+    </div>
+    <!-- md -->
+    <div class="md-content row">
+      <!-- 文章 -->
+      <div class="col-xs-12 col-md-9">
+        <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
+      </div>
+      <!-- 目录 -->
+      <div class="gt-sm col-md-3 q-pl-md q-gutter-y-md">
+        <div v-show="titles.length !== 0" class="bg-white q-px-md q-pb-md rounded-borders catalog overflow-hidden" ref="catalog">
+          <q-separator vertical inset color='grey-3' size='2px' class="absolute-left q-ml-xs" />
+          <div class="active-ball absolute-left" :style="{top:activeBallTop  + 'px',left:'1px'}"></div>
+          <div>
+            <div class="row no-wrap" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `10px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor,index)">
+              <div class="ellipsis cursor-pointer text-subtitle2" :class="{'active-anchor':activeIndex === index}">{{ anchor.title }}</div>
             </div>
-            <q-space />
-            <q-chip color="grey-8" text-color="white" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
           </div>
         </div>
       </div>
     </div>
-    <!-- inner -->
-    <PageInner>
-      <template v-slot:inner-left>
-        <!-- md -->
-        <q-card class="md-content q-mb-lg">
-          <q-card-section>
-            <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
-          </q-card-section>
-        </q-card>
-        <!-- 评论 -->
-        <q-card ref="comment">
-          <q-card-section>
-            <div class="text-h5 q-mt-lg q-mb-md">评论</div>
-            <CommentAdd :hideCancel="true" @comment="comment" />
-            <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
-            <q-no-ssr v-if="commentPageCount > 1">
-              <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
-            </q-no-ssr>
-          </q-card-section>
-        </q-card>
-      </template>
-      <template v-slot:inner-right>
-        <!-- 右侧边栏 -->
-        <SideBar>
-          <template v-slot:catalog>
-            <!-- 目录 -->
-            <q-card class="q-mb-lg">
-              <q-card-section>
-                <SideTitle title="目录" />
-                <div class="q-pl-md catalog" ref="catalog">
-                  <div class="active-ball absolute-left" :style="{top:activeBallTop  + 'px'}"></div>
-                  <div>
-                    <div class="row no-wrap" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `10px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor,index)">
-                      <div class="ellipsis cursor-pointer text-subtitle2" :class="{'active-anchor':activeIndex === index}">{{ anchor.title }}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center" v-show="titles.length === 0">
-                  暂无
-                </div>
-              </q-card-section>
-            </q-card>
-          </template>
-        </SideBar>
-      </template>
-    </PageInner>
+    <!-- 评论 -->
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <div ref="comment" class="text-h5 q-mt-lg q-mb-md">评论</div>
+        <CommentAdd :hideCancel="true" @comment="comment" />
+        <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
+        <q-no-ssr v-if="commentPageCount > 1">
+          <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
+        </q-no-ssr>
+      </div>
+    </div>
   </q-page>
 </template>
 <script>
@@ -77,9 +57,6 @@ const { css, height } = dom
 const { getScrollTarget, setScrollPosition } = scroll
 import { mapGetters } from 'vuex'
 
-import PageInner from 'components/common/PageInner'
-import SideBar from 'components/SideBar/SideBar'
-import SideTitle from 'components/Common/SideTitle'
 import Comment from 'src/components/Comment/Comment.vue'
 import CommentAdd from 'src/components/Comment/CommentAdd.vue'
 
@@ -91,11 +68,8 @@ let defaultParams = {
 export default {
   name: 'ArticleDetail',
   components: {
-    PageInner,
-    SideBar,
-    SideTitle,
     Comment,
-    CommentAdd
+    CommentAdd,
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     const articleId = currentRoute.params._id
@@ -143,7 +117,7 @@ export default {
     ]),
     // 目录小球top
     activeBallTop () {
-      return 29 * this.activeIndex + 16
+      return 32 * this.activeIndex + 16
     }
   },
   watch: {
@@ -177,7 +151,6 @@ export default {
     },
     // 监听滚动
     handlerScroll (info) {
-      console.log(info);
       const { direction, position } = info // 滚动信息
       let catalog = this.$refs.catalog // 滚动元素
 
@@ -197,16 +170,13 @@ export default {
       const { preview, comment } = this.$refs;
       if (this.titles.length <= 0) return
       let firstHead = preview.$el.querySelector(`[data-v-md-line="${this.titles[0].lineIndex}"]`);
-      let lastHead = comment.$el
+      let lastHead = comment
 
       this.titles.forEach((item, index) => {
         const { lineIndex } = item;
         const heading = preview.$el.querySelector(`[data-v-md-line="${lineIndex}"]`);
         let headingTop = heading.offsetTop
         // 未到/超出md
-        // console.log(position < firstHead.offsetTop);
-        // console.log(position > lastHead.offsetTop);
-        // console.log(lastHead.offsetTop);
         if (position < firstHead.offsetTop) { // 未到达第一个目录
           this.activeIndex = -1
           return
@@ -218,8 +188,6 @@ export default {
         if (direction === 'up' && position > 500) {
           headingTop -= 30
         }
-        console.log('position, headingTop');
-        console.log(position, headingTop);
         if (position >= headingTop) {
           this.activeIndex = index
         }
@@ -316,26 +284,22 @@ export default {
         margin: 0;
       }
     }
-  }
-  /deep/ .vuepress-markdown-body {
-    color: inherit;
-    background-color: inherit;
-  }
-  .catalog {
-    position: sticky;
-    left: 0;
-    top: 50px;
-    transition: all 0.2s ease-out;
-    .active-ball {
-      width: 8px;
-      height: 8px;
-      background-color: #fff;
-      border: 2px solid #1890ff;
-      border-radius: 8px;
-      transition: top 0.3s ease-in-out;
-    }
-    .active-anchor {
-      color: #1890ff;
+    .catalog {
+      position: sticky;
+      left: 0;
+      top: 50px;
+      transition: all 0.2s ease-out;
+      .active-ball {
+        width: 8px;
+        height: 8px;
+        background-color: #fff;
+        border: 2px solid #1890ff;
+        border-radius: 8px;
+        transition: top 0.3s ease-in-out;
+      }
+      .active-anchor {
+        color: #1890ff;
+      }
     }
   }
 

@@ -1,11 +1,8 @@
 <template>
-  <div class="q-gutter-sm q-ml-lg">
+  <div class="q-ml-lg">
     <!-- 登录按钮 -->
     <q-no-ssr>
-      <q-btn dense size="md" icon="person_outline" label="登录" @click="showLogin = true" class="login" v-show="!name" />
-      <template v-slot:placeholder>
-        <q-skeleton type="QBtn" :animation="'pulse'" class="bg-grey-9" rounded width="30px" height="26px" />
-      </template>
+      <q-btn flat dense size="md" icon="person_outline" label="登录" @click="showLogin = true" class="login" v-show="!name" />
     </q-no-ssr>
     <!-- 头像菜单 -->
     <q-btn flat round size="sm" v-show="name">
@@ -76,16 +73,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .login {
-  width: 66px;
+  font-size: 1.2rem !important;
+  /* width: 66px;
   height: 32px;
-  font-size: 16px !important;
   /deep/ .q-btn__wrapper {
     min-height: 100%;
     padding: 0;
-  }
+  } */
   /deep/ .q-icon {
-    font-size: 22px;
-    margin-right: 0 !important;
+    font-size: 1.4rem;
+    margin-top: 2px;
   }
 }
 </style>

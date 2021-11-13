@@ -44,7 +44,7 @@ const routes = [
           menu: true,
           keepAlive: false
         },
-        component: () => import('pages/Tag/index')
+        component: () => import('pages/Tag')
       },
       // {
       //   path: 'article',
