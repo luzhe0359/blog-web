@@ -5,9 +5,10 @@
       <div class="absolute-center full-width">
         <div class="text-center q-py-md">
           <h1 class="text-h3 text-white text-weight-bold">足各路的博客</h1>
-          <div class="flex-center">
-            <!-- <span class="text-subtitle1 text-grey q-pt-md">世上无难事,只要肯攀登。</span> -->
-            <!-- <p class="text-subtitle1 text-grey q-pt-md" :class="{'focus-in-contract':$q.screen.gt.md}">Force yourself to be excellent and live with pride.</p> -->
+          <div class="flex-center q-mt-lg" style="height: 2rem;">
+            <span class="text-h6 text-grey-4">{{ slogon }}</span>
+            <!-- 模拟光标 -->
+            <span class="text-white" :class="{'typer-cursor ': shoeTyper}">|</span>
           </div>
         </div>
       </div>
@@ -62,7 +63,10 @@ export default {
     return {
       pageNum: defaultParams.pageNum,
       pageSize: defaultParams.pageSize,
-      slogon: "世上无难事,只要肯攀登。",
+      slogon: '',
+      slogonArr: ['足各路的博客.', '世上无难事,只要肯攀登。', 'Force yourself to be excellent and live with pride.'],
+      order: 0, // 当前slogon索引
+      len: 0, // 当前slogon长度
       timer: null
     }
   },
@@ -71,9 +75,12 @@ export default {
       'articleList',
       'articlePageCount'
     ]),
+    shoeTyper () {
+      return this.slogonArr[this.order].length === this.len
+    }
   },
   mounted () {
-
+    this.typing()
   },
   methods: {
     // 切换页码
@@ -102,6 +109,37 @@ export default {
       setScrollPosition(target, offset, duration)
     },
     // 打字效果
+    typing () {
+      this.timmer = setInterval(this.begin, 120)
+    },
+    begin () {
+      let current = this.slogonArr[this.order] // 数组中的slogon
+      this.slogon = current.slice(0, ++this.len)
+      if (this.len === current.length) { // 打到最后一个字
+        clearInterval(this.timmer)
+        this.timmer = null
+        // 输出完暂停2s
+        this.timmer = setTimeout(() => {
+          clearTimeout(this.timmer)
+          this.timmer = null
+          this.timmer = setInterval(this.back, 60)
+        }, 2000)
+      }
+    },
+    back () {
+      let current = this.slogonArr[this.order] // 数组中的slogon
+      this.slogon = current.slice(0, this.len--)
+      if (this.len <= -1) {
+        clearInterval(this.timmer)
+        this.timmer = null
+        if (this.order === this.slogonArr.length - 1) { // 当前为最后一个slogon时，重置索引
+          this.order = 0
+        } else { // 索引自增
+          this.order++
+        }
+        this.typing()
+      }
+    }
   }
 }
 </script>
@@ -110,6 +148,19 @@ export default {
   height: 100vh !important;
   .text-h3 {
     animation: titlescale 1s;
+  }
+
+  .typer-cursor {
+    animation: typer-effect 1s 0.5s linear infinite;
+  }
+  @keyframes typer-effect {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
   }
   .scroll-down {
     width: 100%;
