@@ -4,8 +4,8 @@
     <!-- header -->
     <div class="page-header">
       <div class="absolute-center full-width">
-        <h1 class="text-h4 text-center q-mb-lg"> {{article.title}} </h1>
-        <div class="text-white q-pb-sm row">
+        <h1 class="text-h4 text-center q-mb-lg"> {{article.title}}</h1>
+        <div class="text-white q-pb-sm row max-width">
           <div class="row col-xs-12 col-md-9">
             <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
             <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
@@ -218,8 +218,6 @@ export default {
         if (direction === 'up' && position > 500) {
           headingTop -= 30
         }
-        console.log('position, headingTop');
-        console.log(position, headingTop);
         if (position >= headingTop) {
           this.activeIndex = index
         }

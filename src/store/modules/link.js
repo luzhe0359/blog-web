@@ -6,7 +6,7 @@ const count = {
         linkList: [],
     },
     mutations: {
-        SET_LINK: (state, { list = [] }) => {
+        SET_LINK: (state, list) => {
             state.linkList = list
         },
     },
@@ -20,7 +20,7 @@ const count = {
                     descending: -1
                 }
                 findLinkList(params).then(res => {
-                    commit('SET_LINK', { list: res.data })
+                    commit('SET_LINK', res.data)
                     resolve()
                 }).catch(err => {
                     reject(err)

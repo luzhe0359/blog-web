@@ -1,6 +1,6 @@
 <template>
   <div class="icon row q-ml-none items-center justify-center">
-    <q-icon :size="size" class="q-mr-xs" :name="icon"></q-icon>
+    <q-icon class="q-mr-xs" size="xs" :name="icon"></q-icon>
     <div>{{name}}</div>
   </div>
 </template>
@@ -22,9 +22,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* .icon {
-  margin-right: 32px;
-} */
+.q-icon {
+  font-size: 0.875rem !important;
+  margin-top: 0.1rem;
+  /* line-height: 1.1 !important; */
+}
 
 /* @media screen and (max-width: 600px) {
   .icon {

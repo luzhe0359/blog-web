@@ -7,7 +7,7 @@
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
         <q-toolbar-title style="min-width:155px;">
-          <router-link class="text-white" to="/" replace> 足各路的博客 </router-link>
+          <router-link class="text-h6 text-weight-bold" to="/" replace> 足各路的博客 </router-link>
         </q-toolbar-title>
         <q-space />
         <!-- 菜单 -->
@@ -19,7 +19,7 @@
     <!-- footer -->
     <Footer />
     <!-- darwer -->
-    <q-drawer class="lt-sm text-grey-8 z-max" v-model="leftDrawerOpen" bordered content-class="bg-grey-1" :width="240">
+    <q-drawer class="lt-sm z-max" v-model="leftDrawerOpen" bordered :width="240">
       <!-- 侧边导航栏-->
       <SideMenu />
     </q-drawer>
@@ -111,6 +111,9 @@ export default {
     color: $grey-8;
     background-color: rgba(255, 255, 255, 0.8);
   }
+}
+.q-toolbar__title {
+  line-height: 1;
 }
 .q-page-container {
   padding-top: 0 !important;

@@ -5,11 +5,42 @@
       <div class="absolute-center full-width">
         <h1 class="text-h4 text-center q-mb-lg">文章标签</h1>
         <!-- 分类列表 -->
-        <div class="q-gutter-md row flex-center">
-          <div :class="{'active':currentId === tag._id}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-            {{tag.name}}
+        <!-- <div class="max-width">
+          <q-scroll-area horizontal :visible="fasl" style="height: 60px; max-width: 1200px; width:100%;">
+            <div class="row no-wrap q-gutter-x-md">
+              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                {{tag.name}}
+              </div>
+              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                {{tag.name}}
+              </div>
+              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                {{tag.name}}
+              </div>
+            </div>
+          </q-scroll-area>
+        </div> -->
+        <div class="row max-width q-px-sm">
+          <div class="col">
+            <div class="row q-col-gutter-lg">
+              <div class="q-gutter-md row no-wrap flex-center ellipsis-3-lines full-width">
+                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                  {{tag.name}}
+                </span>
+                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                  {{tag.name}}
+                </span>
+                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                  {{tag.name}}
+                </span>
+                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
+                  {{tag.name}}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
     <!-- inner -->
@@ -96,6 +127,6 @@ export default {
   background-image: url("~assets/body-hand.jpg");
 }
 .active {
-  background-color: #03a9f4;
+  border: 1px solid #03a9f4;
 }
 </style>

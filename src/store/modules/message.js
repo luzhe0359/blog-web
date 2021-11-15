@@ -7,7 +7,7 @@ const count = {
         messagePageCount: 0 // 留言总数
     },
     mutations: {
-        SET_MESSAGE_LIST: (state, { list = [] }) => {
+        SET_MESSAGE_LIST: (state, list) => {
             state.messageList = list
         },
         SET_MESSAGE_PAGE_COUNT: (state, pageCount = 0) => {
@@ -19,7 +19,7 @@ const count = {
         LoadMessageList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
                 findMessageList(parmas).then(res => {
-                    commit('SET_MESSAGE_LIST', { list: res.data })
+                    commit('SET_MESSAGE_LIST', res.data)
                     commit('SET_MESSAGE_PAGE_COUNT', res.pageCount)
                     resolve(res)
                 }).catch(err => {

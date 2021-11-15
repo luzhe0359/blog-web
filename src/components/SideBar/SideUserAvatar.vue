@@ -4,10 +4,10 @@
       <q-avatar class="cursor-pointer" size="100px">
         <q-img basic native-context-menu alt="足各路" src="https://oss.zugelu.com/other/logo.webp" spinner-color="grey" />
       </q-avatar>
-      <div class="text-h6 text-weight-bold q-my-xs">足各路</div>
-      <div class="text-grey-8">要逼自己优秀, 然后骄傲的活着 。</div>
+      <div class="text-h5 text-weight-medium q-my-xs">足各路</div>
+      <div class="text-body1 text-grey-8">要逼自己优秀, 然后骄傲的活着。</div>
     </q-card-section>
-    <q-card-section class="row q-pt-none">
+    <q-card-section class="row q-pt-none text-subtitle1">
       <router-link class="col-4" :to="`/article`">
         <div class="column flex-center">
           <div>文章</div>
@@ -31,11 +31,11 @@
     <q-card-section class="q-pt-none">
       <div class="row justify-center items-center no-wrap q-mb-sm">
         <q-separator inset />
-        <div class="col-3 text-h6 text-center">社交</div>
+        <div class="col-3 text-caption text-center">社交</div>
         <q-separator inset />
       </div>
       <div class="row justify-center q-gutter-sm">
-        <q-icon class="cursor-pointer social" v-for="item in tagList" :key="item.name" :name="item.icon" size="26px" @click="copy(item)">
+        <q-icon class="text-h5 cursor-pointer social" v-for="item in tagList" :key="item.name" :name="item.icon" @click="copy(item)">
           <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
             {{item.tooltip}}
           </q-tooltip>
@@ -85,57 +85,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* #SideUserAvatar {
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
-  overflow: hidden;
-  .bg-box {
-    height: 55%;
-    .avatar-bg {
-      background: url("~assets/bg_logo.webp") no-repeat;
-      background-position: 90% 50%;
-      background-size: cover;
-      animation: kenburns-top-right 5s cubic-bezier(0.47, 0, 0.745, 0.715)
-        reverse both;
-    }
-  }
-  .avatar {
-    width: 90px;
-    height: 90px;
-    position: absolute;
-    z-index: 100;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    background-size: cover;
-    background-repeat: no-repeat;
-    .avatar-logo {
-      box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.1);
-      animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
-    &:hover {
-      .avatar-logo {
-        animation: rotate-out-2-fwd 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-          both;
-      }
-      .avatar-user {
-        position: relative;
-        top: -100%;
-        display: block !important;
-        animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-      }
-    }
-  }
-  .title-box {
-    height: 45%;
-    position: relative;
-  }
-  .name {
-    padding-top: 15%;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 26px;
-  }
-} */
 </style>

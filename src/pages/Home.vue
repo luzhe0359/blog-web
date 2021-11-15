@@ -5,8 +5,8 @@
       <div class="absolute-center full-width">
         <div class="text-center q-py-md">
           <h1 class="text-h3 text-white text-weight-bold">足各路的博客</h1>
-          <div class="flex-center q-mt-lg" style="height: 2rem;">
-            <span class="text-h6 text-grey-4">{{ slogon }}</span>
+          <div class="text-h5 flex-center q-mt-lg">
+            <span class="text-grey-4">{{ slogon }}</span>
             <!-- 模拟光标 -->
             <span class="text-white" :class="{'typer-cursor ': shoeTyper}">|</span>
           </div>
@@ -76,7 +76,7 @@ export default {
       'articlePageCount'
     ]),
     shoeTyper () {
-      return this.slogonArr[this.order].length === this.len
+      return this.len > this.slogonArr[this.order].length
     }
   },
   mounted () {
@@ -110,12 +110,12 @@ export default {
     },
     // 打字效果
     typing () {
-      this.timmer = setInterval(this.begin, 120)
+      this.timmer = setInterval(this.begin, 150)
     },
     begin () {
       let current = this.slogonArr[this.order] // 数组中的slogon
-      this.slogon = current.slice(0, ++this.len)
-      if (this.len === current.length) { // 打到最后一个字
+      this.slogon = current.slice(0, this.len++)
+      if (this.len > current.length) { // 打到最后一个字(len自增后等于current.length，所以得大于current.length)
         clearInterval(this.timmer)
         this.timmer = null
         // 输出完暂停2s
@@ -129,7 +129,7 @@ export default {
     back () {
       let current = this.slogonArr[this.order] // 数组中的slogon
       this.slogon = current.slice(0, this.len--)
-      if (this.len <= -1) {
+      if (this.len === 0) {
         clearInterval(this.timmer)
         this.timmer = null
         if (this.order === this.slogonArr.length - 1) { // 当前为最后一个slogon时，重置索引
@@ -140,6 +140,11 @@ export default {
         this.typing()
       }
     }
+  },
+  beforeDestroy () {
+    console.log('beforeDestroy');
+    clearInterval(this.timmer)
+    this.timmer = null
   }
 }
 </script>

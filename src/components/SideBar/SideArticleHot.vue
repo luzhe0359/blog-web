@@ -4,14 +4,14 @@
       <SideTitle title="热门" />
       <div>
         <div class="hot-article row q-mb-sm" v-for="article in hotArticleList">
-          <router-link class="overflow-hidden" :to="`/detail/${article._id}`" style="width:4.2rem;height:4.2rem;">
+          <router-link class="overflow-hidden" :to="`/detail/${article._id}`">
             <q-img width="4.2rem" height="4.2rem" :src="article.imgCover" native-context-menu :ratio="16/9" alt="article_err" />
           </router-link>
           <div class="col q-pl-sm">
-            <router-link :to="`/detail/${article._id}`">
-              <div class="ellipsis-2-lines">{{article.title}}</div>
+            <router-link class="text-body1 text-grey-8 ellipsis-2-lines" :to="`/detail/${article._id}`">
+              {{article.title}}
             </router-link>
-            <div class="text-grey-8">{{ article.createTime | yearFormat }}</div>
+            <div class="text-body2 text-grey-6">{{ article.createTime | yearFormat }}</div>
           </div>
         </div>
       </div>
@@ -35,8 +35,8 @@ export default {
   computed: {
     ...mapGetters([
       'hotArticleList'
-    ]),
-  },
+    ])
+  }
 }
 </script>
 
@@ -49,6 +49,11 @@ export default {
     &:hover {
       .q-img {
         transform: scale(1.2);
+      }
+    }
+    a {
+      &:hover {
+        color: $light-blue !important;
       }
     }
   }

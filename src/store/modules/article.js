@@ -3,6 +3,8 @@ import { findCommentList, addComment, likeComment } from 'src/api/comment.js'
 import { findCategoryList } from 'src/api/category.js'
 import { findTagCount } from 'src/api/tag.js'
 import { setUser } from 'src/utils/auth'
+import { randomRgbColor, randomFontSize } from 'src/utils/tool'
+
 
 const count = {
     namespaced: true,
@@ -18,7 +20,7 @@ const count = {
         commentPageCount: 0 // 评论总数
     },
     mutations: {
-        SET_ARTICLE_LIST: (state, { list = [] }) => {
+        SET_ARTICLE_LIST: (state, list) => {
             state.articleList = list
         },
         SET_TOP_ARTICLE_LIST: (state, list) => {
@@ -33,13 +35,13 @@ const count = {
         SET_ARTICLE_DETAIL: (state, { _id, detail = {} }) => {
             state.articleDetail[_id] = detail
         },
-        SET_CATEGORY_LIST: (state, { list = [] }) => {
+        SET_CATEGORY_LIST: (state, list) => {
             state.categoryList = list
         },
-        SET_TAG_LIST: (state, { list = [] }) => {
+        SET_TAG_LIST: (state, list) => {
             state.tagList = list
         },
-        SET_COMMENT_LIST: (state, { list = [] }) => {
+        SET_COMMENT_LIST: (state, list) => {
             state.commentList = list
         },
         SET_COMMENT_PAGE_COUNT: (state, pageCount = 0) => {
@@ -54,7 +56,7 @@ const count = {
         LoadArticleList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
                 findArticleList(parmas).then(res => {
-                    commit('SET_ARTICLE_LIST', { list: res.data })
+                    commit('SET_ARTICLE_LIST', res.data)
                     commit('SET_ARTICLE_PAGE_COUNT', res.pageCount)
                     resolve(res)
                 }).catch(err => {
@@ -89,8 +91,8 @@ const count = {
         LoadCategoryList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
                 findCategoryList(parmas).then(res => {
-                    let list = [{ name: 'ALL', _id: 'zugelu' }, ...res.data]
-                    commit('SET_CATEGORY_LIST', { list })
+                    let list = [{ name: '全部', _id: 'zugelu' }, ...res.data]
+                    commit('SET_CATEGORY_LIST', list)
                     resolve(res)
                 }).catch(err => {
                     reject(err)
@@ -101,7 +103,13 @@ const count = {
         LoadTagList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
                 findTagCount(parmas).then(res => {
-                    commit('SET_TAG_LIST', { list: res.data })
+                    let list = res.data.map(tag => {
+                        tag.color = randomRgbColor()
+                        tag.size = randomFontSize()
+                        return tag
+                    })
+                    commit('SET_TAG_LIST', list)
+
                     resolve(res)
                 }).catch(err => {
                     reject(err)
@@ -127,7 +135,7 @@ const count = {
         LoadCommentList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
                 findCommentList(parmas).then(res => {
-                    commit('SET_COMMENT_LIST', { list: res.data })
+                    commit('SET_COMMENT_LIST', res.data)
                     commit('SET_COMMENT_PAGE_COUNT', res.pageCount)
                     resolve(res)
                 }).catch(err => {

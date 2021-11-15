@@ -1,22 +1,8 @@
 <template>
-  <!-- <div id="SideBlogInfo" class="full-width q-pt-lg ">
-    <div class="text-h6 q-mb-sm">博客信息</div>
-    <div>
-      <q-chip v-for="item in countList" :key="item.icon" :icon="item.icon" class="q-mr-md q-ml-none q-mb-sm q-pa-md small-shadow">
-        <div class="q-mr-xs">{{ item.name }}</div>
-        <div v-if="item.name === '已运行'">{{item.count}}</div>
-        <countTo v-else :startVal='0' :endVal='item.count' :duration='3000'></countTo>
-      </q-chip>
-    </div>
-  </div> -->
   <q-card class="q-mb-lg">
     <q-card-section>
-      <div class="row justify-center items-center no-wrap q-mb-sm">
-        <q-separator inset />
-        <div class="col-3 text-h6 text-center">网站</div>
-        <q-separator inset />
-      </div>
-      <div>
+      <SideTitle title="网站" />
+      <div class="text-subtitle1">
         <div class="row justify-center q-mb-md">
           {{runTime}}
         </div>
@@ -31,13 +17,14 @@
 
 <script>
 import countTo from 'vue-count-to';
-
+import SideTitle from 'components/Common/SideTitle'
 import { countArticle } from 'src/api/article.js'
 
 export default {
   name: 'SideBlogInfo',
   components: {
-    countTo
+    countTo,
+    SideTitle
   },
   data () {
     return {

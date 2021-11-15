@@ -1,7 +1,7 @@
 <template>
   <q-scroll-area :visible="false" :thumb-style="thumbStyle">
     <!-- 添加fixed，防止移动端向左滑动菜单留白 -->
-    <q-card class="side-menu fixed full-width full-height">
+    <q-card class="fixed fit">
       <!-- 用户菜单 -->
       <UserMenu />
       <!-- 菜单列表 -->
