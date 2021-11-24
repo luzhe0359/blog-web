@@ -1,5 +1,5 @@
 <template>
-  <q-page-sticky position="bottom-right" :offset="[0, 100]" v-show="showSetting">
+  <q-page-sticky class="z-max" position="bottom-right" :offset="[0, 100]" v-show="showSetting">
     <div class="column q-gutter-y-xs">
       <q-btn v-if="$q.screen.gt.sm" padding="xs" color="light-blue" :icon="$q.fullscreen.isActive?'fullscreen_exit':'fullscreen'" @click="$q.fullscreen.toggle()">
         <q-tooltip anchor="center left" self="center right" :offset="[5, 5]" transition-show="jump-left" transition-hide="jump-right">{{ $q.fullscreen.isActive? '退出全屏': '全屏' }}</q-tooltip>
@@ -55,6 +55,7 @@ export default {
       let html = document.querySelector('html') || document.documentElement
       if (this.currentFontSize < 20) {
         html.style.fontSize = ++this.currentFontSize + 'px'
+        this.$q.sessionStorage.set('font-size', this.currentFontSize)
       }
     },
     // 缩小字体
@@ -62,6 +63,7 @@ export default {
       let html = document.querySelector('html') || document.documentElement
       if (this.currentFontSize > 12) {
         html.style.fontSize = --this.currentFontSize + 'px'
+        this.$q.sessionStorage.set('font-size', this.currentFontSize)
       }
     }
   }

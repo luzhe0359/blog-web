@@ -8,14 +8,6 @@ Loading.setDefaults({
     spinnerColor: 'red',
 })
 
-
-import Viewer from 'v-viewer'
-import 'viewerjs/dist/viewer.css'
-Vue.use(Viewer)
-Viewer.setDefaults({
-    Options: { 'inline': true, 'button': true, 'navbar': true, 'title': true, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': true, 'scalable': true, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
-})
-
 import './notify' // 弹窗
 import './filter' // 过滤器
 import './markdown' // markdown

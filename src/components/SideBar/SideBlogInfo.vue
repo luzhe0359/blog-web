@@ -3,7 +3,8 @@
     <q-card-section>
       <SideTitle title="网站" />
       <div class="text-subtitle1">
-        <div class="row justify-center q-mb-md">
+        <div class="row flex-center  q-mb-md">
+          <q-spinner-puff class="q-mr-sm" color="primary" size="1em" />
           {{runTime}}
         </div>
         <div class="row justify-between" v-for="item in countList">

@@ -79,7 +79,11 @@ export default {
       return this.len > this.slogonArr[this.order].length
     }
   },
+  created () {
+    console.log('created');
+  },
   mounted () {
+    console.log('mounted');
     this.typing()
   },
   methods: {
@@ -151,6 +155,9 @@ export default {
 <style lang="scss" scoped>
 .page-header {
   height: 100vh !important;
+  > div {
+    padding-top: 0;
+  }
   .text-h3 {
     animation: titlescale 1s;
   }

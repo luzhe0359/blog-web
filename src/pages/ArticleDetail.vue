@@ -3,22 +3,23 @@
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
     <!-- header -->
     <div class="page-header">
-      <div class="absolute-center full-width">
+      <div class="absolute-center text-white full-width">
         <h1 class="text-h4 text-center q-mb-lg"> {{article.title}}</h1>
-        <div class="text-white q-pb-sm row max-width">
-          <div class="row col-xs-12 col-md-9">
-            <q-chip icon="iconfont icon-biaoqian" color="transparent" text-color="white">{{article.type | articleType}}</q-chip>
-            <q-chip icon="iconfont icon-qiepian" color="transparent" text-color="white"> {{article.createTime | dateFormat}}</q-chip>
-            <div v-if="article.meta">
-              <q-chip icon="iconfont icon-fangwenliang" color="transparent" text-color="white">{{article.meta.views}}</q-chip>
-              <q-chip icon="iconfont icon-pinglun" color="transparent" text-color="white"> {{article.meta.comments}}</q-chip>
-              <q-chip class="like-box" color="transparent" text-color="white">
-                <q-icon class="like q-mr-xs" :name="isLike ? 'iconfont icon-xin1': 'iconfont icon-xin'" :color="isLike ? 'red-5': ''" size="21px" @click="like"></q-icon>
-                {{article.meta.likes}}
-              </q-chip>
-            </div>
-            <q-space />
-            <q-chip color="grey-8" text-color="white" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</q-chip>
+        <div class="text-caption text-white q-pb-sm row max-width flex-center">
+          <q-chip class="text-caption" icon="loyalty" color="transparent" text-color="grey-3">{{article.type | articleType}}</q-chip>
+          <q-chip class="text-caption" icon="category" color="transparent" text-color="grey-3">{{article.category.name}}</q-chip>
+          <q-chip class="text-caption" icon="date_range" color="transparent" text-color="grey-3"> 发表于{{article.createTime | yearFormat}}</q-chip>
+          <div v-if="article.meta">
+            <q-chip class="text-caption" icon="remove_red_eye" color="transparent" text-color="grey-3">{{article.meta.views}}</q-chip>
+            <q-chip class="text-caption" icon="source" color="transparent" text-color="grey-3"> {{article.meta.comments}}</q-chip>
+            <q-chip class="like-box text-caption" color="transparent" text-color="grey-3">
+              <q-icon class="like q-mr-xs" name="favorite" :color="isLike ? 'red-3': ''" @click="like"></q-icon>
+              {{article.meta.likes}}
+            </q-chip>
+            <q-chip class="text-caption" color="transparent" text-color="grey-3">
+              <q-icon class="like q-mr-xs" name="tag"></q-icon>
+              <span class="q-mr-sm" v-for="tag in article.tags" :key="tag._id">{{tag.name}}</span>
+            </q-chip>
           </div>
         </div>
       </div>
@@ -29,7 +30,12 @@
         <!-- md -->
         <q-card class="md-content q-mb-lg">
           <q-card-section>
-            <v-md-preview class="md-preview rounded-borders overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
+            <v-md-preview class="md-preview overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
+          </q-card-section>
+          <q-card-section class="row justify-end">
+            <q-btn round flat color="grey-8" @click="share" icon="iconfont icon-qq-share" />
+            <q-btn round flat color="grey-8" icon="iconfont icon-weixin-share" />
+            <q-btn round flat color="grey-8" icon="iconfont icon-weibo-share" />
           </q-card-section>
         </q-card>
         <!-- 评论 -->
@@ -38,6 +44,7 @@
             <div class="text-h5 q-mt-lg q-mb-md">评论</div>
             <CommentAdd :hideCancel="true" @comment="comment" />
             <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
+            <NotComment v-if="commentList.length <= 0" />
             <q-no-ssr v-if="commentPageCount > 1">
               <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
             </q-no-ssr>
@@ -49,19 +56,16 @@
         <SideBar>
           <template v-slot:catalog>
             <!-- 目录 -->
-            <q-card class="q-mb-lg">
+            <q-card class="q-mb-lg" v-show="titles.length !== 0">
               <q-card-section>
                 <SideTitle title="目录" />
-                <div class="q-pl-md catalog" ref="catalog">
-                  <div class="active-ball absolute-left" :style="{top:activeBallTop  + 'px'}"></div>
-                  <div>
-                    <div class="row no-wrap" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `10px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor,index)">
-                      <div class="ellipsis cursor-pointer text-subtitle2" :class="{'active-anchor':activeIndex === index}">{{ anchor.title }}</div>
+                <div class="q-pl-md overflow-hidden catalog relative-position">
+                  <div class="active-ball absolute-left" :style="{top:activeBallTop}"></div>
+                  <div ref="catalog">
+                    <div class="text-subtitle1 row no-wrap" v-for=" (anchor,index) in titles" :key="index" :style="{ padding: `6px 0 0 ${anchor.indent * 20}px` }" @click="handleAnchorClick(anchor,index)">
+                      <div class="ellipsis cursor-pointer text-subtitle1" :class="{'active-anchor':activeIndex === index}">{{ anchor.title }}</div>
                     </div>
                   </div>
-                </div>
-                <div class="text-center" v-show="titles.length === 0">
-                  暂无
                 </div>
               </q-card-section>
             </q-card>
@@ -73,20 +77,22 @@
 </template>
 <script>
 import { scroll, dom, date } from 'quasar'
-const { css, height } = dom
+const { height } = dom
 const { getScrollTarget, setScrollPosition } = scroll
 import { mapGetters } from 'vuex'
 
 import PageInner from 'components/common/PageInner'
 import SideBar from 'components/SideBar/SideBar'
 import SideTitle from 'components/Common/SideTitle'
-import Comment from 'src/components/Comment/Comment.vue'
-import CommentAdd from 'src/components/Comment/CommentAdd.vue'
+import Comment from 'components/Comment/Comment.vue'
+import CommentAdd from 'components/Comment/CommentAdd.vue'
+import NotComment from 'components/Common/NotComment'
 
 let defaultParams = {
   pageNum: 1,
   pageSize: 5,
-  state: -1 // 违规评论过滤
+  state: -1, // 违规评论过滤
+  type: 1
 }
 export default {
   name: 'ArticleDetail',
@@ -95,13 +101,14 @@ export default {
     SideBar,
     SideTitle,
     Comment,
-    CommentAdd
+    CommentAdd,
+    NotComment
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     const articleId = currentRoute.params._id
     return Promise.all([
       store.dispatch('article/LoadArtitcleDetail', articleId),
-      store.dispatch('article/LoadCommentList', { articleId, ...defaultParams })
+      store.dispatch('comment/LoadCommentList', { articleId, ...defaultParams })
     ])
   },
   meta () {
@@ -112,7 +119,7 @@ export default {
         ogTitle: { name: 'og:title', content: this.article.title + ' | ZUGELU-专注前端开发' },
         ogDescription: { name: 'og:description', content: this.article.desc },
         ogType: { name: 'og:type', content: this.article.category.name + '文章' },
-        // ogImageUrl: { name: 'og:image:url', content: this.article.imgUrl },
+        ogImageUrl: { name: 'og:image:url', content: this.article.imgUrl },
         ogUrl: { name: 'og:url', content: 'https://zugelu.com' + this.$route.path },
         articlePublishTime: { name: 'article:publish_time', content: date.formatDate(this.article.createTime, 'YYYY-MM-DD HH:mm:ss') },
         articleUpdateTime: { name: 'article:update_time', content: date.formatDate(this.article.updateTime, 'YYYY-MM-DD HH:mm:ss') },
@@ -143,7 +150,11 @@ export default {
     ]),
     // 目录小球top
     activeBallTop () {
-      return 29 * this.activeIndex + 16
+      const { catalog } = this.$refs;
+      if (this.titles.length <= 0) return 0
+      let firstCatalog = catalog.firstElementChild // 第一个目录的高度
+      let firstCatalogHeight = firstCatalog ? height(firstCatalog) : 0
+      return (this.activeIndex + 0.5) * firstCatalogHeight + 'px'
     }
   },
   watch: {
@@ -179,16 +190,6 @@ export default {
     handlerScroll (info) {
       console.log(info);
       const { direction, position } = info // 滚动信息
-      let catalog = this.$refs.catalog // 滚动元素
-
-      // 滚动页面，目录fixed  
-      let top = "50px"
-      if (direction === 'down' && position > 500) { // 下滑,且超过500
-        top = '0px'
-      }
-      css(catalog, {
-        top
-      })
 
       // 滚动md，目录跟随  
       let clientHeight = document.documentElement.clientHeight // 屏幕高
@@ -267,6 +268,7 @@ export default {
         indent: hTags.indexOf(el.tagName),
       }));
     },
+    // 复制代码
     handleCopyCodeSuccess () {
       this.$msg.success('复制成功')
     },
@@ -278,10 +280,12 @@ export default {
         commentId,
         to,
         level,
+        type: 1,
         articleId: this.article._id
       }
-      this.$store.dispatch('article/AddComment', params).then(res => {
+      this.$store.dispatch('comment/AddComment', params).then(res => {
         // 一级评论，切换至第一页
+        this.$msg.success('评论成功')
         if (!level) {
           this.pageNum = 1
         }
@@ -294,9 +298,34 @@ export default {
         articleId: this.articleId,
         pageNum: current || this.pageNum,
         pageSize: this.pageSize,
-        state: -1
+        state: -1,
+        type: 1
       }
-      this.$store.dispatch('article/LoadCommentList', params)
+      this.$store.dispatch('comment/LoadCommentList', params)
+    },
+    // 分享
+    share () {
+      var param = {
+        url: "https://zugelu.com/detail/612792bcb71daa6623014b2c" || 'www.baidu.com',
+        /*分享地址*/
+        desc: '',
+        /*分享理由(可选)*/
+        title: this.article.title || '',
+        /*分享标题(可选)*/
+        summary: this.article.desc,
+        /*分享描述(可选)*/
+        pics: this.article.imgCover || '',
+        /*分享图片(可选)*/
+        flash: '',
+        /*视频地址(可选)*/
+        site: '' /*分享来源 (可选) */
+      };
+      var s = [];
+      for (var i in param) {
+        s.push(i + '=' + encodeURIComponent(param[i] || ''));
+      }
+      var targetUrl = "https://connect.qq.com/widget/shareqq/index.html?" + s.join('&');
+      window.open(targetUrl, '_blank', 'height=520, width=720');
     }
   },
 }
@@ -307,23 +336,21 @@ export default {
     box-sizing: border-box;
     .md-preview {
       /deep/ .vuepress-markdown-body:not(.custom) {
-        padding: 16px;
+        padding: 0;
         max-width: 100% !important;
       }
-      /deep/ .vuepress-markdown-body div[class*="v-md-pre-wrapper-"] {
+      /* /deep/ .vuepress-markdown-body div[class*="v-md-pre-wrapper-"] {
         margin: 0;
-      }
+      } */
     }
   }
   /deep/ .vuepress-markdown-body {
+    font-size: 1rem;
     color: inherit;
     background-color: inherit;
   }
   .catalog {
-    position: sticky;
-    left: 0;
-    top: 50px;
-    transition: all 0.2s ease-out;
+    transition: all 0.2s;
     .active-ball {
       width: 8px;
       height: 8px;
@@ -333,38 +360,23 @@ export default {
       transition: top 0.3s ease-in-out;
     }
     .active-anchor {
+      transition: all 0.2s;
       color: #1890ff;
     }
   }
 
   .q-chip {
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-    .q-icon {
-      margin-right: 5px;
-    }
     &.like-box {
-      &:hover {
-        .like {
-          cursor: pointer;
+      .like {
+        font-size: 1.5em !important;
+        transition: all 0.2s;
+        cursor: pointer;
+        &:hover {
           color: red;
-          transform: scale(1.2, 1.2);
+          transform: scale(1.1);
         }
       }
     }
-  }
-}
-
-@media (max-width: $breakpoint-xs-max) {
-  .title {
-    font-size: 1.6rem;
-    line-height: 2.2rem;
-    padding-bottom: 2px;
-    word-break: break-all;
   }
 }
 </style>

@@ -2,45 +2,28 @@
   <q-page id="Category">
     <!-- header -->
     <div class="page-header">
-      <div class="absolute-center full-width">
-        <h1 class="text-h4 text-center q-mb-lg">文章标签</h1>
-        <!-- 分类列表 -->
-        <!-- <div class="max-width">
-          <q-scroll-area horizontal :visible="fasl" style="height: 60px; max-width: 1200px; width:100%;">
-            <div class="row no-wrap q-gutter-x-md">
-              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                {{tag.name}}
-              </div>
-              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                {{tag.name}}
-              </div>
-              <div :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                {{tag.name}}
-              </div>
-            </div>
-          </q-scroll-area>
-        </div> -->
-        <div class="row max-width q-px-sm">
-          <div class="col">
-            <div class="row q-col-gutter-lg">
-              <div class="q-gutter-md row no-wrap flex-center ellipsis-3-lines full-width">
-                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                  {{tag.name}}
-                </span>
-                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                  {{tag.name}}
-                </span>
-                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                  {{tag.name}}
-                </span>
-                <span :class="{'active':currentId === tag._id}" :style="{'color': tag.color, 'fontSize':tag.size}" @click="changeTag(tag._id)" v-for="tag in tagList" :key="tag._id">
-                  {{tag.name}}
-                </span>
-              </div>
-            </div>
+      <div class="absolute-center full-width max-width">
+        <h1 class="text-h4 text-center  text-white q-mb-lg ">文章标签</h1>
+        <!-- 标签列表 -->
+        <div class="q-mb-md row flex-center" style="height: 36px;">
+          <q-chip removable v-for="(tag, index) in activeTags" :key="tag._id" @remove="removeTag(tag)" size="md" color="light-blue" text-color="white">
+            {{tag.name}}
+          </q-chip>
+          <q-btn flat round color="primary" icon="search" @click="getList" />
+        </div>
+        <div class="q-mx-sm q-pa-sm tags-border overflow-hidden">
+          <!-- 模态框 -->
+          <div v-show="activeTagsLen" class="fit absolute-full text-subtitle2 flex flex-center hover-mask">
+            <q-icon name="block" class="text-white text-h6 q-px-sm"></q-icon>
+            <div class="text-h6 text-white">最多选三个标签哦~</div>
+          </div>
+          <!-- 标签 -->
+          <div class="scroll q-pa-sm">
+            <span class="q-pa-xs text-grey-4" :class="{active:isActive(tag)}" :style="{'fontSize':tag.size}" v-for="tag in tagList" :key="tag._id" @click="clickTag(tag)">
+              {{tag.name}}
+            </span>
           </div>
         </div>
-
       </div>
     </div>
     <!-- inner -->
@@ -87,7 +70,9 @@ export default {
     return {
       pageNum: defaultParams.pageNum,
       pageSize: defaultParams.pageSize,
-      currentId: ''
+      currentId: '',
+      dialogVisible: false,
+      activeTags: [] // 选中标签
     }
   },
   computed: {
@@ -96,6 +81,32 @@ export default {
       'articlePageCount',
       'tagList'
     ]),
+    // 标签长度>= 3, 禁用
+    activeTagsLen () {
+      return this.activeTags.length >= 3
+    },
+    isActive () {
+      return (tag) => {
+        return this.activeTags.some(item => item._id === tag._id)
+      }
+    },
+    activeTagsIds () {
+      if (this.activeTags.length <= 0) return []
+      return this.activeTags.map(tag => {
+        return tag._id
+      })
+    }
+  },
+  created () {
+    this.currentId = this.$route.params._id
+    // 标签回显
+    if (this.currentId) {
+      let data = this.tagList.find(item => {
+        return item._id === this.currentId
+      })
+      this.activeTags.push(data)
+      this.getList()
+    }
   },
   methods: {
     // 切换文章标签
@@ -110,14 +121,28 @@ export default {
       this.pageNum = current
       this.getList()
     },
+    // 文章列表
     getList () {
       let params = {
         pageNum: this.pageNum,
         pageSize: this.pageSize,
         state: 1,
-        tag: this.currentId
+        tag: this.activeTagsIds
       }
       this.$store.dispatch('article/LoadArticleList', params)
+    },
+    // 删除标签
+    removeTag (tag) {
+      this.activeTags = this.activeTags.filter(item => item._id !== tag._id)
+    },
+    // 点击标签
+    clickTag (tag) {
+      this.activeTags.push(tag)
+      console.log(this.activeTags);
+    },
+    close () {
+      this.dialogVisible = false
+      this.$emit('close')
     }
   }
 }
@@ -126,7 +151,28 @@ export default {
 .page-header {
   background-image: url("~assets/body-hand.jpg");
 }
-.active {
-  border: 1px solid #03a9f4;
+.tags-border {
+  position: relative;
+  max-height: 130px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.15);
+  &:hover {
+    box-shadow: 0 5px 20px 10px rgba(7, 17, 27, 0.25);
+  }
+  .hover-mask {
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+  }
+  .scroll {
+    max-height: 110px;
+    overflow-x: hidden;
+    > span {
+      &.active {
+        color: $light-blue !important;
+      }
+    }
+  }
 }
 </style>

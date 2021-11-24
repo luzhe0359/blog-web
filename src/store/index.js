@@ -4,7 +4,7 @@ import user from './modules/user'
 import article from './modules/article'
 import about from './modules/about'
 import link from './modules/link'
-import message from './modules/message'
+import comment from './modules/comment'
 import getters from './getters'
 
 // import example from './module-example'
@@ -27,7 +27,7 @@ export default function (/* { ssrContext } */) {
       user,
       link,
       about,
-      message
+      comment
     },
     getters,
     // 启用严格模式（增加开销！）

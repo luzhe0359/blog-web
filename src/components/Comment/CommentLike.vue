@@ -1,6 +1,7 @@
 <template>
   <div>
-    <q-btn flat dense icon="thumb_up" :label="comment.likes.length" size="sm" :color="isLikeColor" :disable="isLike" @click.stop="like" />
+    <!-- <q-btn class="text-caption" flat dense icon="thumb_up" :label="comment.likes.length" :color="isLikeColor" :disable="isLike" @click.stop="like" /> -->
+    <q-chip class="text-caption" icon="thumb_up" color="transparent" text-color="grey-6" clickable :disable="isLike" @click.stop="like">{{comment.likes.length}}</q-chip>
   </div>
 </template>
 
@@ -33,7 +34,7 @@ export default {
     },
     // 点赞状态
     isLikeColor () {
-      return this.isLike ? 'deep-orange' : 'grey-5'
+      return this.isLike ? 'deep-orange' : 'grey-6'
     }
   },
   methods: {

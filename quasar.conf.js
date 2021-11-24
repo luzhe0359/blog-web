@@ -46,7 +46,7 @@ module.exports = function (ctx) {
       //  禁用vendor块: */ 
       // disable: true,
       add: [],
-      remove: ['@kangc/v-md-editor', 'v-viewer', 'vue-count-to', 'crypto-js']
+      remove: ['@kangc/v-md-editor', 'vue-count-to', 'crypto-js']
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build

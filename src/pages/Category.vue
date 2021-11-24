@@ -2,7 +2,7 @@
   <q-page id="Category">
     <!-- header -->
     <div class="page-header">
-      <div class="absolute-center full-width">
+      <div class="absolute-center text-white full-width">
         <h1 class="text-h4 text-center q-mb-lg">文章分类</h1>
         <!-- 分类列表 -->
         <q-tabs v-model="currentId" align="center" dense outside-arrows mobile-arrows narrow-indicator animated active-color="light-blue" indicator-color="light-blue">

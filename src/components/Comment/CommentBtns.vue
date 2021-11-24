@@ -1,10 +1,13 @@
 <template>
   <div class="q-ml-xl">
-    <q-btn-group class="q-gutter-x-md" flat>
-      <q-btn flat dense :label="comment.createTime | dateFormat" size="sm" color="grey" />
+    <q-btn-group flat>
+      <q-chip class="text-caption" color="transparent" text-color="grey-6">{{comment.createTime | dateFormat}}</q-chip>
+      <!-- <q-btn class="text-caption" flat dense :label="comment.createTime | dateFormat" color="grey-6" /> -->
       <CommentLike v-if="!isMessage" :comment="comment" :parentComment="parentComment" />
-      <q-btn v-if="commentLength > 0" flat dense icon="message" :label="commentLength" size="sm" color="grey" />
-      <q-btn flat dense size="sm" color="grey" label="回复" @click="showComment" />
+      <q-chip v-if="commentLength > 0" class="text-caption" icon="message" color="transparent" text-color="grey-6">{{commentLength}}</q-chip>
+      <!-- <q-btn size="1rem" v-if="commentLength > 0" flat dense icon="message" :label="commentLength" color="grey-6" /> -->
+      <q-chip class="text-caption" color="transparent" text-color="grey-6" clickable @click="showComment">回复</q-chip>
+      <!-- <q-btn class="text-caption" flat dense color="grey-6" label="回复" @click="showComment" /> -->
     </q-btn-group>
   </div>
 </template>

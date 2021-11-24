@@ -1,17 +1,21 @@
 <template>
-  <q-footer id="footer" class="text-grey-8 q-gutter-xs">
-    <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
-    <div class="row justify-center items-center">
-      <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon>
-      <span> 已运行 {{runTime}}</span>
-    </div>
-    <!-- <p>系统由 Vue + Node + Quasar Framework 驱动</p> -->
-    <div>
-      <span id="busuanzi_container_site_pv" style='display:none'> 本站总访问量 <span id="busuanzi_value_site_pv"></span> 次 </span>
-      <span id="busuanzi_container_site_uv" style='display:none'>| 总访客数 <span id="busuanzi_value_site_uv"></span> 人 </span>
-    </div>
-    <p><a href="https://zugelu.com">zugelu.com</a></p>
-  </q-footer>
+  <div id="footer" class="max-width text-body2">
+    <q-card class="q-mb-lg">
+      <q-card-section class="column items-center text-grey-8">
+        <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
+        <div class="row justify-center items-center">
+          <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon>
+          <span> 已运行 {{runTime}}</span>
+        </div>
+        <p>系统由 Vue + Node + Quasar Framework 驱动</p>
+        <div>
+          <span id="busuanzi_container_site_pv" style='display:none'> 本站总访问量 <span id="busuanzi_value_site_pv"></span> 次 </span>
+          <span id="busuanzi_container_site_uv" style='display:none'>| 总访客数 <span id="busuanzi_value_site_uv"></span> 人 </span>
+        </div>
+        <p><a href="https://zugelu.com">zugelu.com</a></p>
+      </q-card-section>
+    </q-card>
+  </div>
 </template>
 
 <script>
@@ -73,11 +77,7 @@ export default {
 
 <style lang="scss" scoped>
 #footer {
-  background-color: transparent;
-  text-align: center;
-  div {
-    padding: 0 0 6px;
-  }
+  padding: 10px;
   p {
     margin-bottom: 0;
     padding: 0 0 6px;

@@ -54,6 +54,11 @@ a {
     background-color: rgba(97, 97, 97, .6)
 }
 
+// input聚焦时，边框颜色
+.q-field__control {
+    color: $grey-6 !important;
+}
+
 // title动画
 .focus-in-contract {
   animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -110,7 +115,7 @@ a {
 // 小于sm
 @media (max-width: $breakpoint-sm-max) {
   .page-header {
-    height: 15rem !important;
+    height: 320px !important;
   }
   // 内容
   // .page-inner {
@@ -127,8 +132,8 @@ a {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  height: 20rem;
-  background-image: url("~assets/body5.jpg");
+  height: 400px;
+  background-image: url("~assets/body.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
@@ -140,13 +145,16 @@ a {
     background-color: rgba(0,0,0,.5);
     content: '';
   }
+  > div {
+    padding-top: 30px;
+  }
 }
 // 内容
 .page-inner {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 10px 30px 10px;
+  padding: 40px 10px 20px 10px;
   animation: inner-effect 1s;
   > div{
       transition: all 1s;
@@ -154,10 +162,10 @@ a {
 }
 // 卡片
 .q-card {
-  border-radius: 12px 8px 8px 12px;
+  border-radius: 8px;
   box-shadow: 0 3px 8px 6px rgba(7,17,27,0.06);
   transition: all 0.3s;
-  overflow: hidden;
+  // overflow: hidden;
   &:hover {
     box-shadow: 0 3px 8px 6px rgba(7,17,27,0.15);
   }
@@ -190,9 +198,6 @@ body.body--dark {
     }
   }
   
-  .q-dark { 
-    color: rgba(255, 255, 255, .9) !important;
-  }
   .page-header {
     &::before {
       position: absolute;
@@ -204,9 +209,9 @@ body.body--dark {
   }
   // 卡片
   .q-card {
-    // background-color: #0d0d0d;
-    // background-color: #0d0d0d;
-    background-color: #121212 !important;
+    color: rgba(255, 255, 255, .9) !important;
+    // background-color: #121212 !important;
+    background-color: #212121 !important;
     &:hover {
       box-shadow: 0 3px 8px 6px rgba(7,17,27,.15);
     }

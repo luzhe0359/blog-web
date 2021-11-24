@@ -1,29 +1,28 @@
 <template>
   <q-card class="q-mb-lg">
     <q-card-section :horizontal="$q.screen.gt.xs" class="q-pa-none">
-      <router-link class="col overflow-hidden" :to="`/detail/${article._id}`">
-        <q-img :src="article.imgCover" native-context-menu :ratio="$q.screen.gt.xs ? 3/2 : 16/9" alt="article_err" placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg==" />
-      </router-link>
+      <q-card-section class="img-cover col q-pa-none relative-position overflow-hidden">
+        <router-link :to="`/detail/${article._id}`">
+          <div class="more">
+            <q-icon name="keyboard_arrow_right" size="50px" />
+          </div>
+          <q-img :src="article.imgCover" native-context-menu :ratio="$q.screen.gt.xs ? 3/2 : 16/9" alt="article_err" placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg==" />
+        </router-link>
+      </q-card-section>
       <q-card-section class="col-7 q-py-sm column justify-center">
         <router-link :to="`/detail/${article._id}`">
           <h2 class="text-h5 ellipsis-2-lines">{{article.title}}</h2>
         </router-link>
-        <div class="row q-my-sm text-grey-6">
+        <div class="row q-my-sm">
           <div class="col">
-            <div class="row q-col-gutter-sm text-body2">
-              <!-- RemoveRedEye Favorite Message-->
-              <!-- <q-icon name="remove_red_eye" size="20px" /> -->
-              <q-chip class="text-caption" icon="category" color="transparent">{{article.category.name}}</q-chip>
-              <q-chip class="text-caption" icon="remove_red_eye" color="transparent">{{article.meta.views}}</q-chip>
-              <q-chip class="text-caption" icon="message" color="transparent">{{article.meta.comments}}</q-chip>
-              <q-chip class="text-caption" icon="favorite" color="transparent">{{article.meta.likes}}</q-chip>
-              <!-- <Icon :icon="'category'" :name="article.category.name" />
-              <Icon :icon="'remove_red_eye'" :name="article.meta.views" />
-              <Icon :icon="'message'" :name="article.meta.comments" />
-              <Icon :icon="'favorite'" :name="article.meta.likes" /> -->
+            <div class="row q-col-gutter-sm text-body2 text-grey-6">
+              <q-chip class="text-caption" icon="category" color="transparent" text-color="grey-6">{{article.category.name}}</q-chip>
+              <q-chip class="text-caption" icon="remove_red_eye" color="transparent" text-color="grey-6">{{article.meta.views}}</q-chip>
+              <q-chip class="text-caption" icon="source" color="transparent" text-color="grey-6">{{article.meta.comments}}</q-chip>
+              <q-chip class="text-caption" icon="favorite" color="transparent" text-color="grey-6">{{article.meta.likes}}</q-chip>
               <q-space />
               <!-- AccessTime -->
-              <Icon :icon="'access_time'" :name="article.createTime | yearFormat" />
+              <q-chip class="text-caption" icon="watch_later" color="transparent" text-color="grey-6">{{article.createTime | yearFormat}}</q-chip>
             </div>
           </div>
         </div>
@@ -53,12 +52,42 @@ export default {
   .q-card__section--horiz {
     max-height: 240px;
   }
+  .img-cover {
+    border-radius: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .more {
+    position: absolute;
+    width: 60%;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 60%;
+    transition: all 0.5s;
+    z-index: 2;
+    color: $grey-3;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .q-img {
     transition: all 0.5s;
+    transform: scale(1.1);
   }
   &:hover {
+    .more {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+    }
     .q-img {
-      transform: scale(1.1);
+      transform: scale(1);
     }
   }
 }

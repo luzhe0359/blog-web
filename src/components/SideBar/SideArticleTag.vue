@@ -5,9 +5,6 @@
       <router-link :style="{'color': tag.color, 'fontSize':tag.size}" :to="`/tag/${tag._id}`" v-for="tag in tagList" :key="tag._id">
         {{tag.name}}
       </router-link>
-      <router-link :style="{'color': tag.color, 'fontSize':tag.size}" :to="`/tag/${tag._id}`" v-for="tag in tagList" :key="tag._id">
-        {{tag.name}}
-      </router-link>
     </q-card-section>
   </q-card>
 </template>

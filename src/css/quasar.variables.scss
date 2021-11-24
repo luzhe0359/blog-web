@@ -24,12 +24,6 @@ $info      : #31CCEC;
 $warning   : #F2C037;
  
 // 所有原生组件的样式 --------------------------------------------------------------------------------
-// 最大宽度
-.q-page {
-    width: 100%;
-    min-height: 100vh;
-}
-
 // 上传 图片高100%
 .q-uploader__file--img {
     height: 100% !important ; 
@@ -44,15 +38,10 @@ $warning   : #F2C037;
   border-right: none !important;
 }
 // 对话栏
-.q-message-text {
-    color: #000 !important;
-    background-color: rgba(255, 255, 255, 0.5) !important;
-}
-.q-message-text--received:last-child:before {
-    color: rgba(255, 255, 255, 0.5) ;
-}
-
-// input聚焦时，边框颜色
-.q-field__control {
-    color: #000 !important;
-}
+// .q-message-text {
+//     color: #000 !important;
+//     background-color: rgba(255, 255, 255, 0.5) !important;
+// }
+// .q-message-text--received:last-child:before {
+//     color: rgba(255, 255, 255, 0.5) ;
+// }

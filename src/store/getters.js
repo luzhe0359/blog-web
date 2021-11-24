@@ -17,14 +17,12 @@ const getters = {
     articleDetail: state => state.article.articleDetail,
     categoryList: state => state.article.categoryList,
     tagList: state => state.article.tagList,
-    commentList: state => state.article.commentList,
-    commentPageCount: state => state.article.commentPageCount,
     // 时间线
     timelineList: state => state.about.timelineList,
     // 友链
     linkList: state => state.link.linkList,
-    // 留言
-    messageList: state => state.message.messageList,
-    messagePageCount: state => state.message.messagePageCount,
+    // 评论/留言
+    commentList: state => state.comment.commentList,
+    commentPageCount: state => state.comment.commentPageCount,
 }
 export default getters

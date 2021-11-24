@@ -6,7 +6,7 @@
         <!-- <q-no-ssr> -->
         <q-btn flat dense round aria-label="Menu" class="lt-sm" :icon="leftDrawerOpen === true?'menu_open':'menu'" @click="leftDrawerOpen = !leftDrawerOpen" />
         <!-- </q-no-ssr> -->
-        <q-toolbar-title style="min-width:155px;">
+        <q-toolbar-title style="min-width:180px;">
           <router-link class="text-h6 text-weight-bold" to="/" replace> 足各路的博客 </router-link>
         </q-toolbar-title>
         <q-space />
@@ -16,8 +16,6 @@
         <ToolBarUtil />
       </q-toolbar>
     </q-header>
-    <!-- footer -->
-    <Footer />
     <!-- darwer -->
     <q-drawer class="lt-sm z-max" v-model="leftDrawerOpen" bordered :width="240">
       <!-- 侧边导航栏-->
@@ -28,13 +26,13 @@
       <keep-alive :include="cacheList">
         <router-view :key="$route.fullPath" />
       </keep-alive>
-      <!-- <Footer /> -->
     </q-page-container>
+    <!-- footer -->
+    <Footer />
     <!-- 配置项 -->
     <Setting :showSetting="showSetting" />
     <!-- 回到顶部 -->
-    <q-page-scroller position="bottom-right" :scroll-offset="300" :offset="[0, 64]">
-      <!-- <q-btn fab icon="keyboard_arrow_up" class="top-btn" /> -->
+    <q-page-scroller position="bottom-right" :scroll-offset="500" :offset="[0, 64]">
       <q-btn padding="xs" color="light-blue" icon="expand_less">
         <q-tooltip anchor="center left" self="center right" :offset="[5, 5]" transition-show="jump-left" transition-hide="jump-right">回到顶部</q-tooltip>
       </q-btn>
@@ -81,10 +79,12 @@ export default {
     }
   },
   created () {
+    // 切换主题
     let them = this.$q.sessionStorage.getItem('them-dark')
     if (them) {
       this.$q.dark.set(true)
     }
+    this.$q.sessionStorage.set('font-size', 14)
   },
   mounted () {
     console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路");

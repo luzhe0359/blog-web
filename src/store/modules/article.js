@@ -1,7 +1,7 @@
 import { findArticleList, findTopHotArticleList, findArticleById, likeArticle, nolikeArticle } from 'src/api/article.js'
 import { findCommentList, addComment, likeComment } from 'src/api/comment.js'
 import { findCategoryList } from 'src/api/category.js'
-import { findTagCount } from 'src/api/tag.js'
+import { findTagList } from 'src/api/tag.js'
 import { setUser } from 'src/utils/auth'
 import { randomRgbColor, randomFontSize } from 'src/utils/tool'
 
@@ -16,8 +16,6 @@ const count = {
         articleDetail: {}, // 文章详情
         categoryList: [], // 文章分类
         tagList: [], // 文章标签
-        commentList: [], // 文章评论
-        commentPageCount: 0 // 评论总数
     },
     mutations: {
         SET_ARTICLE_LIST: (state, list) => {
@@ -41,15 +39,9 @@ const count = {
         SET_TAG_LIST: (state, list) => {
             state.tagList = list
         },
-        SET_COMMENT_LIST: (state, list) => {
-            state.commentList = list
-        },
-        SET_COMMENT_PAGE_COUNT: (state, pageCount = 0) => {
-            state.commentPageCount = pageCount
-        },
         ADD_ARTICLE_LIKES: (state, _id) => {
             state.articleDetail[_id].meta.likes++
-        },
+        }
     },
     actions: {
         // 文章列表
@@ -102,7 +94,7 @@ const count = {
         // 标签列表
         LoadTagList ({ commit }, parmas) {
             return new Promise((resolve, reject) => {
-                findTagCount(parmas).then(res => {
+                findTagList(parmas).then(res => {
                     let list = res.data.map(tag => {
                         tag.color = randomRgbColor()
                         tag.size = randomFontSize()
@@ -126,28 +118,6 @@ const count = {
                     setUser(res.data)
                     commit('user/SET_LIKES_ARTICLE', res.data.likeArticles, { root: true })
                     resolve(res.data)
-                }).catch(err => {
-                    reject(err)
-                })
-            })
-        },
-        // 评论列表 
-        LoadCommentList ({ commit }, parmas) {
-            return new Promise((resolve, reject) => {
-                findCommentList(parmas).then(res => {
-                    commit('SET_COMMENT_LIST', res.data)
-                    commit('SET_COMMENT_PAGE_COUNT', res.pageCount)
-                    resolve(res)
-                }).catch(err => {
-                    reject(err)
-                })
-            })
-        },
-        // 添加评论
-        AddComment ({ commit }, parmas) {
-            return new Promise((resolve, reject) => {
-                addComment(parmas).then(res => {
-                    resolve()
                 }).catch(err => {
                     reject(err)
                 })
