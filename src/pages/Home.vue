@@ -79,9 +79,6 @@ export default {
       return this.len > this.slogonArr[this.order].length
     }
   },
-  created () {
-    console.log('created');
-  },
   mounted () {
     console.log('mounted');
     this.typing()

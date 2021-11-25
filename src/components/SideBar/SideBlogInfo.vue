@@ -3,13 +3,9 @@
     <q-card-section>
       <SideTitle title="网站" />
       <div class="text-subtitle1">
-        <div class="row flex-center  q-mb-md">
-          <q-spinner-puff class="q-mr-sm" color="primary" size="1em" />
-          {{runTime}}
-        </div>
-        <div class="row justify-between" v-for="item in countList">
+        <div class="row justify-between" v-for="(item,index) in countList">
           <span>{{item.name}}</span>
-          <countTo :startVal='0' :endVal='item.count' :duration='3000'></countTo>
+          <countTo :startVal='0' :endVal='item.count' :duration='3000' :suffix="index ===0 ? '天' :''"></countTo>
         </div>
       </div>
     </q-card-section>
@@ -17,6 +13,7 @@
 </template>
 
 <script>
+import { date } from 'quasar'
 import countTo from 'vue-count-to';
 import SideTitle from 'components/Common/SideTitle'
 import { countArticle } from 'src/api/article.js'
@@ -30,7 +27,7 @@ export default {
   data () {
     return {
       countList: [
-        // { name: '已运行', count: 0, icon: 'iconfont icon-yunhang' },
+        { name: '运行时长', count: 0, icon: 'iconfont icon-yunhang' },
         { name: '访问总数', count: 0, icon: 'iconfont icon-fangwenliang' },
         { name: '点赞总数', count: 0, icon: 'favorite_border' },
         { name: '评论总数', count: 0, icon: 'iconfont icon-wenzhang' },
@@ -43,63 +40,25 @@ export default {
   created () {
     this.initCount()
   },
-  mounted () {
-    this.runTime = this.dateDiff()
-    this.timmer = setInterval(() => {
-      this.runTime = this.dateDiff()
-    }, 1000)
-  },
   methods: {
-    /**
-    * 日期差
-    * @param {String} d 日期
-    * @return {String} 日期差
-    */
-    dateDiff () {
-      let now = new Date().getTime() // 获取当前时间戳
-      let diff = now - new Date(this.creatTime).getTime() // 获取博客创建时间戳
-      diff = diff / 1000
-
-      let year = Math.floor(diff / (365 * 24 * 3600)) // 年
-      diff %= 365 * 24 * 3600
-      let month = Math.floor(diff / (30 * 24 * 3600)) // 月
-      diff %= 30 * 24 * 3600
-      let day = Math.floor(diff / (24 * 3600)) // 天
-      diff %= 24 * 3600
-      let hour = Math.floor(diff / 3600) // 时
-      diff %= 3600
-      let minute = Math.floor(diff / 60) // 分
-      diff %= 60
-      let second = Math.floor(diff) // 秒
-
-      return year + '年' + this.addZero(month) + '月' + this.addZero(day) + '天' + this.addZero(hour) + '时' + this.addZero(minute) + '分' + this.addZero(second) + '秒';
-    },
-    // 为数字添加0前缀
-    addZero (num) {
-      if (num < 10) {
-        num = '0' + num;
-      }
-      return num;
-    },
     // 初始化统计信息
     initCount () {
+      let endDate = new Date()
+      let startDate = new Date(this.creatTime)
+      let unit = 'days'
+      let diff = date.getDateDiff(endDate, startDate, unit)
+      this.countList[0].count = diff
+
       countArticle().then((res) => {
         let { views, likes, comments } = res.data
-        this.countList[0].count = views || 0
-        this.countList[1].count = likes || 0
-        this.countList[2].count = comments || 0
+        this.countList[1].count = views || 0
+        this.countList[2].count = likes || 0
+        this.countList[3].count = comments || 0
       })
     }
-  },
-  beforeDestroy () {
-    clearInterval(this.timmer)
-    this.timmer = null
   }
 }
 </script>
 
 <style lang="scss" scoped>
-/deep/ .icon-yunhang {
-  animation: rotate-center 5s linear infinite both;
-}
 </style>

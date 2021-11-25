@@ -1,19 +1,23 @@
 <template>
-  <div class="q-ml-xl">
-    <q-btn-group flat>
-      <q-chip class="text-caption" color="transparent" text-color="grey-6">{{comment.createTime | dateFormat}}</q-chip>
-      <!-- <q-btn class="text-caption" flat dense :label="comment.createTime | dateFormat" color="grey-6" /> -->
-      <CommentLike v-if="!isMessage" :comment="comment" :parentComment="parentComment" />
-      <q-chip v-if="commentLength > 0" class="text-caption" icon="message" color="transparent" text-color="grey-6">{{commentLength}}</q-chip>
-      <!-- <q-btn size="1rem" v-if="commentLength > 0" flat dense icon="message" :label="commentLength" color="grey-6" /> -->
-      <q-chip class="text-caption" color="transparent" text-color="grey-6" clickable @click="showComment">回复</q-chip>
-      <!-- <q-btn class="text-caption" flat dense color="grey-6" label="回复" @click="showComment" /> -->
-    </q-btn-group>
+  <div :class="comment.level ? 'second-comment': 'first-comment'">
+    <q-chip class="text-caption" color="transparent" text-color="grey-6">
+      {{comment.createTime | dateFormat}}
+      <q-tooltip :delay="1000" :offset="[0, 10]">
+        {{comment.createTime | dateDiff}}
+      </q-tooltip>
+    </q-chip>
+    <q-chip class="like-box text-caption" color="transparent" text-color="grey-6">
+      <q-icon class="like q-mr-xs" name="thumb_up" :color="isLikeColor" @click.stop="like"></q-icon>
+      {{comment.likes.length}}
+    </q-chip>
+    <q-btn class="text-caption" flat dense color="grey-6" label="回复" @click="showComment" />
   </div>
 </template>
 
 <script>
-import CommentLike from 'components/Comment/CommentLike.vue'
+import { likeComment } from 'src/api/comment.js'
+import { getUserId } from 'src/utils/auth.js'
+
 export default {
   name: 'BtnsComment',
   props: {
@@ -30,9 +34,6 @@ export default {
       default: false
     }
   },
-  components: {
-    CommentLike
-  },
   data () {
     return {
     };
@@ -43,14 +44,69 @@ export default {
       if (this.comment.otherComments) {
         return this.comment.otherComments.length
       }
+    },
+    // 是否点赞
+    isLike () {
+      const userId = getUserId()
+      if (!userId || !this.comment.likes.some(u => u === userId)) return false
+      return true
+    },
+    // 点赞状态
+    isLikeColor () {
+      return this.isLike ? 'red-5' : 'grey-6'
     }
   },
   methods: {
     showComment () {
+      console.log(this.comment);
       this.$emit('showComment')
-    }
+    },
+    // 评论点赞
+    like () {
+      const userId = getUserId()
+      // 判断用户是否登录
+      if (!userId) {
+        return this.$msg.warning('请先登录')
+      }
+      let params = {
+        userId
+      }
+
+      // 是否存在父评论
+      if (this.parentComment) { // 存在, 当前为子评论
+        params.commentId = this.parentComment._id
+        params.otherCommentId = this.comment._id
+      } else { // 不存在, 当前为父评论
+        params.commentId = this.comment._id
+      }
+
+      // 提交/取消 点赞
+      likeComment(params).then(res => {
+        this.$msg.success(res.msg)
+        this.$root.$emit('loadComment')
+      })
+    },
   }
 };
 </script>
 <style lang="scss" scoped>
+.q-chip {
+  &.like-box {
+    .like {
+      font-size: 1.5em !important;
+      transition: all 0.2s;
+      cursor: pointer;
+      &:hover {
+        color: red !important;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+.first-comment {
+  margin-left: 2.5rem;
+}
+.second-comment {
+  margin-left: 1.5rem;
+}
 </style>

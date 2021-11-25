@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <q-btn class="text-caption" flat dense icon="thumb_up" :label="comment.likes.length" :color="isLikeColor" :disable="isLike" @click.stop="like" /> -->
-    <q-chip class="text-caption" icon="thumb_up" color="transparent" text-color="grey-6" clickable :disable="isLike" @click.stop="like">{{comment.likes.length}}</q-chip>
+    <q-btn class="text-caption" flat dense icon="thumb_up" :label="comment.likes.length" :color="isLikeColor" :disable="isLike" @click.stop="like" />
+    <!-- <q-chip class="text-caption" icon="thumb_up" color="transparent" text-color="grey-6" clickable :disable="isLike" @click.stop="like">{{comment.likes.length}}</q-chip> -->
   </div>
 </template>
 

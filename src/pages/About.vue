@@ -53,7 +53,7 @@
               <span class="text-h6">记录博客建站的点滴</span>
             </div>
             <div class="content-box">
-              <q-timeline layout="dense" color="deep-orange">
+              <q-timeline layout="dense" color="grey-6">
                 <q-timeline-entry v-for="item in timelineList" :key="item._id">
                   <template v-slot:title>
                     <div class="text-h6">{{item.title}}</div>

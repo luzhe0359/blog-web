@@ -8,19 +8,19 @@
       <div class="text-body1 text-grey-8">要逼自己优秀, 然后骄傲的活着。</div>
     </q-card-section>
     <q-card-section class="row q-pt-none text-subtitle1">
-      <router-link class="col-4" :to="`/article`">
+      <router-link class="col-4" :to="`/`">
         <div class="column flex-center">
           <div>文章</div>
           <countTo :startVal='0' :endVal='50' :duration='3000'></countTo>
         </div>
       </router-link>
-      <router-link class="col-4" :to="`/article`">
+      <router-link class="col-4" :to="`/tag`">
         <div class="column flex-center">
           <div>标签</div>
           <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>
         </div>
       </router-link>
-      <router-link class="col-4" :to="`/article`">
+      <router-link class="col-4" :to="`/category`">
         <div class="column flex-center">
           <div>分类</div>
           <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>

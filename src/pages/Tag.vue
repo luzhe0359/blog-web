@@ -9,7 +9,7 @@
           <q-chip removable v-for="(tag, index) in activeTags" :key="tag._id" @remove="removeTag(tag)" size="md" color="light-blue" text-color="white">
             {{tag.name}}
           </q-chip>
-          <q-btn flat round color="primary" icon="search" @click="getList" />
+          <q-btn flat round color="light-blue" icon="search" @click="getList" />
         </div>
         <div class="q-mx-sm q-pa-sm tags-border overflow-hidden">
           <!-- 模态框 -->

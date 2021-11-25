@@ -45,3 +45,7 @@ $warning   : #F2C037;
 // .q-message-text--received:last-child:before {
 //     color: rgba(255, 255, 255, 0.5) ;
 // }
+// 评论内容最小宽度
+.q-message-text:last-child {
+    min-width: 210px;
+}

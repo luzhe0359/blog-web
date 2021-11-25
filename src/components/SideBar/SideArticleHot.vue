@@ -5,7 +5,7 @@
       <div>
         <div class="hot-article row q-mb-sm" v-for="article in hotArticleList">
           <router-link class="overflow-hidden" :to="`/detail/${article._id}`">
-            <q-img width="4.2rem" height="4.2rem" :src="article.imgCover" native-context-menu :ratio="16/9" alt="article_err" />
+            <q-img width="4.2rem" height="4.2rem" :src="article.imgCover" native-context-menu :ratio="16/9" alt="article_err" :placeholder-src="$BASE_IMG_URL" />
           </router-link>
           <div class="col q-pl-sm">
             <router-link class="text-body1 text-grey-8 ellipsis-2-lines" :to="`/detail/${article._id}`">

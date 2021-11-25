@@ -1,6 +1,6 @@
 <template>
   <div class="column items-center">
-    <img src="~assets/not_comment.png" style="max-width:350px;width:100%;">
+    <img alt="not_comment" src="https://oss.zugelu.com/other/not_comment.png" style="max-width:350px;width:100%;">
     <div class="text-grey-8 q-mt-md text-subtitle1">{{title}}</div>
   </div>
 </template>

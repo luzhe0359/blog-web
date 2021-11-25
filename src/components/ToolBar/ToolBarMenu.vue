@@ -1,6 +1,5 @@
 <template>
   <div class="gt-xs">
-    <!-- <q-btn class="q-mr-sm" :flat="currentMenu !== '/' + menu.path" :outline="currentMenu === '/' + menu.path" color="grey-9" text-color="white" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="'/' + menu.path" @click="switchMenu(menu.path)" /> -->
     <q-btn class="text-subtitle1 q-mr-xs" padding="5px 16px" flat :text-color="currentMenu === menu.name ? 'light-blue': ''" :label="menu.meta.title" v-for="menu in menuList" :key="menu.meta.title" :to="{ name: menu.name }" @click="currentMenu = menu.name" />
   </div>
 </template>

@@ -16,16 +16,16 @@
         <!-- 照片列表 -->
         <q-card v-if="photoList.length !== 0">
           <q-card-section>
-            <div class="q-pa-md">
+            <div>
               <div class="fixed-full image-gallery__blinder" :class="indexZoomed !== void 0 ? 'image-gallery__blinder--active' : void 0" @click="zoomImage()" />
               <div class="image-box">
-                <q-img v-for="(item, index) in photoList" :key="index" ref="refThumb" class="image image-gallery__image" :style="index === indexZoomed ? 'opacity: 0.3' : void 0" :src="item.url" @click="zoomImage(index)" />
+                <q-img v-for="(item, index) in photoList" :key="index" ref="refThumb" class="image image-gallery__image" :style="index === indexZoomed ? 'opacity: 0.3' : void 0" :src="item.url" @click="zoomImage(index)" :placeholder-src="$BASE_IMG_URL" />
               </div>
               <q-img ref="refFull" class="image-gallery__image-full fixed-center" :class="indexZoomed !== void 0 ? 'image-gallery__image-full--active' : void 0" :src="photoList[indexZoomed] && photoList[indexZoomed].url" @load="imgLoadedResolve" @error="imgLoadedReject" @click="zoomImage()" />
             </div>
           </q-card-section>
         </q-card>
-        <NotFound v-else />
+        <NotFound :title="'暂无照片'" v-else />
       </template>
       <template v-slot:inner-right>
         <!-- 右侧边栏 -->

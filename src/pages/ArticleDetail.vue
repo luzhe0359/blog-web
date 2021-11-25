@@ -13,7 +13,7 @@
             <q-chip class="text-caption" icon="remove_red_eye" color="transparent" text-color="grey-3">{{article.meta.views}}</q-chip>
             <q-chip class="text-caption" icon="source" color="transparent" text-color="grey-3"> {{article.meta.comments}}</q-chip>
             <q-chip class="like-box text-caption" color="transparent" text-color="grey-3">
-              <q-icon class="like q-mr-xs" name="favorite" :color="isLike ? 'red-3': ''" @click="like"></q-icon>
+              <q-icon class="like q-mr-xs" name="favorite" :color="isLike ? 'red-5': ''" @click="like"></q-icon>
               {{article.meta.likes}}
             </q-chip>
             <q-chip class="text-caption" color="transparent" text-color="grey-3">
@@ -27,21 +27,20 @@
     <!-- inner -->
     <PageInner>
       <template v-slot:inner-left>
-        <!-- md -->
-        <q-card class="md-content q-mb-lg">
-          <q-card-section>
+        <q-card class="q-mb-lg">
+          <!-- md -->
+          <q-card-section class="md-content">
             <v-md-preview class="md-preview overflow-hidden" ref="preview" :text="article.mdContent" @copy-code-success="handleCopyCodeSuccess"></v-md-preview>
           </q-card-section>
-          <q-card-section class="row justify-end">
+          <!-- <q-card-section class="row justify-end">
             <q-btn round flat color="grey-8" @click="share" icon="iconfont icon-qq-share" />
             <q-btn round flat color="grey-8" icon="iconfont icon-weixin-share" />
             <q-btn round flat color="grey-8" icon="iconfont icon-weibo-share" />
-          </q-card-section>
-        </q-card>
-        <!-- 评论 -->
-        <q-card ref="comment">
-          <q-card-section>
-            <div class="text-h5 q-mt-lg q-mb-md">评论</div>
+          </q-card-section> -->
+          <!-- 评论 -->
+          <q-separator inset class="q-mt-lg" />
+          <q-card-section ref="comment">
+            <div class="text-h5 q-mb-md">评论</div>
             <CommentAdd :hideCancel="true" @comment="comment" />
             <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
             <NotComment v-if="commentList.length <= 0" />
@@ -372,7 +371,7 @@ export default {
         transition: all 0.2s;
         cursor: pointer;
         &:hover {
-          color: red;
+          color: $red-5;
           transform: scale(1.1);
         }
       }

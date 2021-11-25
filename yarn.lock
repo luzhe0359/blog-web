@@ -1325,9 +1325,9 @@
     core-js-compat "^3.6.5"
 
 "@quasar/extras@^1.0.0":
-  version "1.9.9"
-  resolved "https://registry.npm.taobao.org/@quasar/extras/download/@quasar/extras-1.9.9.tgz#2578962ee379d2cb947e19f9fc09ac27a663b89f"
-  integrity sha1-JXiWLuN50suUfhn5/AmsJ6ZjuJ8=
+  version "1.12.1"
+  resolved "https://registry.npmmirror.com/@quasar/extras/download/@quasar/extras-1.12.1.tgz#859f7ac79789f840c1d51f994f5bfd5046b1f261"
+  integrity sha512-EwOnaJEDHo9zCnJzd1sFw1sfMAAq8cJaIjzr2+A9o2NcVLaIhD7YAaJdlIdcNmQnyuPAiq9NghUize8lCS0epw==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -8032,9 +8032,9 @@ qs@~6.5.2:
   integrity sha1-yzroBuh0BERYTvFUzo7pjUA/PjY=
 
 quasar@^1.0.0:
-  version "1.14.2"
-  resolved "https://registry.npm.taobao.org/quasar/download/quasar-1.14.2.tgz#ba26b991cd1afffd4354c98d80180be9cbc12254"
-  integrity sha1-uia5kc0a//1DVMmNgBgL6cvBIlQ=
+  version "1.16.0"
+  resolved "https://registry.npmmirror.com/quasar/download/quasar-1.16.0.tgz#b3eeba6c03860279fa6d423aeb0b83c884517481"
+  integrity sha1-s+66bAOGAnn6bUI66wuDyIRRdIE=
 
 query-string@^4.1.0:
   version "4.3.4"
