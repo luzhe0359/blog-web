@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-mb-lg">
+  <q-card class="q-mb-lg" v-if="tagList.length !== 0">
     <q-card-section>
       <SideTitle title="标签" />
       <router-link :style="{'color': tag.color, 'fontSize':tag.size}" :to="`/tag/${tag._id}`" v-for="tag in tagList" :key="tag._id">

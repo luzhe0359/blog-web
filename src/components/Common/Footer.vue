@@ -2,9 +2,10 @@
   <div id="footer" class="max-width text-body2">
     <q-card class="q-mb-lg">
       <q-card-section class="column items-center text-grey-8">
-        <p><a target="_blank" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
+        <p><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
         <div class="row justify-center items-center">
-          <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon>
+          <!-- <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon> -->
+          <q-spinner-clock class="q-mr-xs" size="1rem" />
           <span> 已运行 {{runTime}}</span>
         </div>
         <p>系统由 Vue + Node + Quasar Framework 驱动</p>

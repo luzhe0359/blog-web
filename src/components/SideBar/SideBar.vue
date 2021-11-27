@@ -1,21 +1,16 @@
 <template>
   <q-layout id="SideBar">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
-    <!-- 正常定位 -->
-    <!-- <div class="user-container container overflow-hidden"> -->
-    <SideUserAvatar />
-    <SideBlogInfo />
-    <SideArticleTag />
-    <!-- <SideUserTag /> -->
-    <!-- </div> -->
+    <SideUserAvatar /> <!-- logo -->
+    <SideNotice /> <!-- 公告 -->
+    <SideBlogInfo /> <!-- 站点 -->
+    <SideArticleTag /> <!-- 标签 -->
     <!-- sticky定位 -->
     <div ref="sideSticky" class="side-sticky">
-      <slot name="catalog"></slot>
-      <SideArticleHot />
+      <slot name="catalog"></slot> <!-- 目录 -->
+      <SideArticleHot /> <!-- 热门 -->
     </div>
-    <!-- <div ref="sideSticky" class="blog-container container overflow-hidden">
-    <SideArticleInfo />
-    </div> -->
+    <!-- <SideArticleInfo /> -->
   </q-layout>
 </template>
 
@@ -24,20 +19,20 @@ import { dom, } from 'quasar'
 const { css } = dom
 
 import SideUserAvatar from './SideUserAvatar'
-import SideUserTag from './SideUserTag'
 import SideBlogInfo from './SideBlogInfo'
 import SideArticleInfo from './SideArticleInfo'
 import SideArticleTag from './SideArticleTag'
 import SideArticleHot from './SideArticleHot'
+import SideNotice from './SideNotice'
 export default {
   name: 'SideBar',
   components: {
     SideUserAvatar,
-    SideUserTag,
     SideBlogInfo,
     SideArticleInfo,
     SideArticleTag,
-    SideArticleHot
+    SideArticleHot,
+    SideNotice
   },
   data () {
     return {

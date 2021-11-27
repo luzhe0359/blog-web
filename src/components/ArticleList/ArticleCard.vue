@@ -76,7 +76,6 @@ export default {
   }
   .q-img {
     transition: all 0.5s;
-    transform: scale(1.1);
   }
   &:hover {
     .more {
@@ -87,7 +86,7 @@ export default {
       backdrop-filter: blur(5px);
     }
     .q-img {
-      transform: scale(1);
+      transform: scale(1.1);
     }
   }
 }

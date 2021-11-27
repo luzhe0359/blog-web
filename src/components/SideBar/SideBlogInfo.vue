@@ -1,7 +1,7 @@
 <template>
   <q-card class="q-mb-lg">
     <q-card-section>
-      <SideTitle title="网站" />
+      <SideTitle title="站点" />
       <div class="text-subtitle1">
         <div class="row justify-between" v-for="(item,index) in countList">
           <span>{{item.name}}</span>

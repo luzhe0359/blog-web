@@ -37,14 +37,14 @@ export default {
 
       // meta标记
       meta: {
-        description: { name: 'description', content: '足各路的个人博客,专注前端开发,记录学习生活中的点滴。' },
-        keywords: { name: 'keywords', content: '足各路的个人博客,足各路,个人博客,专注前端开发,技术分享,记录生活,学习笔记。' },
+        description: { name: 'description', content: '足各路的博客,专注前端开发,记录学习生活中的点滴。' },
+        keywords: { name: 'keywords', content: '足各路的博客,足各路,博客,专注前端开发,技术分享,记录生活,学习笔记。' },
         ogTitle: { name: 'og:title', content: this.title + ' | ZUGELU-专注前端开发' }, // !标题
         ogType: { name: 'og:type', content: 'article' }, // !类型
         ogUrl: { name: 'og:url', content: process.env.URL + this.$route.path }, // !网站地址
-        ogImage: { name: 'og:image', content: 'null' }, // !略缩图地址
-        ogSiteName: { name: 'og:site_name', content: '足各路的个人博客' }, // 网站名
-        ogDescription: { name: 'og:description', content: '足各路的个人博客,专注前端开发,记录学习生活中的点滴。' },
+        ogImage: { name: 'og:image', content: 'https://oss.zugelu.com/other/home_cover.jpg' }, // !略缩图地址
+        ogSiteName: { name: 'og:site_name', content: '足各路的博客' }, // 网站名
+        ogDescription: { name: 'og:description', content: '足各路的博客,专注前端开发,记录学习生活中的点滴。' },
         equiv: { 'http-equiv': 'Content-Type', content: 'text/html; charset=UTF-8' },
         robots: { name: 'robots', content: 'index,follow' },
         googleSiteVerification: { name: 'google-site-verification', content: 'Df18dsxw92IVWnpkldccOVm8JRyemYI4rSikVZIlQCw' }, // Google网站管理员工具的特定元标记，是最新的元标记。这是google的网站认证代码，也就是证明这个网站的所有者是你。
@@ -62,14 +62,14 @@ export default {
           innerHTML: `{ 
             "@type": "WebSite",
             "@context": "http://schema.org",
-            "title": "足各路の个人博客 | 专注前端开发",
-            "name": "足各路の个人博客", 
+            "title": "足各路的博客 | 专注前端开发",
+            "name": "足各路的博客", 
             "url": "https://zugelu.com",
             "author": {
               "@type": "Person",
               "name": "足各路"
             },
-            "description": "足各路的个人博客,专注前端开发,记录学习生活中的点滴。"
+            "description": "足各路的博客,专注前端开发,记录学习生活中的点滴。"
           }`
         }
       },

@@ -11,7 +11,7 @@
           </q-chip>
           <q-btn flat round color="light-blue" icon="search" @click="getList" />
         </div>
-        <div class="q-mx-sm q-pa-sm tags-border overflow-hidden">
+        <div class="q-mx-sm q-pa-sm tags-border overflow-hidden" v-if="tagList.length !== 0">
           <!-- 模态框 -->
           <div v-show="activeTagsLen" class="fit absolute-full text-subtitle2 flex flex-center hover-mask">
             <q-icon name="block" class="text-white text-h6 q-px-sm"></q-icon>
@@ -53,7 +53,7 @@ import ArticleCardList from 'components/ArticleList/ArticleCardList'
 let defaultParams = {
   state: 1, // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
   pageNum: 1,
-  pageSize: 5
+  pageSize: 10
 }
 export default {
   components: {
@@ -149,7 +149,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-header {
-  background-image: url("~assets/body-hand.jpg");
+  background-image: url("https://oss.zugelu.com/other/bg_tag.jpg");
+  background-position: center 0px;
 }
 .tags-border {
   position: relative;

@@ -7,8 +7,8 @@
       </q-tooltip>
     </q-chip>
     <q-chip class="like-box text-caption" color="transparent" text-color="grey-6">
-      <q-icon class="like q-mr-xs" name="thumb_up" :color="isLikeColor" @click.stop="like"></q-icon>
-      {{comment.likes.length}}
+      <q-icon class="like q-mr-xs" name="thumb_up" :color="isLikeColor" @click.stop="handleLike"></q-icon>
+      {{likeCount}}
     </q-chip>
     <q-btn class="text-caption" flat dense color="grey-6" label="回复" @click="showComment" />
   </div>
@@ -28,41 +28,30 @@ export default {
     parentComment: { // 父评论
       type: Object,
       default: () => { },
-    },
-    isMessage: {
-      type: Boolean,
-      default: false
     }
   },
   data () {
     return {
-    };
+      likeCount: 0,
+      isLike: false
+    }
   },
   computed: {
-    // 2级评论长度
-    commentLength () {
-      if (this.comment.otherComments) {
-        return this.comment.otherComments.length
-      }
-    },
-    // 是否点赞
-    isLike () {
-      const userId = getUserId()
-      if (!userId || !this.comment.likes.some(u => u === userId)) return false
-      return true
-    },
     // 点赞状态
     isLikeColor () {
       return this.isLike ? 'red-5' : 'grey-6'
     }
   },
+  created () {
+    this.likeCount = this.comment.likes.length
+    this.isLike = this.handleIsLike()
+  },
   methods: {
     showComment () {
-      console.log(this.comment);
       this.$emit('showComment')
     },
     // 评论点赞
-    like () {
+    handleLike () {
       const userId = getUserId()
       // 判断用户是否登录
       if (!userId) {
@@ -83,9 +72,20 @@ export default {
       // 提交/取消 点赞
       likeComment(params).then(res => {
         this.$msg.success(res.msg)
-        this.$root.$emit('loadComment')
+        if (this.isLike) {
+          this.likeCount--
+        } else {
+          this.likeCount++
+        }
+        this.isLike = !this.isLike
       })
     },
+    // 判断是否点赞
+    handleIsLike () {
+      const userId = getUserId()
+      if (!userId || !this.comment.likes.some(u => u === userId)) return false
+      return true
+    }
   }
 };
 </script>

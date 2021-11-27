@@ -2,7 +2,7 @@
   <q-page id="ArticleDetail">
     <q-scroll-observer @scroll="handlerScroll" :debounce="200" />
     <!-- header -->
-    <div class="page-header">
+    <div class="page-header" :style="{backgroundImage: `url(${article.imgCover || $BASE_IMG_URL})`}">
       <div class="absolute-center text-white full-width">
         <h1 class="text-h4 text-center q-mb-lg"> {{article.title}}</h1>
         <div class="text-caption text-white q-pb-sm row max-width flex-center">
@@ -42,8 +42,8 @@
           <q-card-section ref="comment">
             <div class="text-h5 q-mb-md">评论</div>
             <CommentAdd :hideCancel="true" @comment="comment" />
-            <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" @loadComment="changePage" />
-            <NotComment v-if="commentList.length <= 0" />
+            <Comment v-for="item in commentList" :key="item._id" :comment="item" @comment="comment" />
+            <NotComment v-if="commentList.length === 0" />
             <q-no-ssr v-if="commentPageCount > 1">
               <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
             </q-no-ssr>
@@ -169,8 +169,6 @@ export default {
     this.$nextTick(() => {
       this.handleAnchorInit()
     })
-    // 评论点赞 
-    this.$root.$on('loadComment', this.changePage)
   },
   methods: {
     // 滚动到指定元素
@@ -331,6 +329,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 #ArticleDetail {
+  .page-header {
+    background-position: center center;
+  }
   .md-content {
     box-sizing: border-box;
     .md-preview {

@@ -64,7 +64,7 @@ export default {
       pageNum: defaultParams.pageNum,
       pageSize: defaultParams.pageSize,
       slogon: '',
-      slogonArr: ['足各路的博客.', '世上无难事,只要肯攀登。', 'Force yourself to be excellent and live with pride.'],
+      slogonArr: ['要逼自己优秀，然后骄傲的活着。', 'Force yourself to be excellent and live with pride.'],
       order: 0, // 当前slogon索引
       len: 0, // 当前slogon长度
       timer: null
@@ -80,7 +80,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted');
     this.typing()
   },
   methods: {
@@ -143,7 +142,6 @@ export default {
     }
   },
   beforeDestroy () {
-    console.log('beforeDestroy');
     clearInterval(this.timmer)
     this.timmer = null
   }
@@ -151,6 +149,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-header {
+  background-image: url("https://oss.zugelu.com/other/bg_home.jpg");
   height: 100vh !important;
   > div {
     padding-top: 0;
@@ -158,18 +157,8 @@ export default {
   .text-h3 {
     animation: titlescale 1s;
   }
-
   .typer-cursor {
     animation: typer-effect 1s 0.5s linear infinite;
-  }
-  @keyframes typer-effect {
-    0%,
-    100% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
   }
   .scroll-down {
     width: 100%;

@@ -37,9 +37,10 @@ import ArticleCardList from 'components/ArticleList/ArticleCardList'
 let defaultParams = {
   state: 1, // state 文章发布状态 | 1:已发布 | 2:草稿 | 3:垃圾箱
   pageNum: 1,
-  pageSize: 5
+  pageSize: 10
 }
 export default {
+  name: 'Category',
   components: {
     PageInner,
     SideBar,
@@ -93,6 +94,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-header {
-  background-image: url("~assets/body-hand.jpg");
+  background-image: url("https://oss.zugelu.com/other/bg_category.jpg");
 }
 </style>

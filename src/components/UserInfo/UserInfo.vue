@@ -32,7 +32,7 @@
           val => val > 0 && val < 120 || '请输入一个真实的年龄'
         ]" />
 
-          <q-input label="邮箱" type="email" :readonly="readonly" v-model="formData.email" lazy-rules debounce='500' :rules="[ 
+          <q-input label="邮箱" type="email" readonly v-model="formData.email" lazy-rules debounce='500' :rules="[ 
             val => val && val.length > 0 || '请输入邮箱',
             emailStrengthCheck
           ]" />

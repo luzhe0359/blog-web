@@ -184,7 +184,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-header {
-  background-image: url("~assets/body-hand.jpg");
+  background-image: url("https://oss.zugelu.com/other/bg_album.jpg");
+  background-position: center 0px;
 }
 .image-box {
   column-count: 4; // 列数
@@ -215,12 +216,6 @@ export default {
   }
 }
 
-/* .image-gallery__image {
-  border-radius: 3%/5%;
-  width: 150px;
-  max-width: 20vw;
-  cursor: pointer;
-} */
 .image-gallery__image-full {
   width: 600px;
   max-width: 70vw;

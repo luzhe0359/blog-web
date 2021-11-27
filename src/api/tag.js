@@ -13,13 +13,6 @@ import { axios } from 'boot/axios.js'
  * @param {String} sortBy 排序字段
  * @param {String} descending 1升序/-1降序
  */
-export const findTagList = params => {
-    return axios.get('/tag/list', { params })
-}
-
-/**
- * @description: 查找标签统计
- */
-export const findTagCount = () => {
+export const findTagList = params => { // findTagCount
     return axios.get('/tag/count')
 }

@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-mb-lg">
+  <q-card class="q-mb-lg" v-if="hotArticleList.length !== 0">
     <q-card-section>
       <SideTitle title="热门" />
       <div>

@@ -119,7 +119,7 @@ export default {
   .emoji-picker {
     position: fixed;
     top: auto;
-    bottom: -200px;
+    bottom: 0px;
     left: 0;
     width: 100%;
     border: none;

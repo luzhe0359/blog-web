@@ -40,6 +40,7 @@
             </div>
           </div>
         </div>
+        <NotFound :title="'暂无链接'" v-if="linkList.length === 0" />
       </template>
       <template v-slot:inner-right>
         <!-- 右侧边栏 -->
@@ -55,12 +56,14 @@ import { mapGetters } from 'vuex'
 
 import PageInner from 'components/common/PageInner'
 import SideBar from 'src/components/SideBar/SideBar'
+import NotFound from 'components/Common/NotFound'
 
 export default {
   name: 'Link',
   components: {
     PageInner,
-    SideBar
+    SideBar,
+    NotFound
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     return Promise.all([
@@ -113,12 +116,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.page-header {
+  background-image: url("https://oss.zugelu.com/other/bg_link.jpg");
+  background-position: center -100px;
+}
 .card-box {
   height: 100%;
   min-height: 122px;
   min-width: 25%;
   .q-card__section {
     height: 122px;
+  }
+  &:hover {
+    .q-avatar {
+      transform: rotate(360deg);
+    }
   }
 }
 .q-img {

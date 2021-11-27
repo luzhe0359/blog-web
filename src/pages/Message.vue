@@ -7,7 +7,7 @@
           <h1 class="title text-h4 text-white">
             <p>来都来了，留点什么吧！</p>
           </h1>
-          <p class="text-subtitle1 text-grey q-pt-lg">如您遇到问题，或对本站有任何建议，请予留言反馈，小路感激不尽 </p>
+          <p class="text-subtitle1 text-grey q-pt-lg">如您遇到问题，请予留言反馈，小路感激不尽 </p>
         </div>
       </div>
     </div>
@@ -20,7 +20,8 @@
             <div ref="comment" class="text-h5 q-mt-lg q-mb-md">
               <q-spinner-comment color="grey" size="md" />
             </div>
-            <Comment v-for="item in commentList" :key="item._id" :comment="item" :isMessage="true" @comment="comment" @loadComment="changePage" />
+            <Comment v-for="item in commentList" :key="item._id" :comment="item" :isMessage="true" @comment="comment" />
+            <NotComment v-if="commentList.length === 0" :title="'暂无留言'" />
             <q-no-ssr v-if="commentPageCount > 1">
               <q-pagination class="q-mb-sm" color="grey-7" v-model="pageNum" :max="commentPageCount" :max-pages="5" :direction-links="true" :boundary-numbers="true" :boundary-links="true" @input="changePage"></q-pagination>
             </q-no-ssr>
@@ -38,11 +39,11 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Ship from 'src/components/Animation/Ship.vue'
 import PageInner from 'components/common/PageInner'
 import SideBar from 'src/components/SideBar/SideBar'
 import Comment from 'src/components/Comment/Comment.vue'
 import CommentAdd from 'src/components/Comment/CommentAdd.vue'
+import NotComment from 'components/Common/NotComment'
 
 let defaultParams = {
   pageNum: 1,
@@ -57,7 +58,7 @@ export default {
     SideBar,
     Comment,
     CommentAdd,
-    Ship
+    NotComment
   },
   preFetch ({ store, currentRoute, previousRoute, redirect, ssrContext, urlPath, publicPath }) {
     return Promise.all([
@@ -76,8 +77,6 @@ export default {
       'commentList',
       'commentPageCount'
     ]),
-  },
-  mounted () {
   },
   methods: {
     addMessage () {
@@ -118,8 +117,11 @@ export default {
       }
       this.$store.dispatch('comment/LoadCommentList', params)
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>
+.page-header {
+  background-image: url("https://oss.zugelu.com/other/bg_message.jpg");
+}
 </style>

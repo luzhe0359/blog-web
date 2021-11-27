@@ -29,11 +29,7 @@
     </q-card-section>
     <!-- <q-separator inset /> -->
     <q-card-section class="q-pt-none">
-      <div class="row justify-center items-center no-wrap q-mb-sm">
-        <q-separator inset />
-        <div class="col-3 text-caption text-center">社交</div>
-        <q-separator inset />
-      </div>
+      <SideTitle title="社交" />
       <div class="row justify-center q-gutter-sm">
         <q-icon class="text-h5 cursor-pointer social" v-for="item in tagList" :key="item.name" :name="item.icon" @click="copy(item)">
           <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
@@ -49,11 +45,13 @@
 import countTo from 'vue-count-to';
 import { copyToClipboard } from 'quasar'
 
+import SideTitle from 'components/Common/SideTitle'
 
 export default {
   name: 'SideUserAvatar',
   components: {
-    countTo
+    countTo,
+    SideTitle
   },
   data () {
     return {
@@ -85,4 +83,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.q-avatar {
+  &:hover {
+    transform: rotate(360deg);
+  }
+}
+.q-icon {
+  &.social {
+    transition: all 0.5s;
+    &:hover {
+      transform: rotate(360deg);
+    }
+  }
+}
 </style>

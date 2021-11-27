@@ -332,7 +332,7 @@ export default {
         this.btnLoading = false
         this.codeLoading = true
         // 开启倒计时
-        let maxNumber = 5
+        let maxNumber = 60
         this.codeLabel = maxNumber + 's'
         this.interval = setInterval(() => {
           maxNumber--

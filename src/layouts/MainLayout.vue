@@ -87,7 +87,7 @@ export default {
     this.$q.sessionStorage.set('font-size', 14)
   },
   mounted () {
-    console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路");
+    console.log("%c 本站名称: ", "border:1px solid #e1e1e8; color:#1e73be;", " 足各路的博客");
     console.log("%c 本站地址: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com");
     console.log("%c 个人简历: ", "border:1px solid #e1e1e8; color:#1e73be;", " https://zugelu.com/resume.html");
     console.log("%c 个人邮箱: ", "border:1px solid #e1e1e8; color:#1e73be;", " luzhe0359@163.com");
