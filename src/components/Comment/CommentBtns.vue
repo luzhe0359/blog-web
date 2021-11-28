@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import { likeComment } from 'src/api/comment.js'
 import { getUserId } from 'src/utils/auth.js'
 
@@ -40,6 +42,18 @@ export default {
     // 点赞状态
     isLikeColor () {
       return this.isLike ? 'red-5' : 'grey-6'
+    },
+    ...mapGetters([
+      'token'
+    ])
+  },
+  watch: {
+    // token变化，用户登录状态更改，改变点赞状态
+    token: {
+      handler (n, o) {
+        this.isLike = this.handleIsLike()
+      },
+      immediate: true
     }
   },
   created () {

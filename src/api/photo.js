@@ -9,7 +9,7 @@ import { axios } from 'boot/axios.js'
  * @description: 查找相册列表
  */
 export const findAlbumList = params => {
-    return axios.get('/photo/album', { params })
+    return axios.get('/album/list', { params })
 }
 
 /**

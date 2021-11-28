@@ -6,7 +6,7 @@
         <h1 class="text-h4 text-center q-mb-lg">真心的世界 , 真我的展示 。</h1>
         <!-- 分类列表 -->
         <q-tabs v-model="currentId" align="center" dense outside-arrows mobile-arrows narrow-indicator animated active-color="light-blue" indicator-color="light-blue">
-          <q-tab :name="tab._id" :label="tab.album.name" v-for="tab in albumList" :key="tab._id" @click="changeTab(tab._id)" />
+          <q-tab :name="tab._id" :label="tab.name" v-for="tab in albumList" :key="tab._id" @click="changeTab(tab._id)" />
         </q-tabs>
       </div>
     </div>
@@ -79,7 +79,7 @@ export default {
     ]),
   },
   mounted () {
-    this.findAlbumList()
+    this.findAlbumList({ pageSize: 0 })
     this.findPhotoList()
   },
   methods: {

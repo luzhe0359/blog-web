@@ -202,11 +202,14 @@ export default {
     },
     // 注册
     handleRegister () {
+      // 邮箱脱敏
+      let str = this.email.split("@")
+      const nickname = str[0].substr(0, str[0].length - 2) + "*****" + str[1].substr(2)
       userRegister({
         username: this.username,
         password: aesEncrypt(this.password),
         email: this.email,
-        nickname: this.email,
+        nickname,
         code: this.code
       }).then(res => {
         this.$msg.success('注册成功')

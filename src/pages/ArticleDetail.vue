@@ -162,7 +162,7 @@ export default {
         this.isLike = this.likeArticles.some(item => item === this.articleId)
       },
       immediate: true,
-    },
+    }
   },
   mounted () {
     // 初始化目录
@@ -185,7 +185,6 @@ export default {
     },
     // 监听滚动
     handlerScroll (info) {
-      console.log(info);
       const { direction, position } = info // 滚动信息
 
       // 滚动md，目录跟随  
@@ -348,6 +347,10 @@ export default {
     font-size: 1rem;
     color: inherit;
     background-color: inherit;
+    ul,
+    ol {
+      padding-left: 1.5em;
+    }
   }
   .catalog {
     transition: all 0.2s;

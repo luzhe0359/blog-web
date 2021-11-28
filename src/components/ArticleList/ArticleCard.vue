@@ -26,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="ellipsis-3-lines text-body1 text-grey-8">{{article.desc}}{{article.desc}}</div>
+        <div class="ellipsis-3-lines text-body1 text-grey-8">{{article.desc}}</div>
       </q-card-section>
     </q-card-section>
   </q-card>

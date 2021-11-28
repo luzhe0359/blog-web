@@ -1,10 +1,9 @@
 <template>
-  <div id="footer" class="max-width text-body2">
+  <div class="max-width text-body2 q-pa-sm">
     <q-card class="q-mb-lg">
-      <q-card-section class="column items-center text-grey-8">
+      <q-card-section class="column items-center text-grey-8 card-section">
         <p><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn/">晋ICP备2021010367号</a></p>
         <div class="row justify-center items-center">
-          <!-- <q-icon class="iconfont icon-yunhang q-mr-xs"></q-icon> -->
           <q-spinner-clock class="q-mr-xs" size="1rem" />
           <span> 已运行 {{runTime}}</span>
         </div>
@@ -77,15 +76,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#footer {
-  padding: 10px;
-  p {
-    margin-bottom: 0;
-    padding: 0 0 6px;
-  }
-}
-
-/deep/ .icon-yunhang {
-  animation: rotate-center 5s linear infinite both;
-}
 </style>
