@@ -98,3 +98,4 @@ export const findUserById = _id => {
 export const editUserById = (_id, params) => {
     return axios.put(`/user/${_id}`, params)
 }
+

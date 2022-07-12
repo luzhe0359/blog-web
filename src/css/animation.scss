@@ -2,8 +2,8 @@
 // 头部 上 -> 下
 @keyframes header-effect {
   0% {
-    opacity: 0;
-    filter: alpha(opacity=0);
+    opacity: 0.5;
+    filter: alpha(opacity=50);
     transform: translateY(-50px);
   }
   100% {
@@ -27,7 +27,7 @@
   }
 }
 
-// 上下循环跳动 | 首页箭头 
+// 上下循环跳动 | 首页箭头
 @keyframes scroll-down-effect {
   0% {
     opacity: 0.4;

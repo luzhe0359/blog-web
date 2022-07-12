@@ -120,12 +120,9 @@ export default {
     },
     zoomImage (index) {
       const { indexZoomed } = this
-      console.log(index, indexZoomed);
-
       this.imgLoaded.reject()
 
       const zoom = () => {
-        console.log(2, index, indexZoomed);
         if (index !== void 0 && index !== indexZoomed) {
           this.imgLoaded.promise = new Promise((resolve, reject) => {
             this.imgLoaded.resolve = () => {
@@ -196,6 +193,7 @@ export default {
     margin-bottom: 1rem;
     border-radius: 10px;
     overflow: hidden;
+    display: block;
     img {
       width: 100%;
       height: 100%;

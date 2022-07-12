@@ -1,16 +1,24 @@
 // app global css in SCSS form
-html,body {
+html,
+body {
   // font-family: "Helvetica Neue", "Helvetica", "tahoma","Arial", "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei","sans-serif" !important;
   // font-family:
   // /* 1 */ -apple-system, BlinkMacSystemFont,
   // /* 2 */ "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   // /* 3 */ "Helvetica Neue", sans-serif;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Lato, Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 14px;
   transition: all 0.5s;
 }
 
-p,h1,h2,h3,h4,h5,h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   padding: 0;
   margin: 0;
 }
@@ -33,32 +41,31 @@ a {
 // 默认滚动条 样式 --------------------------------------------------------------------------------
 // 滚动条整体部分
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: transparent;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
 }
 // 滚动条里面的小方块
 ::-webkit-scrollbar-thumb {
-    display: block;
-    min-height: 6px;
-    min-width: 6px;
-    border-radius: 6px;
-    background-color: rgba(97, 97, 97, .5)
+  display: block;
+  min-height: 6px;
+  min-width: 6px;
+  border-radius: 6px;
+  background-color: rgba(97, 97, 97, 0.5);
 }
 // 滚动条 悬浮
 ::-webkit-scrollbar-thumb:hover {
-    display: block;
-    min-height: 6px;
-    min-width: 6px;
-    border-radius:6px;
-    background-color: rgba(97, 97, 97, .6)
+  display: block;
+  min-height: 6px;
+  min-width: 6px;
+  border-radius: 6px;
+  background-color: rgba(97, 97, 97, 0.6);
 }
 
 // input聚焦时，边框颜色
 .q-field__control {
-    color: $grey-6 !important;
+  color: $grey-6 !important;
 }
-
 
 // // title字体
 // @media (max-width: $breakpoint-xs-max) {
@@ -75,12 +82,9 @@ a {
 //   }
 // }
 
-
-
 //  2.0 ----------------------------------------------
 // 大于md
 @media (min-width: $breakpoint-md-min) {
-  
 }
 // 小于sm
 @media (max-width: $breakpoint-sm-max) {
@@ -112,8 +116,8 @@ a {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.55);
-    content: '';
+    background-color: rgba(0, 0, 0, 0.55);
+    content: "";
   }
   > div {
     padding-top: 30px;
@@ -126,17 +130,17 @@ a {
   margin: 0 auto;
   padding: 40px 10px 20px 10px;
   animation: inner-effect 1s;
-  > div{
-      transition: all 1s;
+  > div {
+    transition: all 1s;
   }
 }
 // 卡片
 .q-card {
   border-radius: 8px;
-  box-shadow: 0 3px 8px 6px rgba(7,17,27,0.06);
+  box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.06);
   transition: all 0.3s;
   &:hover {
-    box-shadow: 0 3px 8px 6px rgba(7,17,27,0.15);
+    box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.15);
   }
 }
 
@@ -145,40 +149,43 @@ a {
   transition: all 0.5s;
 }
 
-
-
 // dark -------------
 body.body--dark {
   background-color: #000;
   #header {
     &.bg-mask {
       color: #fff;
-      background-color: rgba(0, 0, 0, .85);
+      background-color: rgba(0, 0, 0, 0.85);
     }
   }
-  
+
   .page-header {
     &::before {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,.7);
-      content: '';
+      background-color: rgba(0, 0, 0, 0.7);
+      content: "";
     }
   }
   // 卡片
   .q-card {
-    color: rgba(255, 255, 255, .9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     // background-color: #121212 !important;
     background-color: #212121 !important;
     &:hover {
-      box-shadow: 0 3px 8px 6px rgba(7,17,27,.15);
+      box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.15);
     }
   }
   .text-grey-8 {
-    color: rgba(255, 255, 255, .65) !important;
+    color: rgba(255, 255, 255, 0.65) !important;
   }
   .text-grey-6 {
     color: #757575 !important;
+  }
+
+  // markdown
+  .v-md-plugin-tip.tip {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 }

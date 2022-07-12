@@ -150,5 +150,8 @@ export default {
   .short-desc {
     margin-top: 1rem;
   }
+  .text-body1 {
+    white-space: pre-wrap;
+  }
 }
 </style>

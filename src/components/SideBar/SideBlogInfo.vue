@@ -32,9 +32,7 @@ export default {
         { name: '点赞总数', count: 0, icon: 'favorite_border' },
         { name: '评论总数', count: 0, icon: 'iconfont icon-wenzhang' },
       ],
-      runTime: '',
-      creatTime: '2021-7-1 00:00:00',
-      timmer: null
+      creatTime: '2021-7-1 00:00:00'
     }
   },
   created () {
@@ -50,6 +48,8 @@ export default {
       this.countList[0].count = diff
 
       countArticle().then((res) => {
+        // 触发-初始化数据
+        this.$root.$emit('initCount', res.data)
         let { views, likes, comments } = res.data
         this.countList[1].count = views || 0
         this.countList[2].count = likes || 0

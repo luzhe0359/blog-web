@@ -14,5 +14,5 @@ import { axios } from 'boot/axios.js'
  * @param {String} descending 1升序/-1降序
  */
 export const findTagList = params => { // findTagCount
-    return axios.get('/tag/count')
+    return axios.get('/tag/list')
 }

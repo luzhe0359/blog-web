@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js"
-import config from './config.js'
-const key = CryptoJS.enc.Utf8.parse(config.CRYPTO_KEY)
-const iv = CryptoJS.enc.Utf8.parse(config.CRYPTO_IV)
+import secret from './secret.js'
+const key = CryptoJS.enc.Utf8.parse(secret.CRYPTO_KEY)
+const iv = CryptoJS.enc.Utf8.parse(secret.CRYPTO_IV)
 
 /**
  * aes加密

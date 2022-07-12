@@ -22,7 +22,6 @@ const axios = Axios.create({
     timeout: 20000, // 请求 20s 超时
 });
 
-axios.defaults.headers.common['Authorization'] = '';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; // 配置请求头（推荐）
 
 /**

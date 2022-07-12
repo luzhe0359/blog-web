@@ -6,7 +6,11 @@
           <div class="more">
             <q-icon name="keyboard_arrow_right" size="50px" />
           </div>
-          <q-img :src="article.imgCover" native-context-menu :ratio="$q.screen.gt.xs ? 3/2 : 16/9" alt="article_err" :placeholder-src="$BASE_IMG_URL" />
+          <q-img :src="article.imgCover" native-context-menu :ratio="$q.screen.gt.xs ? 3/2 : 16/9" alt="article_err" :placeholder-src="$BASE_IMG_URL">
+            <template v-slot:loading>
+              <q-spinner-gears color="white" />
+            </template>
+          </q-img>
         </router-link>
       </q-card-section>
       <q-card-section class="col-7 q-py-sm column justify-center">

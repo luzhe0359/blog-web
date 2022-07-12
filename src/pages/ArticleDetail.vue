@@ -118,7 +118,7 @@ export default {
         ogTitle: { name: 'og:title', content: this.article.title + ' | ZUGELU-专注前端开发' },
         ogDescription: { name: 'og:description', content: this.article.desc },
         ogType: { name: 'og:type', content: this.article.category.name + '文章' },
-        ogImageUrl: { name: 'og:image:url', content: this.article.imgUrl },
+        ogImageUrl: { name: 'og:image:url', content: this.article.imgCover },
         ogUrl: { name: 'og:url', content: 'https://zugelu.com' + this.$route.path },
         articlePublishTime: { name: 'article:publish_time', content: date.formatDate(this.article.createTime, 'YYYY-MM-DD HH:mm:ss') },
         articleUpdateTime: { name: 'article:update_time', content: date.formatDate(this.article.updateTime, 'YYYY-MM-DD HH:mm:ss') },

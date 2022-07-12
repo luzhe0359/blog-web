@@ -104,8 +104,8 @@ app.get(ssr.resolveUrl('*'), (req, res) => {
   })
 })
 
-const privateCrt = fs.readFileSync(path.join(process.cwd(), '5719479_www.zugelu.com.pem'), 'utf8');
-const privateKey = fs.readFileSync(path.join(process.cwd(), '5719479_www.zugelu.com.key'), 'utf8');
+const privateCrt = fs.readFileSync(path.join(process.cwd(), '7795446_www.zugelu.com.pem'), 'utf8');
+const privateKey = fs.readFileSync(path.join(process.cwd(), '7795446_www.zugelu.com.key'), 'utf8');
 const HTTPS_OPTOIN = {
   key: privateKey,
   cert: privateCrt

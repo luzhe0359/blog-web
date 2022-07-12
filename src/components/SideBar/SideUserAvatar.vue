@@ -11,19 +11,19 @@
       <router-link class="col-4" :to="`/`">
         <div class="column flex-center">
           <div>文章</div>
-          <countTo :startVal='0' :endVal='50' :duration='3000'></countTo>
+          <countTo :startVal='0' :endVal='articles' :duration='3000'></countTo>
         </div>
       </router-link>
       <router-link class="col-4" :to="`/tag`">
         <div class="column flex-center">
           <div>标签</div>
-          <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>
+          <countTo :startVal='0' :endVal='tags' :duration='3000'></countTo>
         </div>
       </router-link>
       <router-link class="col-4" :to="`/category`">
         <div class="column flex-center">
           <div>分类</div>
-          <countTo :startVal='0' :endVal='12' :duration='3000'></countTo>
+          <countTo :startVal='0' :endVal='categories' :duration='3000'></countTo>
         </div>
       </router-link>
     </q-card-section>
@@ -31,7 +31,7 @@
     <q-card-section class="q-pt-none">
       <SideTitle title="社交" />
       <div class="row justify-center q-gutter-sm">
-        <q-icon class="text-h5 cursor-pointer social" v-for="item in tagList" :key="item.name" :name="item.icon" @click="copy(item)">
+        <q-icon class="text-h5 cursor-pointer" v-for="item in tagList" :key="item.name" :name="item.icon" @click="copy(item)">
           <q-tooltip :delay="200" transition-show="scale" transition-hide="scale">
             {{item.tooltip}}
           </q-tooltip>
@@ -62,9 +62,21 @@ export default {
         { name: 'QQ', tooltip: 'QQ: 1141178844', link: '1141178844', icon: 'iconfont icon-qq' },
         { name: '微信', tooltip: '微信: Mimanchi-zt', link: 'Mimanchi-zt', icon: 'iconfont icon-weixin' },
       ],
+      articles: 0,
+      categories: 0,
+      tags: 0
     }
   },
+  created () {
+    // 挂载-初始化数据
+    this.$root.$on('initCount', this.initCount)
+  },
   methods: {
+    initCount ({ articles, categories, tags }) {
+      this.articles = articles
+      this.categories = categories
+      this.tags = tags
+    },
     copy ({ link, tooltip }) {
       if (link.indexOf("http") != -1) {
         window.open(link)
@@ -83,17 +95,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.q-avatar {
-  &:hover {
-    transform: rotate(360deg);
-  }
-}
 .q-icon {
-  &.social {
-    transition: all 0.5s;
-    &:hover {
-      transform: rotate(360deg);
-    }
+  transition: all 0.5s;
+  &:hover {
+    color: $grey-8 !important;
   }
 }
 </style>
